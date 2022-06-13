@@ -6,20 +6,24 @@ Please ensure it's installed into "..\Graveyard Keeper\Graveyard Keeper_Data\Man
 
 QMod Reloaded can permanently patch your ultrawide resolution in and get rid of intros, but if you want to try and maintain a cleaner game file, they're available as separate mods now.
 
-Res: Now available as a standalone mod if you don't want to patch the file permanently. Do not use both...
-Intros: Now available as a standalone mod if you don't want to patch the file permanently. Do not use both...
+Resolution patch: Now available as a standalone mod if you don't want to patch the file permanently. 
+https://www.nexusmods.com/graveyardkeeper/mods/45
+
+No Intros: Now available as a standalone mod if you don't want to patch the file permanently.
+https://www.nexusmods.com/graveyardkeeper/mods/47
 
 **Continuation of QMod Manager**
 
 - Removed console app, entirely GUI-based.
-- Can patch resolutions in.
+- Can patch resolutions in, replaces the 2560x1440 option. Designed for ultra-wide users.
 - Installation and removal of mods via the GUI. Will create valid JSONS if one isn't found.
-- Added patch to remove intros. This is permanent and will require a re-download of Assembly-CSharp.dll (and subsequent re-patching)
-- Toggle mods on/off
+- Added patch to remove intros. This is permanent and will require a re-download of Assembly-CSharp.dll (and subsequent re-patching).
+- Toggle mods on/off.
 - QOL features such as the direct opening of mod and game directory and log files.
-- Can start the game via GUI. Launches via steam:// first, and then EXE directly if it fails.
-- Implemented mod load order
-- Doesn't rely on the correct entry point being entered in JSON to load. It will search DLLs directly.
+- Editing of mod configs within the application.
+- Can start the game via GUI. Trys to detect if you're using Steam/GOG or standalone and launch accordingly.
+- Implemented mod load order (drag and drop the list).
+- Doesn't rely on the correct entry point being entered in JSON to load. It will search DLLs directly, as long as the patching method is called Patch it should find it.
 - Backup/restore clean Assembly-CSharp.dll files.
 
 # Mod Developers
@@ -39,8 +43,7 @@ namespace YourNameSpace
         public static void Patch()
         {
             var harmony = new Harmony("your.entirely.100%.unique.id");
-            var assembly = Assembly.GetExecutingAssembly();
-            harmony.PatchAll(assembly);
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 }
