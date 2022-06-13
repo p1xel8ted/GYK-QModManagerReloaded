@@ -47,7 +47,6 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.Properties.Resources.resources
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmResModifier.resources
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.GenerateResource.cache
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.GeneratedMSBuildEditorConfig.editorconfig
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CoreCompileInputs.cache
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CopyComplete
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.exe

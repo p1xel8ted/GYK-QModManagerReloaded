@@ -16,3 +16,21 @@ H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\obj\Release In
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.csproj.CopyComplete
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.dll
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\bin\Release Installer\net48\Mono.Cecil.Inject.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\0Harmony.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\QModReloaded.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\Microsoft.Bcl.AsyncInterfaces.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Buffers.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Memory.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Numerics.Vectors.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Runtime.CompilerServices.Unsafe.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Text.Encodings.Web.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Text.Json.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.Threading.Tasks.Extensions.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\System.ValueTuple.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\Mono.Cecil.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\Mono.Cecil.Inject.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.csproj.AssemblyReference.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.GeneratedMSBuildEditorConfig.editorconfig
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.csproj.CoreCompileInputs.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.csproj.CopyComplete
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.dll

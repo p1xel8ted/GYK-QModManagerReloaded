@@ -37,3 +37,41 @@ H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Release
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.exe
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.pdb
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\bin\Release Installer\Mono.Cecil.Inject.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\0Harmony.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\dep\0Harmony.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\QModReloadedGUI.exe.config
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\QModReloadedGUI.exe
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\QModReloadedGUI.pdb
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\Microsoft.Bcl.AsyncInterfaces.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\Mono.Cecil.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\QModReloaded.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Buffers.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Memory.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Numerics.Vectors.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Runtime.CompilerServices.Unsafe.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Text.Encodings.Web.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Text.Json.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Threading.Tasks.Extensions.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.ValueTuple.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\Mono.Cecil.Inject.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\Microsoft.Bcl.AsyncInterfaces.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Buffers.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Memory.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Numerics.Vectors.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Runtime.CompilerServices.Unsafe.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Text.Encodings.Web.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Text.Json.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Threading.Tasks.Extensions.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.ValueTuple.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.csproj.AssemblyReference.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.csproj.SuggestedBindingRedirects.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmAbout.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmChecklist.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmMain.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.Properties.Resources.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmResModifier.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.csproj.GenerateResource.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.csproj.CoreCompileInputs.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.csproj.CopyComplete
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.exe
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.pdb

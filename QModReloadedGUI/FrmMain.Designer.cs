@@ -46,6 +46,17 @@ namespace QModReloadedGUI
             this.ChMod = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ChEnabled = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.ChID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BtnRestore = new System.Windows.Forms.Button();
+            this.BtnOpenLog = new System.Windows.Forms.Button();
+            this.BtnOpenModDir = new System.Windows.Forms.Button();
+            this.BtnOpenGameDir = new System.Windows.Forms.Button();
+            this.BtnRemoveIntros = new System.Windows.Forms.Button();
+            this.BtnRefresh = new System.Windows.Forms.Button();
+            this.BtnRemovePatch = new System.Windows.Forms.Button();
+            this.BtnRunGame = new System.Windows.Forms.PictureBox();
+            this.BtnRemove = new System.Windows.Forms.Button();
+            this.BtnAddMod = new System.Windows.Forms.Button();
+            this.BtnPatch = new System.Windows.Forms.Button();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checklistToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,48 +66,37 @@ namespace QModReloadedGUI
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.LblIntroPatched = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.DlgFile = new System.Windows.Forms.OpenFileDialog();
-            this.LblConfig = new System.Windows.Forms.Label();
-            this.TxtConfig = new System.Windows.Forms.TextBox();
-            this.LblSaved = new System.Windows.Forms.Label();
-            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.trayIconCtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ChkToggleMods = new System.Windows.Forms.CheckBox();
-            this.ChkLaunchExeDirectly = new System.Windows.Forms.CheckBox();
-            this.DgvLog = new System.Windows.Forms.DataGridView();
-            this.ChTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LblErrors = new System.Windows.Forms.Label();
-            this.BtnRestore = new System.Windows.Forms.Button();
-            this.BtnOpenLog = new System.Windows.Forms.Button();
-            this.BtnOpenModDir = new System.Windows.Forms.Button();
-            this.BtnOpenGameDir = new System.Windows.Forms.Button();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.checklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyResolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnLaunchModless = new System.Windows.Forms.ToolStripMenuItem();
-            this.BtnRemoveIntros = new System.Windows.Forms.Button();
-            this.BtnRefresh = new System.Windows.Forms.Button();
-            this.BtnRemovePatch = new System.Windows.Forms.Button();
-            this.BtnRunGame = new System.Windows.Forms.PictureBox();
-            this.BtnRemove = new System.Windows.Forms.Button();
-            this.BtnAddMod = new System.Windows.Forms.Button();
-            this.BtnPatch = new System.Windows.Forms.Button();
+            this.DlgFile = new System.Windows.Forms.OpenFileDialog();
+            this.LblConfig = new System.Windows.Forms.Label();
+            this.TxtConfig = new System.Windows.Forms.TextBox();
+            this.LblSaved = new System.Windows.Forms.Label();
+            this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.trayIconCtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.restoreWindowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.launchGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openmModDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openGameDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ChkToggleMods = new System.Windows.Forms.CheckBox();
+            this.ChkLaunchExeDirectly = new System.Windows.Forms.CheckBox();
+            this.DgvLog = new System.Windows.Forms.DataGridView();
+            this.ChTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LblErrors = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
             this.ToolStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.trayIconCtxMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DgvLog)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
             this.SuspendLayout();
             // 
             // TxtGameLocation
@@ -151,7 +151,7 @@ namespace QModReloadedGUI
             // LblModInfo
             // 
             this.LblModInfo.AutoSize = true;
-            this.LblModInfo.Location = new System.Drawing.Point(341, 120);
+            this.LblModInfo.Location = new System.Drawing.Point(382, 120);
             this.LblModInfo.Name = "LblModInfo";
             this.LblModInfo.Size = new System.Drawing.Size(48, 17);
             this.LblModInfo.TabIndex = 9;
@@ -162,12 +162,12 @@ namespace QModReloadedGUI
             // 
             this.TxtModInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.TxtModInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtModInfo.Location = new System.Drawing.Point(341, 140);
+            this.TxtModInfo.Location = new System.Drawing.Point(384, 140);
             this.TxtModInfo.Multiline = true;
             this.TxtModInfo.Name = "TxtModInfo";
             this.TxtModInfo.ReadOnly = true;
             this.TxtModInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtModInfo.Size = new System.Drawing.Size(389, 180);
+            this.TxtModInfo.Size = new System.Drawing.Size(346, 180);
             this.TxtModInfo.TabIndex = 11;
             // 
             // DgvMods
@@ -185,12 +185,12 @@ namespace QModReloadedGUI
             this.ChID});
             this.DgvMods.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.DgvMods.GridColor = System.Drawing.SystemColors.Control;
-            this.DgvMods.Location = new System.Drawing.Point(13, 140);
+            this.DgvMods.Location = new System.Drawing.Point(12, 140);
             this.DgvMods.Name = "DgvMods";
             this.DgvMods.ReadOnly = true;
             this.DgvMods.RowHeadersVisible = false;
             this.DgvMods.ShowEditingIcon = false;
-            this.DgvMods.Size = new System.Drawing.Size(322, 383);
+            this.DgvMods.Size = new System.Drawing.Size(364, 383);
             this.DgvMods.TabIndex = 35;
             this.ToolTip.SetToolTip(this.DgvMods, "Drag n Drop to re-order mods. Mods will load in the order they appear in this lis" +
         "t.");
@@ -236,221 +236,6 @@ namespace QModReloadedGUI
             this.ChID.Name = "ChID";
             this.ChID.ReadOnly = true;
             this.ChID.Visible = false;
-            // 
-            // fileToolStripMenuItem
-            // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
-            // 
-            // exitToolStripMenuItem
-            // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(67, 22);
-            // 
-            // checklistToolStripMenuItem
-            // 
-            this.checklistToolStripMenuItem.Name = "checklistToolStripMenuItem";
-            this.checklistToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
-            this.aboutToolStripMenuItem.Text = "&About";
-            // 
-            // ToolStrip
-            // 
-            this.ToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.LblPatched,
-            this.toolStripSeparator2,
-            this.LblIntroPatched});
-            this.ToolStrip.Location = new System.Drawing.Point(0, 762);
-            this.ToolStrip.Name = "ToolStrip";
-            this.ToolStrip.Size = new System.Drawing.Size(742, 25);
-            this.ToolStrip.TabIndex = 25;
-            this.ToolStrip.Text = "toolStrip1";
-            // 
-            // LblPatched
-            // 
-            this.LblPatched.Name = "LblPatched";
-            this.LblPatched.Size = new System.Drawing.Size(86, 22);
-            this.LblPatched.Text = "toolStripLabel1";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-            // 
-            // LblIntroPatched
-            // 
-            this.LblIntroPatched.Name = "LblIntroPatched";
-            this.LblIntroPatched.Size = new System.Drawing.Size(86, 22);
-            this.LblIntroPatched.Text = "toolStripLabel2";
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem1,
-            this.checklistToolStripMenuItem1,
-            this.modifyResolutionToolStripMenuItem,
-            this.aboutToolStripMenuItem1,
-            this.BtnLaunchModless});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(742, 24);
-            this.menuStrip1.TabIndex = 26;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // DlgFile
-            // 
-            this.DlgFile.Filter = "ZIP Files|*.zip";
-            this.DlgFile.Multiselect = true;
-            this.DlgFile.Title = "Select ZIP file( s)";
-            // 
-            // LblConfig
-            // 
-            this.LblConfig.AutoSize = true;
-            this.LblConfig.Location = new System.Drawing.Point(341, 325);
-            this.LblConfig.Name = "LblConfig";
-            this.LblConfig.Size = new System.Drawing.Size(37, 17);
-            this.LblConfig.TabIndex = 30;
-            this.LblConfig.Text = "Config";
-            this.LblConfig.UseCompatibleTextRendering = true;
-            // 
-            // TxtConfig
-            // 
-            this.TxtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TxtConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtConfig.Location = new System.Drawing.Point(341, 345);
-            this.TxtConfig.Multiline = true;
-            this.TxtConfig.Name = "TxtConfig";
-            this.TxtConfig.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtConfig.Size = new System.Drawing.Size(389, 178);
-            this.TxtConfig.TabIndex = 31;
-            this.TxtConfig.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtConfig_KeyUp);
-            this.TxtConfig.Leave += new System.EventHandler(this.TxtConfig_Leave);
-            // 
-            // LblSaved
-            // 
-            this.LblSaved.AutoSize = true;
-            this.LblSaved.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblSaved.ForeColor = System.Drawing.Color.Green;
-            this.LblSaved.Location = new System.Drawing.Point(384, 325);
-            this.LblSaved.Name = "LblSaved";
-            this.LblSaved.Size = new System.Drawing.Size(46, 17);
-            this.LblSaved.TabIndex = 32;
-            this.LblSaved.Text = "Saved...";
-            this.LblSaved.UseCompatibleTextRendering = true;
-            this.LblSaved.Visible = false;
-            // 
-            // trayIcon
-            // 
-            this.trayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.trayIcon.BalloonTipTitle = "QMod Manager Reloaded";
-            this.trayIcon.ContextMenuStrip = this.trayIconCtxMenu;
-            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
-            this.trayIcon.Text = "QMod Manager Reloaded";
-            this.trayIcon.Visible = true;
-            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
-            // 
-            // trayIconCtxMenu
-            // 
-            this.trayIconCtxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.restoreWindowToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.launchGameToolStripMenuItem,
-            this.openmModDirectoryToolStripMenuItem,
-            this.openGameDirectoryToolStripMenuItem,
-            this.toolStripMenuItem1,
-            this.exitToolStripMenuItem2});
-            this.trayIconCtxMenu.Name = "trayIconCtxMenu";
-            this.trayIconCtxMenu.Size = new System.Drawing.Size(189, 126);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(185, 6);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(185, 6);
-            // 
-            // ChkToggleMods
-            // 
-            this.ChkToggleMods.AutoSize = true;
-            this.ChkToggleMods.Location = new System.Drawing.Point(283, 120);
-            this.ChkToggleMods.Name = "ChkToggleMods";
-            this.ChkToggleMods.Size = new System.Drawing.Size(15, 14);
-            this.ChkToggleMods.TabIndex = 37;
-            this.ChkToggleMods.UseVisualStyleBackColor = true;
-            this.ChkToggleMods.Click += new System.EventHandler(this.ChkToggleMods_Click);
-            // 
-            // ChkLaunchExeDirectly
-            // 
-            this.ChkLaunchExeDirectly.AutoSize = true;
-            this.ChkLaunchExeDirectly.Location = new System.Drawing.Point(514, 84);
-            this.ChkLaunchExeDirectly.Name = "ChkLaunchExeDirectly";
-            this.ChkLaunchExeDirectly.Size = new System.Drawing.Size(135, 18);
-            this.ChkLaunchExeDirectly.TabIndex = 38;
-            this.ChkLaunchExeDirectly.Text = "Launch Game Directly";
-            this.ChkLaunchExeDirectly.UseCompatibleTextRendering = true;
-            this.ChkLaunchExeDirectly.UseVisualStyleBackColor = true;
-            this.ChkLaunchExeDirectly.CheckStateChanged += new System.EventHandler(this.ChkLaunchExeDirectly_CheckStateChanged);
-            // 
-            // DgvLog
-            // 
-            this.DgvLog.AllowDrop = true;
-            this.DgvLog.AllowUserToAddRows = false;
-            this.DgvLog.AllowUserToDeleteRows = false;
-            this.DgvLog.BackgroundColor = System.Drawing.SystemColors.Control;
-            this.DgvLog.CausesValidation = false;
-            this.DgvLog.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            this.DgvLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DgvLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ChTime,
-            this.dataGridViewTextBoxColumn1});
-            this.DgvLog.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.DgvLog.GridColor = System.Drawing.SystemColors.Control;
-            this.DgvLog.Location = new System.Drawing.Point(12, 560);
-            this.DgvLog.MultiSelect = false;
-            this.DgvLog.Name = "DgvLog";
-            this.DgvLog.ReadOnly = true;
-            this.DgvLog.RowHeadersVisible = false;
-            this.DgvLog.ShowEditingIcon = false;
-            this.DgvLog.Size = new System.Drawing.Size(718, 190);
-            this.DgvLog.TabIndex = 39;
-            // 
-            // ChTime
-            // 
-            this.ChTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
-            this.ChTime.HeaderText = "Time";
-            this.ChTime.Name = "ChTime";
-            this.ChTime.ReadOnly = true;
-            this.ChTime.Width = 55;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Log";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // LblErrors
-            // 
-            this.LblErrors.AutoSize = true;
-            this.LblErrors.ForeColor = System.Drawing.Color.Red;
-            this.LblErrors.Location = new System.Drawing.Point(9, 560);
-            this.LblErrors.Name = "LblErrors";
-            this.LblErrors.Size = new System.Drawing.Size(0, 13);
-            this.LblErrors.TabIndex = 40;
             // 
             // BtnRestore
             // 
@@ -509,56 +294,6 @@ namespace QModReloadedGUI
             this.ToolTip.SetToolTip(this.BtnOpenGameDir, "Open the game directory in Explorer");
             this.BtnOpenGameDir.UseVisualStyleBackColor = true;
             this.BtnOpenGameDir.Click += new System.EventHandler(this.BtnOpenGameDir_Click);
-            // 
-            // fileToolStripMenuItem1
-            // 
-            this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem1});
-            this.fileToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.arrow_down;
-            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
-            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(53, 20);
-            this.fileToolStripMenuItem1.Text = "F&ile";
-            // 
-            // exitToolStripMenuItem1
-            // 
-            this.exitToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.stop;
-            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.exitToolStripMenuItem1.Text = "E&xit";
-            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
-            // 
-            // checklistToolStripMenuItem1
-            // 
-            this.checklistToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.action_check;
-            this.checklistToolStripMenuItem1.Name = "checklistToolStripMenuItem1";
-            this.checklistToolStripMenuItem1.Size = new System.Drawing.Size(83, 20);
-            this.checklistToolStripMenuItem1.Text = "C&hecklist";
-            this.checklistToolStripMenuItem1.ToolTipText = "Click to see if your installation is valid for mods to function.";
-            this.checklistToolStripMenuItem1.Click += new System.EventHandler(this.ChecklistToolStripMenuItem1_Click);
-            // 
-            // modifyResolutionToolStripMenuItem
-            // 
-            this.modifyResolutionToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.login;
-            this.modifyResolutionToolStripMenuItem.Name = "modifyResolutionToolStripMenuItem";
-            this.modifyResolutionToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
-            this.modifyResolutionToolStripMenuItem.Text = "&Modify Resolution";
-            this.modifyResolutionToolStripMenuItem.Click += new System.EventHandler(this.ModifyResolutionToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem1
-            // 
-            this.aboutToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.file;
-            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
-            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(68, 20);
-            this.aboutToolStripMenuItem1.Text = "A&bout";
-            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.AboutToolStripMenuItem1_Click);
-            // 
-            // BtnLaunchModless
-            // 
-            this.BtnLaunchModless.Image = global::QModReloadedGUI.Properties.Resources.play;
-            this.BtnLaunchModless.Name = "BtnLaunchModless";
-            this.BtnLaunchModless.Size = new System.Drawing.Size(121, 20);
-            this.BtnLaunchModless.Text = "&Launch Modless";
-            this.BtnLaunchModless.Click += new System.EventHandler(this.BtnLaunchModless_Click);
             // 
             // BtnRemoveIntros
             // 
@@ -667,6 +402,190 @@ namespace QModReloadedGUI
             this.BtnPatch.UseVisualStyleBackColor = true;
             this.BtnPatch.Click += new System.EventHandler(this.BtnPatch_Click);
             // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "&File";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(67, 22);
+            // 
+            // checklistToolStripMenuItem
+            // 
+            this.checklistToolStripMenuItem.Name = "checklistToolStripMenuItem";
+            this.checklistToolStripMenuItem.Size = new System.Drawing.Size(32, 19);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
+            this.aboutToolStripMenuItem.Text = "&About";
+            // 
+            // ToolStrip
+            // 
+            this.ToolStrip.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.ToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.LblPatched,
+            this.toolStripSeparator2,
+            this.LblIntroPatched});
+            this.ToolStrip.Location = new System.Drawing.Point(0, 759);
+            this.ToolStrip.Name = "ToolStrip";
+            this.ToolStrip.Size = new System.Drawing.Size(742, 25);
+            this.ToolStrip.TabIndex = 25;
+            this.ToolStrip.Text = "toolStrip1";
+            // 
+            // LblPatched
+            // 
+            this.LblPatched.Name = "LblPatched";
+            this.LblPatched.Size = new System.Drawing.Size(86, 22);
+            this.LblPatched.Text = "toolStripLabel1";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // LblIntroPatched
+            // 
+            this.LblIntroPatched.Name = "LblIntroPatched";
+            this.LblIntroPatched.Size = new System.Drawing.Size(86, 22);
+            this.LblIntroPatched.Text = "toolStripLabel2";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem1,
+            this.checklistToolStripMenuItem1,
+            this.modifyResolutionToolStripMenuItem,
+            this.aboutToolStripMenuItem1,
+            this.BtnLaunchModless});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(742, 24);
+            this.menuStrip1.TabIndex = 26;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem1
+            // 
+            this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem1});
+            this.fileToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.arrow_down;
+            this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
+            this.fileToolStripMenuItem1.Size = new System.Drawing.Size(53, 20);
+            this.fileToolStripMenuItem1.Text = "F&ile";
+            // 
+            // exitToolStripMenuItem1
+            // 
+            this.exitToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.stop;
+            this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem1.Text = "E&xit";
+            this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
+            // 
+            // checklistToolStripMenuItem1
+            // 
+            this.checklistToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.action_check;
+            this.checklistToolStripMenuItem1.Name = "checklistToolStripMenuItem1";
+            this.checklistToolStripMenuItem1.Size = new System.Drawing.Size(83, 20);
+            this.checklistToolStripMenuItem1.Text = "C&hecklist";
+            this.checklistToolStripMenuItem1.ToolTipText = "Click to see if your installation is valid for mods to function.";
+            this.checklistToolStripMenuItem1.Click += new System.EventHandler(this.ChecklistToolStripMenuItem1_Click);
+            // 
+            // modifyResolutionToolStripMenuItem
+            // 
+            this.modifyResolutionToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.login;
+            this.modifyResolutionToolStripMenuItem.Name = "modifyResolutionToolStripMenuItem";
+            this.modifyResolutionToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
+            this.modifyResolutionToolStripMenuItem.Text = "&Modify Resolution";
+            this.modifyResolutionToolStripMenuItem.Click += new System.EventHandler(this.ModifyResolutionToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem1
+            // 
+            this.aboutToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.file;
+            this.aboutToolStripMenuItem1.Name = "aboutToolStripMenuItem1";
+            this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(68, 20);
+            this.aboutToolStripMenuItem1.Text = "A&bout";
+            this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.AboutToolStripMenuItem1_Click);
+            // 
+            // BtnLaunchModless
+            // 
+            this.BtnLaunchModless.Image = global::QModReloadedGUI.Properties.Resources.play;
+            this.BtnLaunchModless.Name = "BtnLaunchModless";
+            this.BtnLaunchModless.Size = new System.Drawing.Size(121, 20);
+            this.BtnLaunchModless.Text = "&Launch Modless";
+            this.BtnLaunchModless.Click += new System.EventHandler(this.BtnLaunchModless_Click);
+            // 
+            // DlgFile
+            // 
+            this.DlgFile.Filter = "ZIP Files|*.zip";
+            this.DlgFile.Multiselect = true;
+            this.DlgFile.Title = "Select ZIP file( s)";
+            // 
+            // LblConfig
+            // 
+            this.LblConfig.AutoSize = true;
+            this.LblConfig.Location = new System.Drawing.Point(382, 325);
+            this.LblConfig.Name = "LblConfig";
+            this.LblConfig.Size = new System.Drawing.Size(37, 17);
+            this.LblConfig.TabIndex = 30;
+            this.LblConfig.Text = "Config";
+            this.LblConfig.UseCompatibleTextRendering = true;
+            // 
+            // TxtConfig
+            // 
+            this.TxtConfig.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TxtConfig.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtConfig.Location = new System.Drawing.Point(382, 345);
+            this.TxtConfig.Multiline = true;
+            this.TxtConfig.Name = "TxtConfig";
+            this.TxtConfig.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TxtConfig.Size = new System.Drawing.Size(348, 178);
+            this.TxtConfig.TabIndex = 31;
+            this.TxtConfig.KeyUp += new System.Windows.Forms.KeyEventHandler(this.TxtConfig_KeyUp);
+            this.TxtConfig.Leave += new System.EventHandler(this.TxtConfig_Leave);
+            // 
+            // LblSaved
+            // 
+            this.LblSaved.AutoSize = true;
+            this.LblSaved.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblSaved.ForeColor = System.Drawing.Color.Green;
+            this.LblSaved.Location = new System.Drawing.Point(425, 325);
+            this.LblSaved.Name = "LblSaved";
+            this.LblSaved.Size = new System.Drawing.Size(46, 17);
+            this.LblSaved.TabIndex = 32;
+            this.LblSaved.Text = "Saved...";
+            this.LblSaved.UseCompatibleTextRendering = true;
+            this.LblSaved.Visible = false;
+            // 
+            // trayIcon
+            // 
+            this.trayIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.trayIcon.BalloonTipTitle = "QMod Manager Reloaded";
+            this.trayIcon.ContextMenuStrip = this.trayIconCtxMenu;
+            this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+            this.trayIcon.Text = "QMod Manager Reloaded";
+            this.trayIcon.Visible = true;
+            this.trayIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseDoubleClick);
+            // 
+            // trayIconCtxMenu
+            // 
+            this.trayIconCtxMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.restoreWindowToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.launchGameToolStripMenuItem,
+            this.openmModDirectoryToolStripMenuItem,
+            this.openGameDirectoryToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.exitToolStripMenuItem2});
+            this.trayIconCtxMenu.Name = "trayIconCtxMenu";
+            this.trayIconCtxMenu.Size = new System.Drawing.Size(189, 126);
+            // 
             // restoreWindowToolStripMenuItem
             // 
             this.restoreWindowToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.arrow_top;
@@ -674,6 +593,11 @@ namespace QModReloadedGUI
             this.restoreWindowToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.restoreWindowToolStripMenuItem.Text = "&Restore Window";
             this.restoreWindowToolStripMenuItem.Click += new System.EventHandler(this.RestoreWindowToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(185, 6);
             // 
             // launchGameToolStripMenuItem
             // 
@@ -699,6 +623,11 @@ namespace QModReloadedGUI
             this.openGameDirectoryToolStripMenuItem.Text = "Open &Game Directory";
             this.openGameDirectoryToolStripMenuItem.Click += new System.EventHandler(this.OpenGameDirectoryToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(185, 6);
+            // 
             // exitToolStripMenuItem2
             // 
             this.exitToolStripMenuItem2.Image = global::QModReloadedGUI.Properties.Resources.stop;
@@ -707,11 +636,83 @@ namespace QModReloadedGUI
             this.exitToolStripMenuItem2.Text = "E&xit";
             this.exitToolStripMenuItem2.Click += new System.EventHandler(this.ExitToolStripMenuItem2_Click);
             // 
+            // ChkToggleMods
+            // 
+            this.ChkToggleMods.AutoSize = true;
+            this.ChkToggleMods.Location = new System.Drawing.Point(325, 120);
+            this.ChkToggleMods.Name = "ChkToggleMods";
+            this.ChkToggleMods.Size = new System.Drawing.Size(15, 14);
+            this.ChkToggleMods.TabIndex = 37;
+            this.ChkToggleMods.UseVisualStyleBackColor = true;
+            this.ChkToggleMods.Click += new System.EventHandler(this.ChkToggleMods_Click);
+            // 
+            // ChkLaunchExeDirectly
+            // 
+            this.ChkLaunchExeDirectly.AutoSize = true;
+            this.ChkLaunchExeDirectly.Location = new System.Drawing.Point(514, 84);
+            this.ChkLaunchExeDirectly.Name = "ChkLaunchExeDirectly";
+            this.ChkLaunchExeDirectly.Size = new System.Drawing.Size(135, 18);
+            this.ChkLaunchExeDirectly.TabIndex = 38;
+            this.ChkLaunchExeDirectly.Text = "Launch Game Directly";
+            this.ChkLaunchExeDirectly.UseCompatibleTextRendering = true;
+            this.ChkLaunchExeDirectly.UseVisualStyleBackColor = true;
+            this.ChkLaunchExeDirectly.CheckStateChanged += new System.EventHandler(this.ChkLaunchExeDirectly_CheckStateChanged);
+            // 
+            // DgvLog
+            // 
+            this.DgvLog.AllowDrop = true;
+            this.DgvLog.AllowUserToAddRows = false;
+            this.DgvLog.AllowUserToDeleteRows = false;
+            this.DgvLog.BackgroundColor = System.Drawing.SystemColors.Control;
+            this.DgvLog.CausesValidation = false;
+            this.DgvLog.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.DgvLog.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DgvLog.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ChTime,
+            this.dataGridViewTextBoxColumn1});
+            this.DgvLog.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.DgvLog.GridColor = System.Drawing.SystemColors.Control;
+            this.DgvLog.Location = new System.Drawing.Point(12, 560);
+            this.DgvLog.MultiSelect = false;
+            this.DgvLog.Name = "DgvLog";
+            this.DgvLog.ReadOnly = true;
+            this.DgvLog.RowHeadersVisible = false;
+            this.DgvLog.ShowEditingIcon = false;
+            this.DgvLog.Size = new System.Drawing.Size(718, 186);
+            this.DgvLog.TabIndex = 39;
+            // 
+            // ChTime
+            // 
+            this.ChTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
+            this.ChTime.HeaderText = "Time";
+            this.ChTime.Name = "ChTime";
+            this.ChTime.ReadOnly = true;
+            this.ChTime.Width = 55;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Log";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // LblErrors
+            // 
+            this.LblErrors.AutoSize = true;
+            this.LblErrors.ForeColor = System.Drawing.Color.Red;
+            this.LblErrors.Location = new System.Drawing.Point(293, 535);
+            this.LblErrors.Name = "LblErrors";
+            this.LblErrors.Size = new System.Drawing.Size(69, 13);
+            this.LblErrors.TabIndex = 40;
+            this.LblErrors.Text = "Cant See Me";
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(742, 787);
+            this.ClientSize = new System.Drawing.Size(742, 784);
             this.Controls.Add(this.LblErrors);
             this.Controls.Add(this.DgvLog);
             this.Controls.Add(this.ChkLaunchExeDirectly);
@@ -751,13 +752,13 @@ namespace QModReloadedGUI
             this.Load += new System.EventHandler(this.FrmMain_Load);
             this.Resize += new System.EventHandler(this.FrmMain_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).EndInit();
             this.ToolStrip.ResumeLayout(false);
             this.ToolStrip.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.trayIconCtxMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DgvLog)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

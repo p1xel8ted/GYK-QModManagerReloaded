@@ -51,6 +51,8 @@ namespace QModReloadedGUI
             this.ChkTupleExists = new System.Windows.Forms.CheckBox();
             this.ChkAssemblyExists = new System.Windows.Forms.CheckBox();
             this.LblHarmonyVersion = new System.Windows.Forms.Label();
+            this.ChckSystemCompression = new System.Windows.Forms.CheckBox();
+            this.ChckMonoCecilInject = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // ChkModPatched
@@ -123,7 +125,7 @@ namespace QModReloadedGUI
             this.ChkPatcherLocation.AutoCheck = false;
             this.ChkPatcherLocation.AutoSize = true;
             this.ChkPatcherLocation.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.ChkPatcherLocation.Location = new System.Drawing.Point(11, 419);
+            this.ChkPatcherLocation.Location = new System.Drawing.Point(11, 467);
             this.ChkPatcherLocation.Name = "ChkPatcherLocation";
             this.ChkPatcherLocation.Size = new System.Drawing.Size(260, 43);
             this.ChkPatcherLocation.TabIndex = 6;
@@ -137,7 +139,7 @@ namespace QModReloadedGUI
             this.ChkInjector.AutoCheck = false;
             this.ChkInjector.AutoSize = true;
             this.ChkInjector.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.ChkInjector.Location = new System.Drawing.Point(11, 371);
+            this.ChkInjector.Location = new System.Drawing.Point(11, 419);
             this.ChkInjector.Name = "ChkInjector";
             this.ChkInjector.Size = new System.Drawing.Size(117, 18);
             this.ChkInjector.TabIndex = 10;
@@ -150,7 +152,7 @@ namespace QModReloadedGUI
             this.ChkConfig.AutoCheck = false;
             this.ChkConfig.AutoSize = true;
             this.ChkConfig.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.ChkConfig.Location = new System.Drawing.Point(11, 395);
+            this.ChkConfig.Location = new System.Drawing.Point(11, 443);
             this.ChkConfig.Name = "ChkConfig";
             this.ChkConfig.Size = new System.Drawing.Size(178, 18);
             this.ChkConfig.TabIndex = 11;
@@ -298,11 +300,39 @@ namespace QModReloadedGUI
             this.LblHarmonyVersion.TabIndex = 22;
             this.LblHarmonyVersion.Text = "label1";
             // 
+            // ChckSystemCompression
+            // 
+            this.ChckSystemCompression.AutoCheck = false;
+            this.ChckSystemCompression.AutoSize = true;
+            this.ChckSystemCompression.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.ChckSystemCompression.Location = new System.Drawing.Point(11, 395);
+            this.ChckSystemCompression.Name = "ChckSystemCompression";
+            this.ChckSystemCompression.Size = new System.Drawing.Size(220, 18);
+            this.ChckSystemCompression.TabIndex = 23;
+            this.ChckSystemCompression.Text = "System.IO.Compression.FileSystem.dll";
+            this.ChckSystemCompression.UseCompatibleTextRendering = true;
+            this.ChckSystemCompression.UseVisualStyleBackColor = true;
+            // 
+            // ChckMonoCecilInject
+            // 
+            this.ChckMonoCecilInject.AutoCheck = false;
+            this.ChckMonoCecilInject.AutoSize = true;
+            this.ChckMonoCecilInject.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.ChckMonoCecilInject.Location = new System.Drawing.Point(11, 371);
+            this.ChckMonoCecilInject.Name = "ChckMonoCecilInject";
+            this.ChckMonoCecilInject.Size = new System.Drawing.Size(125, 18);
+            this.ChckMonoCecilInject.TabIndex = 24;
+            this.ChckMonoCecilInject.Text = "Mono.Cecil.Inject.dll";
+            this.ChckMonoCecilInject.UseCompatibleTextRendering = true;
+            this.ChckMonoCecilInject.UseVisualStyleBackColor = true;
+            // 
             // FrmChecklist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 472);
+            this.ClientSize = new System.Drawing.Size(294, 518);
+            this.Controls.Add(this.ChckMonoCecilInject);
+            this.Controls.Add(this.ChckSystemCompression);
             this.Controls.Add(this.LblHarmonyVersion);
             this.Controls.Add(this.ChkAssemblyExists);
             this.Controls.Add(this.ChkTupleExists);
@@ -358,5 +388,7 @@ namespace QModReloadedGUI
         private CheckBox ChkTupleExists;
         private CheckBox ChkAssemblyExists;
         private Label LblHarmonyVersion;
+        private CheckBox ChckSystemCompression;
+        private CheckBox ChckMonoCecilInject;
     }
 }

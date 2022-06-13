@@ -127,11 +127,14 @@ namespace QModReloadedGUI
             // 
             // BtnApply
             // 
+            this.BtnApply.Image = global::QModReloadedGUI.Properties.Resources.login;
             this.BtnApply.Location = new System.Drawing.Point(12, 290);
             this.BtnApply.Name = "BtnApply";
             this.BtnApply.Size = new System.Drawing.Size(140, 23);
             this.BtnApply.TabIndex = 14;
             this.BtnApply.Text = "A&pply Change";
+            this.BtnApply.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnApply.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.toolTip1.SetToolTip(this.BtnApply, "Enter desired resolution and click. If all went well, should refresh and current " +
         "should be  requested.\r\n");
             this.BtnApply.UseCompatibleTextRendering = true;

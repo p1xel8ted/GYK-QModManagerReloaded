@@ -53,7 +53,7 @@ namespace QModReloadedGUI
 
                 c.ForeColor = c.Checked ? Color.Green : Color.Red;
             }
-            if (allFound == 14)
+            if (allFound == 16)
             {
                 ChkPatcherLocation.Checked = true;
                 ChkPatcherLocation.ForeColor = Color.Green;
@@ -64,16 +64,27 @@ namespace QModReloadedGUI
                 ChkPatcherLocation.ForeColor = Color.Red;
             }
 
-            var harmonyVersion = FileVersionInfo.GetVersionInfo(Path.Combine(Application.StartupPath, Chk0HarmonyExists.Text));
-            if (harmonyVersion.ProductVersion.StartsWith("2.2"))
+            var hVersion = CheckFileExists(Path.Combine(Application.StartupPath, "0Harmony.dll"));
+            if (hVersion)
             {
-                LblHarmonyVersion.Text = @"Correct, 2.2+";
-                LblHarmonyVersion.ForeColor = Color.Green;
+                var harmonyVersion =
+                    FileVersionInfo.GetVersionInfo(Path.Combine(Application.StartupPath, Chk0HarmonyExists.Text));
+                if (harmonyVersion.ProductVersion.StartsWith("2.2"))
+                {
+                    LblHarmonyVersion.Visible = true;
+                    LblHarmonyVersion.Text = @"Correct, 2.2+";
+                    LblHarmonyVersion.ForeColor = Color.Green;
+                }
+                else
+                {
+                    LblHarmonyVersion.Visible = true;
+                    LblHarmonyVersion.Text = @"In-correct!, less than 2.2!";
+                    LblHarmonyVersion.ForeColor = Color.Red;
+                }
             }
             else
             {
-                LblHarmonyVersion.Text = @"In-correct!, less than 2.2!";
-                LblHarmonyVersion.ForeColor = Color.Red;
+                LblHarmonyVersion.Visible = false;
             }
 
         }
