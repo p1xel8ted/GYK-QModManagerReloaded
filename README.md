@@ -43,8 +43,7 @@ namespace YourNameSpace
         public static void Patch()
         {
             var harmony = new Harmony("your.entirely.100%.unique.id");
-            var assembly = Assembly.GetExecutingAssembly();
-            harmony.PatchAll(assembly);
+            harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 }
