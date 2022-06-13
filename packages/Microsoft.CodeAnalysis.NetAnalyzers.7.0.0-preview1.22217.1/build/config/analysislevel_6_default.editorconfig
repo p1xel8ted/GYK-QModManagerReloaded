@@ -1,0 +1,30 @@
+# NOTE: Requires **VS2019 16.7** or later
+
+# Rules from '6.0' release with 'Default' analysis mode
+# Description: Rules with enabled-by-default state from '6.0' release with 'Default' analysis mode. Rules that are first released in a version later than '6.0' are disabled.
+
+is_global = true
+
+global_level = -100
+
+
+# CA1311: Specify a culture or use an invariant version
+dotnet_diagnostic.CA1311.severity = none
+
+# CA1420: Property, type, or attribute requires runtime marshalling
+dotnet_diagnostic.CA1420.severity = none
+
+# CA1421: This method uses runtime marshalling even when the 'DisableRuntimeMarshallingAttribute' is applied
+dotnet_diagnostic.CA1421.severity = none
+
+# CA1850: Prefer static 'HashData' method over 'ComputeHash'
+dotnet_diagnostic.CA1850.severity = none
+
+# CA1852: Seal internal types
+dotnet_diagnostic.CA1852.severity = none
+
+# CA2019: Improper 'ThreadStatic' field initialization
+dotnet_diagnostic.CA2019.severity = none
+
+# CA2259: 'ThreadStatic' only affects static fields
+dotnet_diagnostic.CA2259.severity = none

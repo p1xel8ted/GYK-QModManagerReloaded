@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>QModReloaded</id>
+    <version>1.0.0</version>
+    <authors>QModReloaded</authors>
+    <icon>image.png</icon>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETFramework4.8">
+        <dependency id="System.Memory" version="4.5.5" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Json" version="6.0.4" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Core" targetFramework=".NETFramework4.8" />
+    </frameworkAssemblies>
+    <contentFiles>
+      <files include="any/net48/icon.ico" buildAction="Content" />
+    </contentFiles>
+  </metadata>
+  <files>
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\bin\Release Installer\net48\QModReloaded.dll" target="lib\net48\QModReloaded.dll" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\icon.ico" target="content\icon.ico" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\icon.ico" target="contentFiles\any\net48\icon.ico" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\image.png" target="\image.png" />
+  </files>
+</package>

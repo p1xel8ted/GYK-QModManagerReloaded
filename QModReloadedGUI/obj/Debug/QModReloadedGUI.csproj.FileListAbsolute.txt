@@ -1,0 +1,41 @@
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\dep\0Harmony.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\QModReloadedGUI.exe.config
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\QModReloadedGUI.exe
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\QModReloadedGUI.pdb
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Microsoft.Bcl.AsyncInterfaces.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Mono.Cecil.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Buffers.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Memory.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Numerics.Vectors.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Runtime.CompilerServices.Unsafe.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Text.Encodings.Web.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Text.Json.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Threading.Tasks.Extensions.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.ValueTuple.dll
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Microsoft.Bcl.AsyncInterfaces.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Buffers.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Memory.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Numerics.Vectors.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Runtime.CompilerServices.Unsafe.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Text.Encodings.Web.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Text.Json.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.Threading.Tasks.Extensions.xml
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\System.ValueTuple.xml
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\0Harmony.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\dep\0Harmony.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\QModReloadedGUI.exe.config
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\QModReloadedGUI.exe
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\QModReloadedGUI.pdb
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.AssemblyReference.cache
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.SuggestedBindingRedirects.cache
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmAbout.resources
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmChecklist.resources
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmMain.resources
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.Properties.Resources.resources
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmResModifier.resources
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.GenerateResource.cache
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.GeneratedMSBuildEditorConfig.editorconfig
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CoreCompileInputs.cache
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CopyComplete
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.exe
+H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.pdb
