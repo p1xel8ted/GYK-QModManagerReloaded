@@ -26,6 +26,8 @@ https://www.nexusmods.com/graveyardkeeper/mods/47
 - Doesn't rely on the correct entry point being entered in JSON to load. It will search DLLs directly, as long as the patching method is called Patch it should find it.
 - Backup/restore clean Assembly-CSharp.dll files.
 
+![alt text](https://github.com/p1xel8ted/GYK-QModManagerReloaded/blob/44c7f0b61b33de21a64b2ad7b12dd0aac2b3021e/main_ui_new.png)
+
 # Mod Developers
 
 .NET Framework 4.6 - 4.8
