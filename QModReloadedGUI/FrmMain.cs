@@ -51,7 +51,7 @@ public partial class FrmMain : Form
 
     private void WriteLog(string message, bool error = false)
     {
-        
+
         var dt = DateTime.Now;
         var rowIndex = DgvLog.Rows.Add(dt.ToLongTimeString(), message);
         var row = DgvLog.Rows[rowIndex];
@@ -165,6 +165,7 @@ public partial class FrmMain : Form
     {
         try
         {
+            LblErrors.Text = string.Empty;
             _modList.Clear();
             DgvMods.Rows.Clear();
             if (!_gameLocation.found) return;
@@ -410,20 +411,10 @@ public partial class FrmMain : Form
     private void FrmMain_Load(object sender, EventArgs e)
     {
         SetLocations();
-        //LoadMods();
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DgvMods.Sort(DgvMods.Columns[0], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         DgvMods.AllowUserToResizeRows = false;
-
-        if (Properties.Settings.Default.AlertShown) return;
-        MessageBox.Show(
-            @"PLEASE READ: I have upgraded an integral DLL (Harmony 1 to Harmony 2) to the latest version available as the current one is quite old and the new one has " +
-            @"a greater toolkit - this means mods will need to be updated as well. All my mods have been updated, (its a single line of code) and I have updated other mods I use." +
-            @" These updated mods will be available on my GitHub until the original author updates. Please re-verify game files, and re-run the patch process. You will not be shown this again.", @"STOP", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        Properties.Settings.Default.AlertShown = true;
-        Properties.Settings.Default.Save();
-
     }
 
     private void RunGame()
@@ -707,7 +698,7 @@ public partial class FrmMain : Form
     private void ModifyResolutionToolStripMenuItem_Click(object sender, EventArgs e)
     {
         if (!_gameLocation.found) return;
-        _frmResModifier ??= new FrmResModifier(_gameLocation.location);
+        _frmResModifier ??= new FrmResModifier(ref DgvLog,_gameLocation.location);
         _frmResModifier.ShowDialog();
         _frmResModifier = null;
     }
@@ -909,6 +900,7 @@ public partial class FrmMain : Form
         WindowState = FormWindowState.Normal;
         Focus();
         ShowInTaskbar = true;
+        DgvLog.FirstDisplayedScrollingRowIndex = DgvLog.RowCount - 1;
     }
 
     private void TrayIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -924,6 +916,7 @@ public partial class FrmMain : Form
         }
         Focus();
         ShowInTaskbar = true;
+        DgvLog.FirstDisplayedScrollingRowIndex = DgvLog.RowCount - 1;
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)

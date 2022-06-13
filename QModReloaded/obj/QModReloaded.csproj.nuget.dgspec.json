@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\OneDrive\\Development\\GraveyardKeeper\\QModReloaded\\QModReloaded\\QModReloaded.csproj": {}
+    "H:\\OneDrive\\Development\\Graveyard Keeper\\GYK-QModManagerReloaded\\QModReloaded\\QModReloaded.csproj": {}
   },
   "projects": {
-    "H:\\OneDrive\\Development\\GraveyardKeeper\\QModReloaded\\QModReloaded\\QModReloaded.csproj": {
+    "H:\\OneDrive\\Development\\Graveyard Keeper\\GYK-QModManagerReloaded\\QModReloaded\\QModReloaded.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\OneDrive\\Development\\GraveyardKeeper\\QModReloaded\\QModReloaded\\QModReloaded.csproj",
+        "projectUniqueName": "H:\\OneDrive\\Development\\Graveyard Keeper\\GYK-QModManagerReloaded\\QModReloaded\\QModReloaded.csproj",
         "projectName": "QModReloaded",
-        "projectPath": "H:\\OneDrive\\Development\\GraveyardKeeper\\QModReloaded\\QModReloaded\\QModReloaded.csproj",
+        "projectPath": "H:\\OneDrive\\Development\\Graveyard Keeper\\GYK-QModManagerReloaded\\QModReloaded\\QModReloaded.csproj",
         "packagesPath": "C:\\Users\\Ben\\.nuget\\packages\\",
-        "outputPath": "H:\\OneDrive\\Development\\GraveyardKeeper\\QModReloaded\\QModReloaded\\obj\\",
+        "outputPath": "H:\\OneDrive\\Development\\Graveyard Keeper\\GYK-QModManagerReloaded\\QModReloaded\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

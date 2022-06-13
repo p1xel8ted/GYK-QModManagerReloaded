@@ -32,25 +32,15 @@ namespace QModReloadedGUI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAbout));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.LblTitle = new System.Windows.Forms.Label();
             this.LblCredits = new System.Windows.Forms.Label();
             this.LblCreditsUrl = new System.Windows.Forms.LinkLabel();
             this.LblMyUrl = new System.Windows.Forms.LinkLabel();
-            this.BtnOK = new System.Windows.Forms.Button();
             this.TxtVersion = new System.Windows.Forms.TextBox();
+            this.BtnOK = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-2, -9);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // LblTitle
             // 
@@ -90,23 +80,12 @@ namespace QModReloadedGUI
             this.LblMyUrl.AutoSize = true;
             this.LblMyUrl.Location = new System.Drawing.Point(157, 69);
             this.LblMyUrl.Name = "LblMyUrl";
-            this.LblMyUrl.Size = new System.Drawing.Size(239, 17);
+            this.LblMyUrl.Size = new System.Drawing.Size(301, 17);
             this.LblMyUrl.TabIndex = 4;
             this.LblMyUrl.TabStop = true;
-            this.LblMyUrl.Text = "https://github.com/p1xel8ted/GraveyardKeeper";
+            this.LblMyUrl.Text = "https://github.com/p1xel8ted/GYK-QModManagerReloaded";
             this.LblMyUrl.UseCompatibleTextRendering = true;
             this.LblMyUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LblMyUrl_LinkClicked);
-            // 
-            // BtnOK
-            // 
-            this.BtnOK.Location = new System.Drawing.Point(456, 108);
-            this.BtnOK.Name = "BtnOK";
-            this.BtnOK.Size = new System.Drawing.Size(41, 23);
-            this.BtnOK.TabIndex = 6;
-            this.BtnOK.Text = "O&K";
-            this.BtnOK.UseCompatibleTextRendering = true;
-            this.BtnOK.UseVisualStyleBackColor = true;
-            this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
             // 
             // TxtVersion
             // 
@@ -115,6 +94,30 @@ namespace QModReloadedGUI
             this.TxtVersion.ReadOnly = true;
             this.TxtVersion.Size = new System.Drawing.Size(239, 20);
             this.TxtVersion.TabIndex = 7;
+            // 
+            // BtnOK
+            // 
+            this.BtnOK.Image = global::QModReloadedGUI.Properties.Resources.heart;
+            this.BtnOK.Location = new System.Drawing.Point(436, 108);
+            this.BtnOK.Name = "BtnOK";
+            this.BtnOK.Size = new System.Drawing.Size(61, 23);
+            this.BtnOK.TabIndex = 6;
+            this.BtnOK.Text = "O&K";
+            this.BtnOK.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnOK.UseCompatibleTextRendering = true;
+            this.BtnOK.UseVisualStyleBackColor = true;
+            this.BtnOK.Click += new System.EventHandler(this.BtnOK_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(-2, -9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // FrmAbout
             // 

@@ -39,3 +39,16 @@ H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\Q
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CopyComplete
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.exe
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.pdb
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.AssemblyReference.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.SuggestedBindingRedirects.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmAbout.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmChecklist.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmMain.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.Properties.Resources.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmResModifier.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.GenerateResource.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.GeneratedMSBuildEditorConfig.editorconfig
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CoreCompileInputs.cache
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CopyComplete
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.exe
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.pdb

@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Windows.Forms;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
@@ -15,11 +15,38 @@ public partial class FrmResModifier : Form
     private static string _gameLocation;
     private static AssemblyDefinition _resAssembly;
     private static ILProcessor _prc;
+    private readonly DataGridView _dgvLog;
 
-    public FrmResModifier(string gameLocation)
+    public FrmResModifier(ref DataGridView dgvLog, string gameLocation)
     {
+        _dgvLog = dgvLog;
         _gameLocation = gameLocation;
         InitializeComponent();
+    }
+
+    private void WriteLog(string message, bool error = false)
+    {
+        var dt = DateTime.Now;
+        var rowIndex = _dgvLog.Rows.Add(dt.ToLongTimeString(), message);
+        var row = _dgvLog.Rows[rowIndex];
+        if (error)
+        {
+            row.DefaultCellStyle.BackColor = Color.LightCoral;
+        }
+
+        string logMessage;
+        if (error)
+        {
+            logMessage = "-----------------------------------------\n";
+            logMessage += dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : [ERROR] : " + message + "\n";
+            logMessage += "-----------------------------------------";
+        }
+        else
+        {
+            logMessage = dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : " + message;
+        }
+        _dgvLog.FirstDisplayedScrollingRowIndex = _dgvLog.RowCount - 1;
+        Utilities.WriteLog(logMessage, _gameLocation);
     }
 
     private void ResModifier_Load(object sender, EventArgs e)
@@ -41,7 +68,7 @@ public partial class FrmResModifier : Form
         }
         catch (Exception ex)
         {
-            Utilities.WriteLog($"Res Modifier (Load): ERROR: {ex.Message}", _gameLocation);
+            WriteLog($"Res Modifier (Initial Load): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
         }
     }
 
@@ -56,11 +83,12 @@ public partial class FrmResModifier : Form
             _prc?.Replace(_prc?.Body.Instructions[22], newWidth);
 
             _resAssembly.Write(Path.Combine(_gameLocation, "Graveyard Keeper_Data\\Managed\\Assembly-CSharp.dll"));
-            Utilities.WriteLog("Res Modifier (Update Resolutions): Successfully patched in new resolution.", _gameLocation);
+            WriteLog($"Res Modifier (Update Resolutions): Successfully patched in {TxtRequestedMaxWidth.Text} x {TxtRequestedMaxHeight.Text}.");
+            MessageBox.Show(@"Successfully patched in new resolution. I think.", @"Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
         {
-            Utilities.WriteLog($"Res Modifier (Update Resolutions): ERROR: {ex.Message}", _gameLocation);
+            WriteLog($"Res Modifier (Update Resolution): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
         }
     }
 
@@ -68,15 +96,20 @@ public partial class FrmResModifier : Form
     {
         try
         {
+            if (TxtMaxHeight.Text.Length <= 0)
+            {
+                WriteLog("Res Modifier (GetCurrentResolutions): Obtained current max resolution.");
+            }
             var currentHeight = Convert.ToInt32(_prc?.Body.Instructions[19].Operand.ToString());
             var currentWidth = Convert.ToInt32(_prc?.Body.Instructions[22].Operand.ToString());
             TxtMaxHeight.Text = currentHeight.ToString();
             TxtMaxWidth.Text = currentWidth.ToString();
-            Utilities.WriteLog("Res Modifier (GetCurrentResolutions): Obtained current max resolution.", _gameLocation);
+           
+         
         }
         catch (Exception ex)
         {
-            Utilities.WriteLog($"Res Modifier (GetCurrentResolutions): ERROR: {ex.Message}", _gameLocation);
+            WriteLog($"Res Modifier (GetCurrentResolutions): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
         }
     }
 
@@ -91,7 +124,7 @@ public partial class FrmResModifier : Form
         }
         else
         {
-            MessageBox.Show(@"Enter integers only.", @"Integers", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(@"Enter integers (whole numbers, no decimals) only.", @"What is that?", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

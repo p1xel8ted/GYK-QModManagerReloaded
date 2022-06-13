@@ -195,6 +195,27 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icon.ico" />
+    <None Include="Resources\heart.ico" />
+    <None Include="Resources\play.ico" />
+    <None Include="Resources\stop.ico" />
+    <None Include="Resources\folder_open1.ico" />
+    <None Include="Resources\folder_files1.ico" />
+    <None Include="Resources\arrow_next.ico" />
+    <None Include="Resources\arrow_top.ico" />
+    <None Include="Resources\login.ico" />
+    <None Include="Resources\arrow_down.ico" />
+    <None Include="Resources\file.ico" />
+    <None Include="Resources\action_check.ico" />
+    <None Include="Resources\application.ico" />
+    <None Include="Resources\save.ico" />
+    <None Include="Resources\folder_files.ico" />
+    <None Include="Resources\folder_open.ico" />
+    <None Include="Resources\comments.ico" />
+    <None Include="Resources\search.ico" />
+    <None Include="Resources\minimize.ico" />
+    <None Include="Resources\maximize.ico" />
+    <None Include="Resources\action_delete.ico" />
+    <None Include="Resources\action_add.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.8">
