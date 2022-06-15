@@ -1,17 +1,18 @@
-﻿using System;
+﻿using QModReloaded;
+using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using QModReloaded;
 
 namespace QModReloadedGUI
 {
     public partial class FrmChecklist : Form
     {
-        private readonly Injector _injector;
         private readonly string _gameLocation;
+        private readonly Injector _injector;
         private readonly string _modLocation;
+
         public FrmChecklist(Injector injector, string gameLocation, string modLocation)
         {
             _injector = injector;
@@ -36,7 +37,7 @@ namespace QModReloadedGUI
             {
                 if (control.GetType() != typeof(CheckBox)) continue;
                 var c = (CheckBox)control;
-                
+
                 if (c.Text.Contains("exe") || c.Text.Contains("dll"))
                 {
                     var found = CheckFileExists(Path.Combine(Application.StartupPath, c.Text));
@@ -86,7 +87,6 @@ namespace QModReloadedGUI
             {
                 LblHarmonyVersion.Visible = false;
             }
-
         }
     }
 }

@@ -5,7 +5,7 @@ namespace QModReloaded;
 
 public static class Logger
 {
-   private const string Log = "qmod_reloaded_log.txt";
+    private const string Log = "qmod_reloaded_log.txt";
 
     public static void WriteLog(string msg, bool error = false)
     {
@@ -22,7 +22,6 @@ public static class Logger
         {
             logMessage = dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : " + msg;
         }
-
 
         using var streamWriter = new StreamWriter(Log, append: true);
         streamWriter.WriteLine(logMessage);

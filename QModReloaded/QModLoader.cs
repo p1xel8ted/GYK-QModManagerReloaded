@@ -1,3 +1,5 @@
+using Mono.Cecil;
+using Mono.Cecil.Cil;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -5,14 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Mono.Cecil;
-using Mono.Cecil.Cil;
 
 namespace QModReloaded;
 
 public class QModLoader
 {
-    private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
         WriteIndented = true,
@@ -20,9 +19,9 @@ public class QModLoader
         UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement
     };
 
+    private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
     public static void Patch()
     {
-
         Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
         Logger.WriteLog("Patch method called. Attempting to load mods.");
 
@@ -69,62 +68,6 @@ public class QModLoader
         }
     }
 
-    private static bool IsModCompatible(string mod)
-    {
-        try
-        {
-            var modAssembly = AssemblyDefinition.ReadAssembly(mod);
-
-            var toInspect = modAssembly.MainModule
-                .GetTypes()
-                .SelectMany(t => t.Methods
-                    .Where(m => m.HasBody)
-                    .Select(m => new { t, m }));
-
-            toInspect = toInspect.Where(x => x.m.Name is "Patch");
-
-            if (toInspect.Any(method => method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
-                    .Any(instruction => instruction.OpCode == OpCodes.Newobj && instruction.Operand.ToString().Contains("HarmonyLib.Harmony"))))
-            {
-                return true;
-            }
-        }
-        catch (Exception ex)
-        {
-            Logger.WriteLog($"GetModEntryPoint(): Error, {ex.Message}",true);
-        }
-
-        return false;
-    }
-
-
-    private static (string namesp, string type, string method, bool found) GetModEntryPoint(string mod)
-    {
-        try
-        {
-            var modAssembly = AssemblyDefinition.ReadAssembly(mod);
-
-            var toInspect = modAssembly.MainModule
-                .GetTypes()
-                .SelectMany(t => t.Methods
-                    .Where(m => m.HasBody)
-                    .Select(m => new { t, m }));
-
-            toInspect = toInspect.Where(x => x.m.Name is "Patch");
-            
-            foreach (var method in toInspect)
-                if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
-                    .Any(instruction => instruction.Operand.ToString().Contains("PatchAll")))
-                    return (method.t.Namespace, method.t.Name, method.m.Name, true);
-        }
-        catch (Exception ex)
-        {
-            Logger.WriteLog($"GetModEntryPoint(): Error, {ex.Message}",true);
-        }
-
-        return (null, null, null, false);
-    }
-
     private static bool CreateJson(string file)
     {
         var sFile = new FileInfo(file);
@@ -149,6 +92,60 @@ public class QModLoader
         return files.Exists;
     }
 
+    private static (string namesp, string type, string method, bool found) GetModEntryPoint(string mod)
+    {
+        try
+        {
+            var modAssembly = AssemblyDefinition.ReadAssembly(mod);
+
+            var toInspect = modAssembly.MainModule
+                .GetTypes()
+                .SelectMany(t => t.Methods
+                    .Where(m => m.HasBody)
+                    .Select(m => new { t, m }));
+
+            toInspect = toInspect.Where(x => x.m.Name is "Patch");
+
+            foreach (var method in toInspect)
+                if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
+                    .Any(instruction => instruction.Operand.ToString().Contains("PatchAll")))
+                    return (method.t.Namespace, method.t.Name, method.m.Name, true);
+        }
+        catch (Exception ex)
+        {
+            Logger.WriteLog($"GetModEntryPoint(): Error, {ex.Message}", true);
+        }
+
+        return (null, null, null, false);
+    }
+
+    private static bool IsModCompatible(string mod)
+    {
+        try
+        {
+            var modAssembly = AssemblyDefinition.ReadAssembly(mod);
+
+            var toInspect = modAssembly.MainModule
+                .GetTypes()
+                .SelectMany(t => t.Methods
+                    .Where(m => m.HasBody)
+                    .Select(m => new { t, m }));
+
+            toInspect = toInspect.Where(x => x.m.Name is "Patch");
+
+            if (toInspect.Any(method => method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
+                    .Any(instruction => instruction.OpCode == OpCodes.Newobj && instruction.Operand.ToString().Contains("HarmonyLib.Harmony"))))
+            {
+                return true;
+            }
+        }
+        catch (Exception ex)
+        {
+            Logger.WriteLog($"GetModEntryPoint(): Error, {ex.Message}", true);
+        }
+
+        return false;
+    }
     private static void LoadMod(QMod mod)
     {
         try
@@ -158,7 +155,7 @@ public class QModLoader
             var m = GetModEntryPoint(mod.ModAssemblyPath);
             if (!IsModCompatible(mod.ModAssemblyPath))
             {
-                Logger.WriteLog($"{mod.Id} is not Harmony2 enabled, and as such, is not compatible.",true);
+                Logger.WriteLog($"{mod.Id} is not Harmony2 enabled, and as such, is not compatible.", true);
                 return;
             }
             var jsonEntry = $"{jsonEntrySplit[0]}.{jsonEntrySplit[1]}.{jsonEntrySplit[2]}";
@@ -181,15 +178,15 @@ public class QModLoader
         }
         catch (TargetInvocationException)
         {
-            Logger.WriteLog($"Invoking the specified EntryMethod {mod.EntryMethod} failed for {mod.Id}. Is the mod Harmony2.0 compatible?",true);
+            Logger.WriteLog($"Invoking the specified EntryMethod {mod.EntryMethod} failed for {mod.Id}. Is the mod Harmony2.0 compatible?", true);
         }
         catch (NullReferenceException nullEx)
         {
-            Logger.WriteLog(nullEx.Message,true);
+            Logger.WriteLog(nullEx.Message, true);
         }
         catch (Exception finalEx)
         {
-            Logger.WriteLog($"LoadMod():{finalEx.Message}, Source: {finalEx.Source}, Trace: {finalEx.StackTrace}",true);
+            Logger.WriteLog($"LoadMod():{finalEx.Message}, Source: {finalEx.Source}, Trace: {finalEx.StackTrace}", true);
         }
     }
 }

@@ -1,20 +1,19 @@
-﻿using System;
+﻿using Mono.Cecil;
+using Mono.Cecil.Cil;
+using System;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Mono.Cecil;
-using Mono.Cecil.Cil;
 using OpCodes = Mono.Cecil.Cil.OpCodes;
-
 
 namespace QModReloadedGUI;
 
 public partial class FrmResModifier : Form
 {
     private static string _gameLocation;
-    private static AssemblyDefinition _resAssembly;
     private static ILProcessor _prc;
+    private static AssemblyDefinition _resAssembly;
     private readonly DataGridView _dgvLog;
 
     public FrmResModifier(ref DataGridView dgvLog, string gameLocation)
@@ -24,33 +23,42 @@ public partial class FrmResModifier : Form
         InitializeComponent();
     }
 
-    private void WriteLog(string message, bool error = false)
+    private void BtnApply_Click(object sender, EventArgs e)
     {
-        var dt = DateTime.Now;
-        var rowIndex = _dgvLog.Rows.Add(dt.ToLongTimeString(), message);
-        var row = _dgvLog.Rows[rowIndex];
-        if (error)
+        var isHeightNumber = int.TryParse(TxtRequestedMaxHeight.Text, out _);
+        var isWidthNumber = int.TryParse(TxtRequestedMaxWidth.Text, out _);
+        if (isHeightNumber && isWidthNumber)
         {
-            row.DefaultCellStyle.BackColor = Color.LightCoral;
-        }
-
-        string logMessage;
-        if (error)
-        {
-            logMessage = "-----------------------------------------\n";
-            logMessage += dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : [ERROR] : " + message + "\n";
-            logMessage += "-----------------------------------------";
+            UpdateResolutions();
+            GetCurrentResolutions();
         }
         else
         {
-            logMessage = dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : " + message;
+            MessageBox.Show(@"Enter integers (whole numbers, no decimals) only.", @"What is that?", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-        _dgvLog.FirstDisplayedScrollingRowIndex = _dgvLog.RowCount - 1;
-        Utilities.WriteLog(logMessage, _gameLocation);
+    }
+
+    private void GetCurrentResolutions()
+    {
+        try
+        {
+            if (TxtMaxHeight.Text.Length <= 0)
+            {
+                WriteLog("Res Modifier (GetCurrentResolutions): Obtained current max resolution.");
+            }
+            var currentHeight = Convert.ToInt32(_prc?.Body.Instructions[19].Operand.ToString());
+            var currentWidth = Convert.ToInt32(_prc?.Body.Instructions[22].Operand.ToString());
+            TxtMaxHeight.Text = currentHeight.ToString();
+            TxtMaxWidth.Text = currentWidth.ToString();
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"Res Modifier (GetCurrentResolutions): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
+        }
     }
 
     private void ResModifier_Load(object sender, EventArgs e)
-    { 
+    {
         try
         {
             _resAssembly = AssemblyDefinition.ReadAssembly(Path.Combine(_gameLocation,
@@ -92,39 +100,28 @@ public partial class FrmResModifier : Form
         }
     }
 
-    private void GetCurrentResolutions()
+    private void WriteLog(string message, bool error = false)
     {
-        try
+        var dt = DateTime.Now;
+        var rowIndex = _dgvLog.Rows.Add(dt.ToLongTimeString(), message);
+        var row = _dgvLog.Rows[rowIndex];
+        if (error)
         {
-            if (TxtMaxHeight.Text.Length <= 0)
-            {
-                WriteLog("Res Modifier (GetCurrentResolutions): Obtained current max resolution.");
-            }
-            var currentHeight = Convert.ToInt32(_prc?.Body.Instructions[19].Operand.ToString());
-            var currentWidth = Convert.ToInt32(_prc?.Body.Instructions[22].Operand.ToString());
-            TxtMaxHeight.Text = currentHeight.ToString();
-            TxtMaxWidth.Text = currentWidth.ToString();
-           
-         
+            row.DefaultCellStyle.BackColor = Color.LightCoral;
         }
-        catch (Exception ex)
-        {
-            WriteLog($"Res Modifier (GetCurrentResolutions): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
-        }
-    }
 
-    private void BtnApply_Click(object sender, EventArgs e)
-    {
-        var isHeightNumber = int.TryParse(TxtRequestedMaxHeight.Text, out _);
-        var isWidthNumber = int.TryParse(TxtRequestedMaxWidth.Text, out _);
-        if (isHeightNumber && isWidthNumber)
+        string logMessage;
+        if (error)
         {
-            UpdateResolutions();
-            GetCurrentResolutions();
+            logMessage = "-----------------------------------------\n";
+            logMessage += dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : [ERROR] : " + message + "\n";
+            logMessage += "-----------------------------------------";
         }
         else
         {
-            MessageBox.Show(@"Enter integers (whole numbers, no decimals) only.", @"What is that?", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            logMessage = dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : " + message;
         }
+        _dgvLog.FirstDisplayedScrollingRowIndex = _dgvLog.RowCount - 1;
+        Utilities.WriteLog(logMessage, _gameLocation);
     }
 }
