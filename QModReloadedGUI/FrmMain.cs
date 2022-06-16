@@ -91,7 +91,7 @@ public partial class FrmMain : Form
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-            toInspect = toInspect.Where(x => x.m.Name == "Patch");
+           // toInspect = toInspect.Where(x => x.m.Name == "Patch");
 
             foreach (var method in toInspect)
                 if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
@@ -624,14 +624,15 @@ public partial class FrmMain : Form
 
             if (modFound == null) return;
             TxtModInfo.Clear();
-            TxtModInfo.Text += @"ID: " + modFound.Id + Environment.NewLine;
-            TxtModInfo.Text += @"Name: " + modFound.DisplayName + Environment.NewLine;
-            TxtModInfo.Text += @"Author: " + modFound.Author + Environment.NewLine;
-            TxtModInfo.Text += @"Version: " + modFound.Version + Environment.NewLine;
-            TxtModInfo.Text += @"Enabled: " + modFound.Enable + Environment.NewLine;
-            TxtModInfo.Text += @"DLL Name: " + modFound.AssemblyName + Environment.NewLine;
-            TxtModInfo.Text += @"Entry Method: " + modFound.EntryMethod + Environment.NewLine;
-            TxtModInfo.Text += @"Mod Path: " + modFound.ModAssemblyPath + Environment.NewLine;
+            //TxtModInfo.Text += @"ID: " + modFound.Id + Environment.NewLine;
+            TxtModInfo.Text += @"Name: " + modFound.DisplayName + Environment.NewLine + Environment.NewLine;
+            TxtModInfo.Text += @"Description: " + modFound.Description + Environment.NewLine + Environment.NewLine;
+            TxtModInfo.Text += @"Author: " + modFound.Author + Environment.NewLine + Environment.NewLine;
+            TxtModInfo.Text += @"Version: " + modFound.Version + Environment.NewLine + Environment.NewLine;
+            TxtModInfo.Text += @"Enabled: " + modFound.Enable + Environment.NewLine + Environment.NewLine;
+            //TxtModInfo.Text += @"DLL Name: " + modFound.AssemblyName + Environment.NewLine;
+            //TxtModInfo.Text += @"Entry Method: " + modFound.EntryMethod + Environment.NewLine;
+            //TxtModInfo.Text += @"Mod Path: " + modFound.ModAssemblyPath + Environment.NewLine;
             string path = null;
             var files = Directory.GetFiles(modFound.ModAssemblyPath, "*", SearchOption.AllDirectories);
             string[] configs = { ".ini", ".json", ".txt", ".cfg" };
@@ -684,7 +685,7 @@ public partial class FrmMain : Form
         DgvMods.Sort(DgvMods.Columns[0], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         DgvMods.AllowUserToResizeRows = false;
-        UpdateModJsons();
+        
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
@@ -820,6 +821,7 @@ public partial class FrmMain : Form
             DgvMods.Sort(DgvMods.Columns[0], ListSortDirection.Ascending);
             WriteLog(
                 "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
+            UpdateModJsons();
         }
         catch (Exception ex)
         {
@@ -952,6 +954,7 @@ public partial class FrmMain : Form
             var modInfo = FileVersionInfo.GetVersionInfo(path);
             mod.Author = modInfo.CompanyName;
             mod.DisplayName = modInfo.ProductName;
+            mod.Description = modInfo.FileDescription;
             mod.Version = modInfo.ProductVersion;
             mod.EntryMethod = $"{entryPoint.namesp}.{entryPoint.type}.{entryPoint.method}";
             var newJson = JsonSerializer.Serialize(mod, JsonOptions);

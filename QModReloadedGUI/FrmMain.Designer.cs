@@ -37,9 +37,6 @@ namespace QModReloadedGUI
             this.TxtModFolderLocation = new System.Windows.Forms.TextBox();
             this.LblGameLocation = new System.Windows.Forms.Label();
             this.LblModFolderLocation = new System.Windows.Forms.Label();
-            this.LblInstalledMods = new System.Windows.Forms.Label();
-            this.LblModInfo = new System.Windows.Forms.Label();
-            this.TxtModInfo = new System.Windows.Forms.TextBox();
             this.ToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.DgvMods = new System.Windows.Forms.DataGridView();
             this.ChOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -67,6 +64,9 @@ namespace QModReloadedGUI
             this.LblIntroPatched = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openSaveDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openUnityLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.checklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyResolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -91,9 +91,9 @@ namespace QModReloadedGUI
             this.ChTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LblErrors = new System.Windows.Forms.Label();
-            this.openUnityLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
-            this.openSaveDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LblInstalledMods = new System.Windows.Forms.Label();
+            this.LblModInfo = new System.Windows.Forms.Label();
+            this.TxtModInfo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
             this.ToolStrip.SuspendLayout();
@@ -139,39 +139,6 @@ namespace QModReloadedGUI
             this.LblModFolderLocation.TabIndex = 4;
             this.LblModFolderLocation.Text = "Mod Folder Location";
             this.LblModFolderLocation.UseCompatibleTextRendering = true;
-            // 
-            // LblInstalledMods
-            // 
-            this.LblInstalledMods.AutoSize = true;
-            this.LblInstalledMods.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblInstalledMods.Location = new System.Drawing.Point(12, 120);
-            this.LblInstalledMods.Name = "LblInstalledMods";
-            this.LblInstalledMods.Size = new System.Drawing.Size(77, 17);
-            this.LblInstalledMods.TabIndex = 5;
-            this.LblInstalledMods.Text = "Installed Mods";
-            this.LblInstalledMods.UseCompatibleTextRendering = true;
-            // 
-            // LblModInfo
-            // 
-            this.LblModInfo.AutoSize = true;
-            this.LblModInfo.Location = new System.Drawing.Point(382, 120);
-            this.LblModInfo.Name = "LblModInfo";
-            this.LblModInfo.Size = new System.Drawing.Size(48, 17);
-            this.LblModInfo.TabIndex = 9;
-            this.LblModInfo.Text = "Mod Info";
-            this.LblModInfo.UseCompatibleTextRendering = true;
-            // 
-            // TxtModInfo
-            // 
-            this.TxtModInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.TxtModInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TxtModInfo.Location = new System.Drawing.Point(384, 140);
-            this.TxtModInfo.Multiline = true;
-            this.TxtModInfo.Name = "TxtModInfo";
-            this.TxtModInfo.ReadOnly = true;
-            this.TxtModInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TxtModInfo.Size = new System.Drawing.Size(346, 180);
-            this.TxtModInfo.TabIndex = 11;
             // 
             // DgvMods
             // 
@@ -486,11 +453,32 @@ namespace QModReloadedGUI
             this.fileToolStripMenuItem1.Size = new System.Drawing.Size(53, 20);
             this.fileToolStripMenuItem1.Text = "F&ile";
             // 
+            // openSaveDirectoryToolStripMenuItem
+            // 
+            this.openSaveDirectoryToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.folder_files;
+            this.openSaveDirectoryToolStripMenuItem.Name = "openSaveDirectoryToolStripMenuItem";
+            this.openSaveDirectoryToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openSaveDirectoryToolStripMenuItem.Text = "Open &Save Directory";
+            this.openSaveDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openSaveDirectoryToolStripMenuItem_Click);
+            // 
+            // openUnityLogToolStripMenuItem
+            // 
+            this.openUnityLogToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.comments;
+            this.openUnityLogToolStripMenuItem.Name = "openUnityLogToolStripMenuItem";
+            this.openUnityLogToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openUnityLogToolStripMenuItem.Text = "&Open Unity Log";
+            this.openUnityLogToolStripMenuItem.Click += new System.EventHandler(this.openUnityLogToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(178, 6);
+            // 
             // exitToolStripMenuItem1
             // 
             this.exitToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.stop;
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(181, 22);
             this.exitToolStripMenuItem1.Text = "E&xit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
             // 
@@ -714,26 +702,38 @@ namespace QModReloadedGUI
             this.LblErrors.TabIndex = 40;
             this.LblErrors.Text = "Cant See Me";
             // 
-            // openUnityLogToolStripMenuItem
+            // LblInstalledMods
             // 
-            this.openUnityLogToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.comments;
-            this.openUnityLogToolStripMenuItem.Name = "openUnityLogToolStripMenuItem";
-            this.openUnityLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.openUnityLogToolStripMenuItem.Text = "&Open Unity Log";
-            this.openUnityLogToolStripMenuItem.Click += new System.EventHandler(this.openUnityLogToolStripMenuItem_Click);
+            this.LblInstalledMods.AutoSize = true;
+            this.LblInstalledMods.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblInstalledMods.Location = new System.Drawing.Point(12, 120);
+            this.LblInstalledMods.Name = "LblInstalledMods";
+            this.LblInstalledMods.Size = new System.Drawing.Size(77, 17);
+            this.LblInstalledMods.TabIndex = 5;
+            this.LblInstalledMods.Text = "Installed Mods";
+            this.LblInstalledMods.UseCompatibleTextRendering = true;
             // 
-            // toolStripMenuItem3
+            // LblModInfo
             // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.LblModInfo.AutoSize = true;
+            this.LblModInfo.Location = new System.Drawing.Point(382, 120);
+            this.LblModInfo.Name = "LblModInfo";
+            this.LblModInfo.Size = new System.Drawing.Size(48, 17);
+            this.LblModInfo.TabIndex = 9;
+            this.LblModInfo.Text = "Mod Info";
+            this.LblModInfo.UseCompatibleTextRendering = true;
             // 
-            // openSaveDirectoryToolStripMenuItem
+            // TxtModInfo
             // 
-            this.openSaveDirectoryToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.folder_files;
-            this.openSaveDirectoryToolStripMenuItem.Name = "openSaveDirectoryToolStripMenuItem";
-            this.openSaveDirectoryToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.openSaveDirectoryToolStripMenuItem.Text = "Open &Save Directory";
-            this.openSaveDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openSaveDirectoryToolStripMenuItem_Click);
+            this.TxtModInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TxtModInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TxtModInfo.Location = new System.Drawing.Point(384, 140);
+            this.TxtModInfo.Multiline = true;
+            this.TxtModInfo.Name = "TxtModInfo";
+            this.TxtModInfo.ReadOnly = true;
+            this.TxtModInfo.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.TxtModInfo.Size = new System.Drawing.Size(346, 180);
+            this.TxtModInfo.TabIndex = 11;
             // 
             // FrmMain
             // 
@@ -797,10 +797,7 @@ namespace QModReloadedGUI
         private TextBox TxtModFolderLocation;
         private Label LblGameLocation;
         private Label LblModFolderLocation;
-        private Label LblInstalledMods;
         private Button BtnPatch;
-        private Label LblModInfo;
-        private TextBox TxtModInfo;
         private Button BtnAddMod;
         private Button BtnRemove;
         private PictureBox BtnRunGame;
@@ -854,6 +851,9 @@ namespace QModReloadedGUI
         private ToolStripMenuItem openUnityLogToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem3;
         private ToolStripMenuItem openSaveDirectoryToolStripMenuItem;
+        private Label LblInstalledMods;
+        private Label LblModInfo;
+        private TextBox TxtModInfo;
     }
 }
 

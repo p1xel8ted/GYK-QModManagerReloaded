@@ -10,6 +10,7 @@ public class QMod
     public string AssemblyName { get; set; }
     public string Author { get; set; }
     public string DisplayName { get; set; }
+    public string Description { get; set; }
     public bool Enable { get; set; }
     public string EntryMethod { get; set; }
     public string Id { get; set; }
