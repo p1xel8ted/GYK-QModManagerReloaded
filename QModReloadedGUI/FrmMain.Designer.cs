@@ -91,6 +91,9 @@ namespace QModReloadedGUI
             this.ChTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.LblErrors = new System.Windows.Forms.Label();
+            this.openUnityLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.openSaveDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
             this.ToolStrip.SuspendLayout();
@@ -474,6 +477,9 @@ namespace QModReloadedGUI
             // fileToolStripMenuItem1
             // 
             this.fileToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openSaveDirectoryToolStripMenuItem,
+            this.openUnityLogToolStripMenuItem,
+            this.toolStripMenuItem3,
             this.exitToolStripMenuItem1});
             this.fileToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.arrow_down;
             this.fileToolStripMenuItem1.Name = "fileToolStripMenuItem1";
@@ -484,7 +490,7 @@ namespace QModReloadedGUI
             // 
             this.exitToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.stop;
             this.exitToolStripMenuItem1.Name = "exitToolStripMenuItem1";
-            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(93, 22);
+            this.exitToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem1.Text = "E&xit";
             this.exitToolStripMenuItem1.Click += new System.EventHandler(this.ExitToolStripMenuItem1_Click);
             // 
@@ -708,6 +714,27 @@ namespace QModReloadedGUI
             this.LblErrors.TabIndex = 40;
             this.LblErrors.Text = "Cant See Me";
             // 
+            // openUnityLogToolStripMenuItem
+            // 
+            this.openUnityLogToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.comments;
+            this.openUnityLogToolStripMenuItem.Name = "openUnityLogToolStripMenuItem";
+            this.openUnityLogToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openUnityLogToolStripMenuItem.Text = "&Open Unity Log";
+            this.openUnityLogToolStripMenuItem.Click += new System.EventHandler(this.openUnityLogToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            // 
+            // openSaveDirectoryToolStripMenuItem
+            // 
+            this.openSaveDirectoryToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.folder_files;
+            this.openSaveDirectoryToolStripMenuItem.Name = "openSaveDirectoryToolStripMenuItem";
+            this.openSaveDirectoryToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.openSaveDirectoryToolStripMenuItem.Text = "Open &Save Directory";
+            this.openSaveDirectoryToolStripMenuItem.Click += new System.EventHandler(this.openSaveDirectoryToolStripMenuItem_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -824,6 +851,9 @@ namespace QModReloadedGUI
         private DataGridViewTextBoxColumn ChMod;
         private DataGridViewCheckBoxColumn ChEnabled;
         private DataGridViewTextBoxColumn ChID;
+        private ToolStripMenuItem openUnityLogToolStripMenuItem;
+        private ToolStripSeparator toolStripMenuItem3;
+        private ToolStripMenuItem openSaveDirectoryToolStripMenuItem;
     }
 }
 
