@@ -9,9 +9,12 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 namespace QModReloadedGUI;
 
@@ -56,16 +59,18 @@ public partial class FrmMain : Form
         var fileNameWithoutExt = sFile.Name.Substring(0, sFile.Name.Length - 4);
         var fileNameWithExt = sFile.Name;
         var (namesp, type, method, found) = GetModEntryPoint(file);
+        var modInfo = FileVersionInfo.GetVersionInfo(file);
+
         var newMod = new QMod
         {
-            DisplayName = fileNameWithoutExt,
+            DisplayName = modInfo.ProductName,
             Enable = true,
             ModAssemblyPath = path,
             AssemblyName = fileNameWithExt,
-            Author = "?",
+            Author = modInfo.CompanyName,
             Id = fileNameWithoutExt,
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"{fileNameWithoutExt}.MainPatcher.Patch",
-            Version = "?",
+            Version = modInfo.FileVersion
         };
         var newJson = JsonSerializer.Serialize(newMod, JsonOptions);
         if (path == null) return false;
@@ -92,6 +97,7 @@ public partial class FrmMain : Form
                 if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
                     .Any(instruction => instruction.Operand.ToString().Contains("PatchAll")))
                 {
+                    Logger.WriteLog($"{method.t.Namespace}.{method.t.Name}.{method.m.Name}");
                     return (method.t.Namespace, method.t.Name, method.m.Name, true);
                 }
         }
@@ -678,6 +684,7 @@ public partial class FrmMain : Form
         DgvMods.Sort(DgvMods.Columns[0], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         DgvMods.AllowUserToResizeRows = false;
+        UpdateModJsons();
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
@@ -768,7 +775,6 @@ public partial class FrmMain : Form
                 else
                 {
                     var mod = QMod.FromJsonFile(Path.Combine(path, jsonFile));
-
                     if (mod == null)
                     {
                         WriteLog($"{dllFileName} didn't have a valid json.", true);
@@ -776,6 +782,7 @@ public partial class FrmMain : Form
                     else
                     {
                         mod.ModAssemblyPath = path;
+                        
                         if (!string.IsNullOrEmpty(mod.EntryMethod))
                         {
                             if (mod.LoadOrder <= 0)
@@ -933,6 +940,23 @@ public partial class FrmMain : Form
         if (new DirectoryInfo(_modLocation).Exists) return;
         Directory.CreateDirectory(_modLocation);
         WriteLog("INFO: QMods directory created.");
+    }
+
+    private void UpdateModJsons()
+    {
+        WriteLog("Updating mod.json files for all installed mods. Information is pulled from the mods directly.", false);
+        foreach (var mod in _modList)
+        {
+            var path = Path.Combine(mod.ModAssemblyPath, mod.AssemblyName);
+            var entryPoint = GetModEntryPoint(path);
+            var modInfo = FileVersionInfo.GetVersionInfo(path);
+            mod.Author = modInfo.CompanyName;
+            mod.DisplayName = modInfo.ProductName;
+            mod.Version = modInfo.ProductVersion;
+            mod.EntryMethod = $"{entryPoint.namesp}.{entryPoint.type}.{entryPoint.method}";
+            var newJson = JsonSerializer.Serialize(mod, JsonOptions);
+            File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), newJson);
+        }
     }
 
     private void ToggleModEnabled(bool enabled, int row)
