@@ -1131,7 +1131,7 @@ public partial class FrmMain : Form
     {
         if (DgvMods.CurrentRow == null) return;
         var mod = FindMod(DgvMods.CurrentRow.Cells[7].Value.ToString());
-        var (exists, file) = GetModConfigIfItExists(mod.ModAssemblyPath);
+        var (exists, _) = GetModConfigIfItExists(mod.ModAssemblyPath);
         openConfigToolStripMenuItem.Enabled = exists;
         openConfigToolStripMenuItem.Visible = exists;
         ModMenuName.Text = mod.DisplayName;

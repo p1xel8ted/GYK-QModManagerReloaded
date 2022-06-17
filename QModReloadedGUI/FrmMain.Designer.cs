@@ -274,7 +274,7 @@ namespace QModReloadedGUI
             this.openConfigToolStripMenuItem,
             this.removeModToolStripMenuItem});
             this.modListCtxMenu.Name = "modListCtxMenu";
-            this.modListCtxMenu.Size = new System.Drawing.Size(181, 98);
+            this.modListCtxMenu.Size = new System.Drawing.Size(146, 76);
             this.modListCtxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ModListCtxMenu_Opening);
             // 
             // openConfigToolStripMenuItem
