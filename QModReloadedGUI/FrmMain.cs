@@ -9,19 +9,15 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
-using static System.Net.WebRequestMethods;
 using File = System.IO.File;
 
 namespace QModReloadedGUI;
 
 public partial class FrmMain : Form
 {
-    private const string CleanMd5 = "b75466bdcc44f5f098d4b22dc047b175";
-
     private static readonly string[] CleanMd5Hashes = {
         "e5c55499ebbf010e341f0f56e12f6c74", "b75466bdcc44f5f098d4b22dc047b175"
     };
