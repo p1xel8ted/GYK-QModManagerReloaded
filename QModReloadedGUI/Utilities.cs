@@ -6,7 +6,6 @@ namespace QModReloadedGUI
 {
     internal static class Utilities
     {
-
         public static string CalculateMd5(string file)
         {
             using var md5 = MD5.Create();
