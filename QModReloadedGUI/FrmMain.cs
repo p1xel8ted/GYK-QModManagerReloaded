@@ -595,6 +595,7 @@ public partial class FrmMain : Form
     private void DgvMods_MouseDoubleClick(object sender, MouseEventArgs e)
     {
         if (DgvMods.HitTest(e.X, e.Y).ColumnIndex is 0 or 6) return;
+        if (e.Button != MouseButtons.Left) return;
         if (DgvMods.SelectedRows.Count > 1)
         {
             return;
@@ -1083,5 +1084,57 @@ public partial class FrmMain : Form
         cell.LinkColor = Color.DarkBlue;
         cell.VisitedLinkColor = Color.DarkBlue;
         cell.ActiveLinkColor = Color.DarkBlue;
+    }
+
+    private void DgvMods_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+    {
+        if (e.Button != MouseButtons.Right) return;
+        try
+        {
+            DgvMods.CurrentCell = DgvMods.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            DgvMods.Rows[e.RowIndex].Selected = true;
+            DgvMods.Focus();
+        }
+        catch (Exception)
+        {
+            // ignored
+        }
+    }
+
+    private void RemoveModToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        BtnRemove_Click(sender, e);
+    }
+
+    private void OpenConfigToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        if (DgvMods.CurrentRow == null) return;
+        var rowIndex = DgvMods.CurrentRow.Index;
+        var foundMod = _modList.FirstOrDefault(x => x.Id == DgvMods[7, rowIndex].Value.ToString());
+
+        if (foundMod == null || foundMod.Config == string.Empty) return;
+        try
+        {
+            WriteLog($"Opening {foundMod.Config} for {foundMod.DisplayName}");
+
+            _frmConfigEdit ??= new FrmConfigEdit(ref foundMod, ref DgvLog, _gameLocation.location);
+            _frmConfigEdit.ShowDialog();
+            _frmConfigEdit = null;
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"Issue opening {foundMod.Config} for {foundMod.DisplayName}. Exception: {ex.Message}");
+        }
+    }
+
+    private void ModListCtxMenu_Opening(object sender, CancelEventArgs e)
+    {
+        if (DgvMods.CurrentRow == null) return;
+        var mod = FindMod(DgvMods.CurrentRow.Cells[7].Value.ToString());
+        var (exists, file) = GetModConfigIfItExists(mod.ModAssemblyPath);
+        openConfigToolStripMenuItem.Enabled = exists;
+        openConfigToolStripMenuItem.Visible = exists;
+        ModMenuName.Text = mod.DisplayName;
+        ModMenuName.Enabled = false;
     }
 }
