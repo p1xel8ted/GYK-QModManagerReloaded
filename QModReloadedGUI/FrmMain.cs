@@ -651,7 +651,9 @@ public partial class FrmMain : Form
     private void FrmMain_Load(object sender, EventArgs e)
     {
         SetLocations();
-
+        LoadMods();
+        UpdateModJsons();
+        LoadMods();
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
@@ -679,9 +681,9 @@ public partial class FrmMain : Form
 
     private void LoadMods()
     {
-        //try
-        //{
-        LblErrors.Text = string.Empty;
+        try
+        {
+            LblErrors.Text = string.Empty;
         _modList.Clear();
         DgvMods.Rows.Clear();
         if (!_gameLocation.found) return;
@@ -798,11 +800,11 @@ public partial class FrmMain : Form
         WriteLog(
             "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
         UpdateModJsons();
-        // }
-        //catch (Exception ex)
-        //{
-        //    WriteLog($"LoadMods() ERROR: {ex.Message}", true);
-        //}
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"LoadMods() ERROR: {ex.Message}", true);
+        }
 
         CheckQueueEverything();
         CheckAllModsActive();
@@ -926,7 +928,6 @@ public partial class FrmMain : Form
             TxtModFolderLocation.Text = _modLocation;
             Properties.Settings.Default.GamePath = _gameLocation.location;
             Properties.Settings.Default.Save();
-            LoadMods();
         }
         else
         {
