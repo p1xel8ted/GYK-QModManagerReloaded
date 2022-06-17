@@ -1,18 +1,21 @@
 ---
 name: Bug report
 about: Please fill to the best of your ability. Can never have too much info.
-title: "[BUG] Issue with mod/tool"
+title: "[BUG] <detailed, but to the point issue description>"
 labels: bug
 assignees: p1xel8ted
 
 ---
 
-**If the bug report is about QMod Manager Reloaded, a screenshot of the "Checklist" page must be attached. Any without will be ignored.**
+**Requirements**
+- A screenshot of the "Checklist" page must be attached. Any without will be ignored.
 
-**Please include a screenshot of QMod Manager Reloaded so that I can see what mods you have installed and their load order.**
+**Required Logs**
+Please delete both logs and test the game again so it generates fresh logs with only relevant entries.
+- C:\Users\<username>\AppData\LocalLow\Lazy Bear Games\Graveyard Keeper\Player.log
+- ...\Graveyard Keeper\qmod_reloaded_log.txt
 
-**What mod/tool are you reporting a bug for?**
-- Mod/tool
+**What version are you reporting a bug for?**
 - Version
 
 **Describe the bug**
