@@ -57,11 +57,11 @@ namespace YourNameSpace
 Ensure you're making use of AssemblyInfo in its entirety and QMod Manager Reloaded will generate a proper mod.json file for you. Even if you write one yourself, the information will overwritten with what it finds inside the DLL.
 ```c#
 //json Id = the dll filename
-[assembly: AssemblyTitle("Misc. Bits & Bobs")]
+[assembly: AssemblyTitle("Misc. tweaks that didn't really fit in any of my other mods.")] //json Description - i don't know why Assembly.Description points to Title
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("p1xel8ted")] //json Author
-[assembly: AssemblyProduct("Misc. Bits & Bobs")] //json DisplayName
+[assembly: AssemblyCompany("p1xel8ted")] //json author
+[assembly: AssemblyProduct("Misc. Bits & Bobs")] //json display name
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -76,6 +76,7 @@ The output of above, looks like:
   "Id": "MiscBitsAndBobs",
   "DisplayName": "Misc. Bits & Bobs",
   "Author": "p1xel8ted",
+  "Description": "Misc. tweaks that didn't really fit in any of my other mods.",
   "Version": "1.3",
   "Enable": true,
   "AssemblyName": "MiscBitsAndBobs.dll",
