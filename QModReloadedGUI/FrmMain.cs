@@ -290,6 +290,12 @@ public partial class FrmMain : Form
 
     private void BtnRefresh_Click(object sender, EventArgs e)
     {
+        if (_modList.Count <= 0)
+        {
+            MessageBox.Show("No mods installed to refresh!", "Umm", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            return;
+        }
+        UpdateModJsons();
         LoadMods();
     }
 
@@ -654,6 +660,7 @@ public partial class FrmMain : Form
         LoadMods();
         UpdateModJsons();
         LoadMods();
+        BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
@@ -805,6 +812,8 @@ public partial class FrmMain : Form
         {
             WriteLog($"LoadMods() ERROR: {ex.Message}", true);
         }
+
+        BtnRefresh.Enabled = _modList.Count > 0;
 
         CheckQueueEverything();
         CheckAllModsActive();
