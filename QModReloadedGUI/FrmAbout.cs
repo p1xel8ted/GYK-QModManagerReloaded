@@ -17,16 +17,6 @@ namespace QModReloadedGUI
             Close();
         }
 
-        private void LblMyUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(LblMyUrl.Text);
-        }
-
-        private void LblCreditsUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            Process.Start(LblCreditsUrl.Text);
-        }
-
         private void FrmAbout_Load(object sender, EventArgs e)
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
@@ -34,6 +24,16 @@ namespace QModReloadedGUI
                 .AddDays(version.Build).AddSeconds(version.Revision * 2);
             var displayableVersion = $"{version} ({buildDate})";
             TxtVersion.Text = displayableVersion;
+        }
+
+        private void LblCreditsUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(LblCreditsUrl.Text);
+        }
+
+        private void LblMyUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start(LblMyUrl.Text);
         }
     }
 }

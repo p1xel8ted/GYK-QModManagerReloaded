@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
@@ -32,10 +33,10 @@ public partial class FrmMain : Form
 
     private static string _path = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\"));
     private readonly List<QMod> _modList = new();
-    private string _currentlySelectedModConfigLocation;
     private Rectangle _dragBoxFromMouseDown;
     private FrmAbout _frmAbout;
     private FrmChecklist _frmChecklist;
+    private FrmConfigEdit _frmConfigEdit;
     private FrmResModifier _frmResModifier;
     private (string location, bool found) _gameLocation;
     private Injector _injector;
@@ -56,7 +57,12 @@ public partial class FrmMain : Form
         var fileNameWithExt = sFile.Name;
         var (namesp, type, method, found) = GetModEntryPoint(file);
         var modInfo = FileVersionInfo.GetVersionInfo(file);
-
+        var configInfo = GetModConfigIfItExists(file);
+        var config = string.Empty;
+        if (configInfo.exists)
+        {
+            config = Path.GetFileName(configInfo.file);
+        }
         var newMod = new QMod
         {
             DisplayName = modInfo.ProductName,
@@ -64,6 +70,7 @@ public partial class FrmMain : Form
             ModAssemblyPath = path,
             AssemblyName = fileNameWithExt,
             Author = modInfo.CompanyName,
+            Config = config,
             Id = fileNameWithoutExt,
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"{fileNameWithoutExt}.MainPatcher.Patch",
             Version = modInfo.FileVersion
@@ -73,6 +80,26 @@ public partial class FrmMain : Form
         File.WriteAllText(Path.Combine(path, "mod.json"), newJson);
         var files = new FileInfo(Path.Combine(path, "mod.json"));
         return files.Exists;
+    }
+
+    private static (bool exists, string file) GetModConfigIfItExists(string modFilePath)
+    {
+        string path = null;
+        var files = Directory.GetFiles(modFilePath, "*", SearchOption.AllDirectories);
+        string[] configs = { ".ini", ".json", ".txt", ".cfg" };
+        foreach (var file in files)
+        {
+            if (file.EndsWith("mod.json")) continue;
+            if (!file.Contains("config")) continue;
+            if (configs.Contains(new FileInfo(file).Extension))
+            {
+                path = file;
+            }
+        }
+
+        if (path == null) return (false, null);
+        Console.WriteLine($@"Found config: {path}");
+        return !File.Exists(path) ? (false, null) : (true, path);
     }
 
     private static (string namesp, string type, string method, bool found) GetModEntryPoint(string mod)
@@ -87,7 +114,7 @@ public partial class FrmMain : Form
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-           // toInspect = toInspect.Where(x => x.m.Name == "Patch");
+            // toInspect = toInspect.Where(x => x.m.Name == "Patch");
 
             foreach (var method in toInspect)
                 if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
@@ -127,7 +154,7 @@ public partial class FrmMain : Form
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-            toInspect = toInspect.Where(x => x.m.Name is "Patch");
+            //toInspect = toInspect.Where(x => x.m.Name is "Patch");
 
             if (toInspect.Any(method => method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
                     .Any(instruction => instruction.OpCode == OpCodes.Newobj && instruction.Operand.ToString().Contains("HarmonyLib.Harmony"))))
@@ -177,8 +204,9 @@ public partial class FrmMain : Form
 
             return true;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            WriteLog($"ZIP Module: {ex.Message}", true);
             return false;
         }
     }
@@ -271,8 +299,8 @@ public partial class FrmMain : Form
         if (result != DialogResult.Yes) return;
         foreach (DataGridViewRow rows in DgvMods.SelectedRows)
         {
-            var modId = rows.Cells[3].Value.ToString();
-            var mod = _modList.FirstOrDefault(mod => mod.Id == modId);
+            var modId = rows.Cells[7].Value.ToString();
+            var mod = FindMod(modId);
             if (mod == null) return;
             Directory.Delete(mod.ModAssemblyPath, true);
             _modList.Remove(mod);
@@ -443,9 +471,9 @@ public partial class FrmMain : Form
 
     private void CheckQueueEverything()
     {
-        var foundQueueEverything = _modList.Find(x => x.Id == "QueueEverything");
-        var foundExhaustless = _modList.Find(x => x.Id == "Exhaust-less");
-        var foundFasterCraft = _modList.Find(x => x.Id == "FasterCraft");
+        var foundQueueEverything = FindMod("QueueEverything");
+        var foundExhaustless = FindMod("Exhaust-less");
+        var foundFasterCraft = FindMod("FasterCraft");
         var showOrderMessage = false;
         if (foundQueueEverything != null)
         {
@@ -486,39 +514,52 @@ public partial class FrmMain : Form
         {
             if (ChkToggleMods.Checked)
             {
-                row.Cells[2].Value = 1;
+                row.Cells[0].Value = 1;
                 ToggleModEnabled(true, row.Index);
             }
             else
             {
-                row.Cells[2].Value = 0;
+                row.Cells[0].Value = 0;
                 ToggleModEnabled(false, row.Index);
             }
         }
     }
 
-    private void DgvMods_CellClick(object sender, DataGridViewCellEventArgs e)
-    {
-        DgvModsClick();
-    }
-
     private void DgvMods_CellContentClick(object sender, DataGridViewCellEventArgs e)
     {
-        if (e.ColumnIndex != 2) return;
-        if (DgvMods.CurrentRow == null) return;
-        if (e.RowIndex != DgvMods.CurrentRow.Index) return;
-        if (DgvMods.CurrentRow.Cells[2].Value.Equals(0))
+        if (e.ColumnIndex == 0)
         {
-            ToggleModEnabled(true, DgvMods.CurrentRow.Index);
-            DgvMods.CurrentRow.Cells[2].Value = 1;
-        }
-        else
-        {
-            ToggleModEnabled(false, DgvMods.CurrentRow.Index);
-            DgvMods.CurrentRow.Cells[2].Value = 0;
+            if (e.RowIndex <= 0) return;
+            if (DgvMods[e.ColumnIndex, e.RowIndex].Value.Equals(0))
+            {
+                DgvMods[e.ColumnIndex, e.RowIndex].Value = 1;
+                ToggleModEnabled(true, e.RowIndex);
+            }
+            else
+            {
+                DgvMods[e.ColumnIndex, e.RowIndex].Value = 0;
+                ToggleModEnabled(false, e.RowIndex);
+            }
         }
 
-        DgvModsClick();
+        if (e.ColumnIndex == 6)
+        {
+            var foundMod = _modList.FirstOrDefault(x => x.Id == DgvMods[7, e.RowIndex].Value.ToString());
+
+            if (foundMod == null || foundMod.Config == string.Empty) return;
+            try
+            {
+                WriteLog($"Opening {foundMod.Config} for {foundMod.DisplayName}");
+
+                _frmConfigEdit ??= new FrmConfigEdit(ref foundMod, ref DgvLog, _gameLocation.location);
+                _frmConfigEdit.ShowDialog();
+                _frmConfigEdit = null;
+            }
+            catch (Exception ex)
+            {
+                WriteLog($"Issue opening {foundMod.Config} for {foundMod.DisplayName}. Exception: {ex.Message}");
+            }
+        }
     }
 
     private void DgvMods_DragDrop(object sender, DragEventArgs e)
@@ -544,27 +585,18 @@ public partial class FrmMain : Form
         e.Effect = DragDropEffects.Move;
     }
 
-    private void DgvMods_KeyUp(object sender, KeyEventArgs e)
-    {
-        if (e.KeyCode is Keys.Up or Keys.Down)
-        {
-            DgvModsClick();
-        }
-    }
-
     private void DgvMods_MouseDoubleClick(object sender, MouseEventArgs e)
     {
+        if (DgvMods.HitTest(e.X, e.Y).ColumnIndex is 0 or 6) return;
         if (DgvMods.SelectedRows.Count > 1)
         {
             return;
         }
-
+        if (!_gameLocation.found) return;
         QMod modFound = null;
         try
         {
-            foreach (var mod in _modList.Where(mod => mod.DisplayName == DgvMods.CurrentRow?.Cells[1].Value.ToString()))
-                modFound = mod;
-            if (!_gameLocation.found) return;
+            modFound = FindMod(DgvMods.CurrentRow?.Cells[7].Value.ToString());
             if (modFound != null)
                 Process.Start(modFound.ModAssemblyPath);
         }
@@ -599,71 +631,6 @@ public partial class FrmMain : Form
                 DragDropEffects.Move);
         }
     }
-
-    private void DgvModsClick()
-    {
-        if (DgvMods.SelectedRows.Count > 1)
-        {
-            TxtModInfo.Clear();
-            TxtConfig.Clear();
-            return;
-        }
-
-        CheckAllModsActive();
-
-        LblSaved.Visible = false;
-        try
-        {
-            QMod modFound = null;
-            foreach (var mod in _modList.Where(mod => mod.DisplayName == DgvMods.CurrentRow?.Cells[1].Value.ToString()))
-                modFound = mod;
-
-            if (modFound == null) return;
-            TxtModInfo.Clear();
-            //TxtModInfo.Text += @"ID: " + modFound.Id + Environment.NewLine;
-            TxtModInfo.Text += @"Name: " + modFound.DisplayName + Environment.NewLine + Environment.NewLine;
-            TxtModInfo.Text += @"Description: " + modFound.Description + Environment.NewLine + Environment.NewLine;
-            TxtModInfo.Text += @"Author: " + modFound.Author + Environment.NewLine + Environment.NewLine;
-            TxtModInfo.Text += @"Version: " + modFound.Version + Environment.NewLine + Environment.NewLine;
-            TxtModInfo.Text += @"Enabled: " + modFound.Enable + Environment.NewLine + Environment.NewLine;
-            //TxtModInfo.Text += @"DLL Name: " + modFound.AssemblyName + Environment.NewLine;
-            //TxtModInfo.Text += @"Entry Method: " + modFound.EntryMethod + Environment.NewLine;
-            //TxtModInfo.Text += @"Mod Path: " + modFound.ModAssemblyPath + Environment.NewLine;
-            string path = null;
-            var files = Directory.GetFiles(modFound.ModAssemblyPath, "*", SearchOption.AllDirectories);
-            string[] configs = { ".ini", ".json", ".txt", ".cfg" };
-            foreach (var file in files)
-            {
-                if (file.EndsWith("mod.json")) continue;
-                if (!file.Contains("config")) continue;
-                if (configs.Contains(new FileInfo(file).Extension))
-                {
-                    path = file;
-                }
-            }
-
-            if (path != null)
-            {
-                if (!File.Exists(path)) return;
-                var config = File.ReadAllText(path);
-                _currentlySelectedModConfigLocation = path;
-                TxtConfig.Text = config;
-            }
-            else
-            {
-                TxtConfig.Clear();
-            }
-        }
-        catch (NullReferenceException ex)
-        {
-            WriteLog($"List Mods ERROR: {ex.Message}", true);
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"List Mods ERROR: {ex.Message}", true);
-        }
-    }
-
     private void ExitToolStripMenuItem1_Click(object sender, EventArgs e)
     {
         Application.Exit();
@@ -674,14 +641,25 @@ public partial class FrmMain : Form
         ExitToolStripMenuItem1_Click(sender, e);
     }
 
+    private QMod FindMod(string modId)
+    {
+        return _modList.FirstOrDefault(x => x.Id == modId);
+    }
+
     private void FrmMain_Load(object sender, EventArgs e)
     {
         SetLocations();
+
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-        DgvMods.Sort(DgvMods.Columns[0], ListSortDirection.Ascending);
+        DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         DgvMods.AllowUserToResizeRows = false;
-        
+        DgvMods.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        DgvMods.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+        DgvMods.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+        DgvMods.Columns[6].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+        Text = $@"QMod Manager Reloaded v{Assembly.GetExecutingAssembly().GetName().Version}";
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
@@ -744,19 +722,19 @@ public partial class FrmMain : Form
                     switch (result)
                     {
                         case DialogResult.Yes:
-                        {
-                            var createResult = CreateJson(dllFile);
-                            if (createResult == false)
                             {
-                                WriteLog("Error creating JSON file.", true);
-                                continue;
-                            }
+                                var createResult = CreateJson(dllFile);
+                                if (createResult == false)
+                                {
+                                    WriteLog("Error creating JSON file.", true);
+                                    continue;
+                                }
 
-                            DgvLog.Rows.Clear();
-                            LblErrors.Text = string.Empty;
-                            LoadMods();
-                            return;
-                        }
+                                DgvLog.Rows.Clear();
+                                LblErrors.Text = string.Empty;
+                                LoadMods();
+                                return;
+                            }
                         case DialogResult.Cancel:
                             WriteLog($"User cancelled.", true);
                             return;
@@ -779,19 +757,33 @@ public partial class FrmMain : Form
                     else
                     {
                         mod.ModAssemblyPath = path;
-                        
+
                         if (!string.IsNullOrEmpty(mod.EntryMethod))
                         {
                             if (mod.LoadOrder <= 0)
                             {
-                                mod.LoadOrder = _modList.Count+1;
+                                mod.LoadOrder = _modList.Count + 1;
                                 var json = JsonSerializer.Serialize(mod, JsonOptions);
                                 File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), json);
-
                             }
-                            _modList.Add(mod);
+
                             var isModCompatible = IsModCompatible(Path.Combine(mod.ModAssemblyPath, dllFileName));
-                            var rowIndex = DgvMods.Rows.Add(mod.LoadOrder, mod.DisplayName, mod.Enable, mod.Id);
+                            var (configExists, configFile) = GetModConfigIfItExists(mod.ModAssemblyPath);
+                            int rowIndex;
+                            mod.Config = "none";
+                            // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
+                            if (configExists)
+                            {
+                                rowIndex = DgvMods.Rows.Add(Convert.ToInt32(mod.Enable), mod.LoadOrder, mod.DisplayName, mod.Description,
+                                    mod.Version, mod.Author, "...", mod.Id);
+                                mod.Config = Path.GetFileName(configFile);
+                            }
+                            else
+                            {
+                                rowIndex = DgvMods.Rows.Add(Convert.ToInt32(mod.Enable), mod.LoadOrder, mod.DisplayName, mod.Description,
+                                    mod.Version, mod.Author, string.Empty, mod.Id);
+                            }
+
                             var row = DgvMods.Rows[rowIndex];
                             if (!isModCompatible)
                             {
@@ -805,6 +797,7 @@ public partial class FrmMain : Form
                             {
                                 WriteLog(mod.DisplayName + " added.");
                             }
+                            _modList.Add(mod);
                         }
                         else
                         {
@@ -814,7 +807,7 @@ public partial class FrmMain : Form
                 }
             }
 
-            DgvMods.Sort(DgvMods.Columns[0], ListSortDirection.Ascending);
+            DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
             WriteLog(
                 "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
             UpdateModJsons();
@@ -850,6 +843,30 @@ public partial class FrmMain : Form
     private void OpenmModDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
     {
         BtnOpenModDir_Click(sender, e);
+    }
+
+    private void OpenSaveDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Process.Start(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper"));
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"{ex.Message}", true);
+        }
+    }
+
+    private void OpenUnityLogToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Process.Start(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log"));
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"{ex.Message}", true);
+        }
     }
 
     private void RestoreWindowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -940,31 +957,11 @@ public partial class FrmMain : Form
         WriteLog("INFO: QMods directory created.");
     }
 
-    private void UpdateModJsons()
-    {
-        WriteLog("Updating mod.json files for all installed mods. Information is pulled from the mods directly.", false);
-        foreach (var mod in _modList)
-        {
-            var path = Path.Combine(mod.ModAssemblyPath, mod.AssemblyName);
-            var entryPoint = GetModEntryPoint(path);
-            var modInfo = FileVersionInfo.GetVersionInfo(path);
-            mod.Author = modInfo.CompanyName;
-            mod.DisplayName = modInfo.ProductName;
-            mod.Description = modInfo.FileDescription;
-            mod.Version = modInfo.ProductVersion;
-            mod.EntryMethod = $"{entryPoint.namesp}.{entryPoint.type}.{entryPoint.method}";
-            var newJson = JsonSerializer.Serialize(mod, JsonOptions);
-            File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), newJson);
-        }
-    }
-
     private void ToggleModEnabled(bool enabled, int row)
     {
         try
         {
-            QMod modFound = null;
-            foreach (var mod in _modList.Where(mod => mod.DisplayName == DgvMods.Rows[row].Cells[1].Value.ToString()))
-                modFound = mod;
+            var modFound = FindMod(DgvMods.Rows[row].Cells[7].Value.ToString());
 
             if (modFound == null) return;
             modFound.Enable = enabled;
@@ -994,37 +991,12 @@ public partial class FrmMain : Form
         DgvLog.FirstDisplayedScrollingRowIndex = DgvLog.RowCount - 1;
     }
 
-    private void TxtConfig_KeyUp(object sender, KeyEventArgs e)
-    {
-        if (TxtConfig.Text.Length == 0)
-        {
-            MessageBox.Show(@"The config file is now blank. This mod may or may not function correctly, if at all.",
-                @"Blank config.", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
-        try
-        {
-            File.WriteAllText(_currentlySelectedModConfigLocation, TxtConfig.Text);
-            LblSaved.Visible = true;
-        }
-        catch (Exception)
-        {
-            WriteLog($"Issue saving config: {_currentlySelectedModConfigLocation}", true);
-            throw;
-        }
-    }
-
-    private void TxtConfig_Leave(object sender, EventArgs e)
-    {
-        LblSaved.Visible = false;
-    }
-
     private void UpdateLoadOrders()
     {
         foreach (DataGridViewRow row in DgvMods.Rows)
         {
             foreach (var mod in _modList.Where(mod =>
-                         mod.DisplayName == DgvMods.Rows[row.Index].Cells[1].Value.ToString()))
+                         mod.Id == DgvMods.Rows[row.Index].Cells[7].Value.ToString()))
             {
                 DgvMods.Rows[row.Index].Cells[0].Value = row.Index + 1;
                 mod.LoadOrder = row.Index + 1;
@@ -1036,6 +1008,29 @@ public partial class FrmMain : Form
         CheckQueueEverything();
     }
 
+    private void UpdateModJsons()
+    {
+        WriteLog("Updating mod.json files for all installed mods. Information is pulled from the mods directly.", false);
+        foreach (var mod in _modList)
+        {
+            var (exists, file) = GetModConfigIfItExists(mod.ModAssemblyPath);
+            mod.Config = "none";
+            if (exists)
+            {
+                mod.Config = Path.GetFileName(file);
+            }
+            var path = Path.Combine(mod.ModAssemblyPath, mod.AssemblyName);
+            var (namesp, type, method, _) = GetModEntryPoint(path);
+            var modInfo = FileVersionInfo.GetVersionInfo(path);
+            mod.Author = modInfo.CompanyName;
+            mod.DisplayName = modInfo.ProductName;
+            mod.Description = modInfo.FileDescription;
+            mod.Version = modInfo.ProductVersion;
+            mod.EntryMethod = $"{namesp}.{type}.{method}";
+            var newJson = JsonSerializer.Serialize(mod, JsonOptions);
+            File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), newJson);
+        }
+    }
     private void WriteLog(string message, bool error = false)
     {
         var dt = DateTime.Now;
@@ -1062,33 +1057,15 @@ public partial class FrmMain : Form
         var errors = DgvLog.Rows.Cast<DataGridViewRow>().Count(r => r.DefaultCellStyle.BackColor == Color.LightCoral);
         if (errors > 0)
         {
+            LblErrors.Visible = true;
             LblErrors.Text = $@"Errors: {errors}";
+        }
+        else
+        {
+            LblErrors.Text = "";
+            LblErrors.Visible = false;
         }
 
         DgvLog.FirstDisplayedScrollingRowIndex = DgvLog.RowCount - 1;
-    }
-
-    private void openUnityLogToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        try
-        {
-           Process.Start(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log"));
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"{ex.Message}", true);
-        }
-    }
-
-    private void openSaveDirectoryToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            Process.Start(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper"));
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"{ex.Message}", true);
-        }
     }
 }
