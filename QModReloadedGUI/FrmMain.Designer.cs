@@ -48,6 +48,8 @@ namespace QModReloadedGUI
             this.ChConfig = new System.Windows.Forms.DataGridViewLinkColumn();
             this.ChID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modListCtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.ModMenuName = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.openConfigToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeModToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnRestore = new System.Windows.Forms.Button();
@@ -69,6 +71,8 @@ namespace QModReloadedGUI
             this.LblPatched = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.LblIntroPatched = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.LblErrors = new System.Windows.Forms.ToolStripLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openSaveDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +83,8 @@ namespace QModReloadedGUI
             this.modifyResolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnLaunchModless = new System.Windows.Forms.ToolStripMenuItem();
+            this.nexusAPIKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DlgFile = new System.Windows.Forms.OpenFileDialog();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayIconCtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -94,10 +100,9 @@ namespace QModReloadedGUI
             this.DgvLog = new System.Windows.Forms.DataGridView();
             this.ChTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LblErrors = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.ModMenuName = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.TxtFilter = new System.Windows.Forms.TextBox();
+            this.LblFilter = new System.Windows.Forms.Label();
+            this.UpdateProgress = new System.Windows.Forms.ToolStripProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).BeginInit();
             this.modListCtxMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
@@ -277,11 +282,24 @@ namespace QModReloadedGUI
             this.modListCtxMenu.Size = new System.Drawing.Size(146, 76);
             this.modListCtxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ModListCtxMenu_Opening);
             // 
+            // ModMenuName
+            // 
+            this.ModMenuName.Image = global::QModReloadedGUI.Properties.Resources.nexus_mod_manager_icon_256x256;
+            this.ModMenuName.Name = "ModMenuName";
+            this.ModMenuName.Size = new System.Drawing.Size(145, 22);
+            this.ModMenuName.Text = "--";
+            this.ModMenuName.Click += new System.EventHandler(this.ModMenuName_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(142, 6);
+            // 
             // openConfigToolStripMenuItem
             // 
             this.openConfigToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.file;
             this.openConfigToolStripMenuItem.Name = "openConfigToolStripMenuItem";
-            this.openConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openConfigToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.openConfigToolStripMenuItem.Text = "Open Config";
             this.openConfigToolStripMenuItem.Click += new System.EventHandler(this.OpenConfigToolStripMenuItem_Click);
             // 
@@ -289,7 +307,7 @@ namespace QModReloadedGUI
             // 
             this.removeModToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.action_delete;
             this.removeModToolStripMenuItem.Name = "removeModToolStripMenuItem";
-            this.removeModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.removeModToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.removeModToolStripMenuItem.Text = "Remove Mod";
             this.removeModToolStripMenuItem.Click += new System.EventHandler(this.RemoveModToolStripMenuItem_Click);
             // 
@@ -500,7 +518,8 @@ namespace QModReloadedGUI
             this.toolStripSeparator2,
             this.LblIntroPatched,
             this.toolStripSeparator1,
-            this.LblErrors});
+            this.LblErrors,
+            this.UpdateProgress});
             this.ToolStrip.Location = new System.Drawing.Point(0, 759);
             this.ToolStrip.Name = "ToolStrip";
             this.ToolStrip.Size = new System.Drawing.Size(742, 25);
@@ -524,14 +543,27 @@ namespace QModReloadedGUI
             this.LblIntroPatched.Size = new System.Drawing.Size(86, 22);
             this.LblIntroPatched.Text = "toolStripLabel2";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // LblErrors
+            // 
+            this.LblErrors.Name = "LblErrors";
+            this.LblErrors.Size = new System.Drawing.Size(40, 22);
+            this.LblErrors.Text = "Errors:";
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
             this.checklistToolStripMenuItem1,
             this.modifyResolutionToolStripMenuItem,
-            this.aboutToolStripMenuItem1,
-            this.BtnLaunchModless});
+            this.nexusAPIKeyToolStripMenuItem,
+            this.updatesToolStripMenuItem,
+            this.BtnLaunchModless,
+            this.aboutToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(742, 24);
@@ -611,6 +643,22 @@ namespace QModReloadedGUI
             this.BtnLaunchModless.Size = new System.Drawing.Size(121, 20);
             this.BtnLaunchModless.Text = "&Launch Modless";
             this.BtnLaunchModless.Click += new System.EventHandler(this.BtnLaunchModless_Click);
+            // 
+            // nexusAPIKeyToolStripMenuItem
+            // 
+            this.nexusAPIKeyToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.nexus_mod_manager_icon_256x256;
+            this.nexusAPIKeyToolStripMenuItem.Name = "nexusAPIKeyToolStripMenuItem";
+            this.nexusAPIKeyToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.nexusAPIKeyToolStripMenuItem.Text = "&Nexus API Key";
+            this.nexusAPIKeyToolStripMenuItem.Click += new System.EventHandler(this.NexusAPIKeyToolStripMenuItem_Click);
+            // 
+            // updatesToolStripMenuItem
+            // 
+            this.updatesToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.planet_earth_5056;
+            this.updatesToolStripMenuItem.Name = "updatesToolStripMenuItem";
+            this.updatesToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.updatesToolStripMenuItem.Text = "&Updates";
+            this.updatesToolStripMenuItem.Click += new System.EventHandler(this.UpdatesToolStripMenuItem_Click);
             // 
             // DlgFile
             // 
@@ -756,33 +804,38 @@ namespace QModReloadedGUI
             this.dataGridViewTextBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewTextBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // LblErrors
+            // TxtFilter
             // 
-            this.LblErrors.Name = "LblErrors";
-            this.LblErrors.Size = new System.Drawing.Size(40, 22);
-            this.LblErrors.Text = "Errors:";
+            this.TxtFilter.Location = new System.Drawing.Point(105, 114);
+            this.TxtFilter.Name = "TxtFilter";
+            this.TxtFilter.Size = new System.Drawing.Size(388, 20);
+            this.TxtFilter.TabIndex = 40;
+            this.TxtFilter.TextChanged += new System.EventHandler(this.TxtFilter_TextChanged);
             // 
-            // toolStripSeparator1
+            // LblFilter
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.LblFilter.AutoSize = true;
+            this.LblFilter.Location = new System.Drawing.Point(73, 117);
+            this.LblFilter.Name = "LblFilter";
+            this.LblFilter.Size = new System.Drawing.Size(32, 13);
+            this.LblFilter.TabIndex = 41;
+            this.LblFilter.Text = "Filter:";
             // 
-            // ModMenuName
+            // UpdateProgress
             // 
-            this.ModMenuName.Name = "ModMenuName";
-            this.ModMenuName.Size = new System.Drawing.Size(180, 22);
-            this.ModMenuName.Text = "--";
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
+            this.UpdateProgress.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.UpdateProgress.Name = "UpdateProgress";
+            this.UpdateProgress.Padding = new System.Windows.Forms.Padding(2);
+            this.UpdateProgress.Size = new System.Drawing.Size(104, 22);
+            this.UpdateProgress.Visible = false;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(742, 784);
+            this.Controls.Add(this.TxtFilter);
+            this.Controls.Add(this.LblFilter);
             this.Controls.Add(this.DgvLog);
             this.Controls.Add(this.ChkLaunchExeDirectly);
             this.Controls.Add(this.ChkToggleMods);
@@ -894,6 +947,11 @@ namespace QModReloadedGUI
         private ToolStripLabel LblErrors;
         private ToolStripMenuItem ModMenuName;
         private ToolStripSeparator toolStripMenuItem4;
+        private ToolStripMenuItem nexusAPIKeyToolStripMenuItem;
+        private TextBox TxtFilter;
+        private Label LblFilter;
+        private ToolStripMenuItem updatesToolStripMenuItem;
+        private ToolStripProgressBar UpdateProgress;
     }
 }
 

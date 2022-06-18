@@ -35,5 +35,18 @@ namespace QModReloadedGUI
         {
             Process.Start(LblMyUrl.Text);
         }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start("https://www.nexusmods.com/graveyardkeeper/mods/40?tab=files");
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+        }
+
     }
 }

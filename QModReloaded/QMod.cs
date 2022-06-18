@@ -14,6 +14,7 @@ public class QMod
     public bool Enable { get; set; }
     public string EntryMethod { get; set; }
     public string Id { get; set; }
+    public int NexusId { get; set; }
     public string Config { get; set; }
     [JsonIgnore]
     public Assembly LoadedAssembly { get; set; }

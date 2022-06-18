@@ -50,3 +50,4 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.csproj.CopyComplete
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.exe
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmConfigEdit.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmNexus.resources

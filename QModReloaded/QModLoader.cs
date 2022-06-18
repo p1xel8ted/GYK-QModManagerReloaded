@@ -86,6 +86,7 @@ public class QModLoader
             Description = modInfo.FileDescription,
             AssemblyName = AssemblyName.GetAssemblyName(sFile.FullName).Name,
             Author = modInfo.CompanyName,
+            NexusId = -1,
             Id = fileNameWithoutExt,
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"Couldn't find a PatchAll. Not a valid mod.",
             Version = modInfo.ProductVersion
