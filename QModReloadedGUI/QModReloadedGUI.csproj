@@ -238,6 +238,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icon.ico" />
+    <None Include="Resources\Color logo - no background.png" />
     <None Include="Resources\planet-earth-5056.png" />
     <None Include="Resources\nexus_mod_manager_icon_256x2561.ico" />
     <None Include="Resources\heart.ico" />
