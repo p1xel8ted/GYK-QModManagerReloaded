@@ -44,7 +44,7 @@ namespace QModReloadedGUI
             // LblCredits
             // 
             this.LblCredits.AutoSize = true;
-            this.LblCredits.Location = new System.Drawing.Point(12, 328);
+            this.LblCredits.Location = new System.Drawing.Point(12, 345);
             this.LblCredits.Name = "LblCredits";
             this.LblCredits.Size = new System.Drawing.Size(210, 17);
             this.LblCredits.TabIndex = 2;
@@ -54,7 +54,7 @@ namespace QModReloadedGUI
             // LblCreditsUrl
             // 
             this.LblCreditsUrl.AutoSize = true;
-            this.LblCreditsUrl.Location = new System.Drawing.Point(12, 349);
+            this.LblCreditsUrl.Location = new System.Drawing.Point(12, 328);
             this.LblCreditsUrl.Name = "LblCreditsUrl";
             this.LblCreditsUrl.Size = new System.Drawing.Size(233, 17);
             this.LblCreditsUrl.TabIndex = 3;
@@ -86,7 +86,7 @@ namespace QModReloadedGUI
             // BtnOK
             // 
             this.BtnOK.Image = global::QModReloadedGUI.Properties.Resources.heart;
-            this.BtnOK.Location = new System.Drawing.Point(274, 349);
+            this.BtnOK.Location = new System.Drawing.Point(274, 332);
             this.BtnOK.Name = "BtnOK";
             this.BtnOK.Size = new System.Drawing.Size(61, 23);
             this.BtnOK.TabIndex = 6;
@@ -112,7 +112,7 @@ namespace QModReloadedGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 381);
+            this.ClientSize = new System.Drawing.Size(347, 367);
             this.Controls.Add(this.TxtVersion);
             this.Controls.Add(this.BtnOK);
             this.Controls.Add(this.LblMyUrl);
