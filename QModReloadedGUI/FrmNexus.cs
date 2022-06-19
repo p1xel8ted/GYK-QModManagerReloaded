@@ -1,5 +1,4 @@
-﻿using QModReloaded;
-using System;
+﻿using System;
 using System.Drawing;
 using System.IO;
 using System.Net;
@@ -24,35 +23,6 @@ namespace QModReloadedGUI
             InitializeComponent();
         }
 
-        
-
-        private void FrmNexus_Load(object sender, EventArgs e)
-        {
-            try
-            {
-                var pairedKeys = JsonSerializer.Deserialize<PairedKeys>(File.ReadAllText(_homePath), new JsonSerializerOptions { AllowTrailingCommas = true });
-                if (pairedKeys?.Vector is null)
-                {
-                    return;
-                }
-                TxtApi.Text = Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector);
-                LblValidated.Text = _settings.IsPremium ? @$"Profile: {_settings.UserName} (Premium)" : @$"Profile: {_settings.UserName} (Standard)";
-                if (_settings.UserName.Length > 0)
-                {
-                    Text = _settings.IsPremium
-                        ? @$"Nexus API Key - Profile: {_settings.UserName} (Premium)"
-                        : @$"Profile: {_settings.UserName} (Standard)";
-                }
-
-                LblValidated.ForeColor = _settings.IsPremium ? Color.Green : Color.Black;
-            }
-            catch
-            {
-                //
-            }
-        }
-
-
         private void BtnValidate_Click(object sender, EventArgs e)
         {
             try
@@ -69,9 +39,9 @@ namespace QModReloadedGUI
 
                 void ValidateKeyCompleted(object sender, DownloadStringCompletedEventArgs args)
                 {
-                    _lblNexusRequests.Text = UpdateRequestCounts(validateKey.ResponseHeaders,_settings.UserName);
+                    _lblNexusRequests.Text = UpdateRequestCounts(validateKey.ResponseHeaders, _settings.UserName);
                     var validate = JsonSerializer.Deserialize<Validate>(args.Result);
-                    if (validate!=null)
+                    if (validate != null)
                     {
                         _settings.UserName = validate.Name;
                         _settings.IsPremium = validate.IsPremium;
@@ -104,5 +74,30 @@ namespace QModReloadedGUI
             }
         }
 
+        private void FrmNexus_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                var pairedKeys = JsonSerializer.Deserialize<PairedKeys>(File.ReadAllText(_homePath), new JsonSerializerOptions { AllowTrailingCommas = true });
+                if (pairedKeys?.Vector is null)
+                {
+                    return;
+                }
+                TxtApi.Text = Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector);
+                LblValidated.Text = _settings.IsPremium ? @$"Profile: {_settings.UserName} (Premium)" : @$"Profile: {_settings.UserName} (Standard)";
+                if (_settings.UserName.Length > 0)
+                {
+                    Text = _settings.IsPremium
+                        ? @$"Nexus API Key - Profile: {_settings.UserName} (Premium)"
+                        : @$"Profile: {_settings.UserName} (Standard)";
+                }
+
+                LblValidated.ForeColor = _settings.IsPremium ? Color.Green : Color.Black;
+            }
+            catch
+            {
+                //
+            }
+        }
     }
 }

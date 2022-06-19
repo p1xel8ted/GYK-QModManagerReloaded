@@ -3,7 +3,6 @@ using Mono.Cecil.Cil;
 using QModReloaded;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -12,8 +11,6 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime;
-using System.Security.AccessControl;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
@@ -24,9 +21,6 @@ namespace QModReloadedGUI;
 
 public partial class FrmMain : Form
 {
-
-    private Settings _settings;
-    private Timer _updateTimer;
     private static readonly string[] CleanMd5Hashes = {
         "e5c55499ebbf010e341f0f56e12f6c74", "b75466bdcc44f5f098d4b22dc047b175"
     };
@@ -41,7 +35,9 @@ public partial class FrmMain : Form
 
     private static string _path = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\"));
     private readonly List<QMod> _modList = new();
+    private bool _canCheckForUpdates = true;
     private QMod _contextMenuMod;
+    private string _dataPath;
     private Rectangle _dragBoxFromMouseDown;
     private FrmAbout _frmAbout;
     private FrmChecklist _frmChecklist;
@@ -53,9 +49,8 @@ public partial class FrmMain : Form
     private string _modLocation = string.Empty;
     private int _rowIndexFromMouseDown;
     private int _rowIndexOfItemUnderMouseToDrop;
-    private string _dataPath;
-    private bool _canCheckForUpdates = true;
-
+    private Settings _settings;
+    private Timer _updateTimer;
     public FrmMain(Settings settings)
     {
         _settings = settings;
@@ -439,7 +434,7 @@ public partial class FrmMain : Form
             break;
         }
     }
-    
+
     private void CheckForUpdates()
     {
         _updateTimer = new Timer
@@ -460,14 +455,13 @@ public partial class FrmMain : Form
             else
             {
                 _canCheckForUpdates = false;
-
             }
 
             updatesToolStripMenuItem.Enabled = _canCheckForUpdates;
         }
 
         if (!_canCheckForUpdates) return;
-        if (_settings.ApiKey==null)
+        if (_settings.ApiKey == null)
         {
             MessageBox.Show(@"You haven't set your API key. This is required for NexusMods to allow access to the API.",
                 @"No API Key", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -477,9 +471,8 @@ public partial class FrmMain : Form
         PairedKeys pairedKeys = null;
         if (File.Exists(_dataPath))
         {
-             pairedKeys = JsonSerializer.Deserialize<PairedKeys>(File.ReadAllText(_dataPath),
-                new JsonSerializerOptions {AllowTrailingCommas = true});
-      
+            pairedKeys = JsonSerializer.Deserialize<PairedKeys>(File.ReadAllText(_dataPath),
+               new JsonSerializerOptions { AllowTrailingCommas = true });
         }
         if (pairedKeys?.Vector is null)
         {
@@ -515,7 +508,7 @@ public partial class FrmMain : Form
 
             void CheckForUpdatesDownloadedCompleted(object sender, DownloadStringCompletedEventArgs args)
             {
-               LblNexusRequests.Text = Utilities.UpdateRequestCounts(modUpdate.ResponseHeaders,_settings.UserName);
+                LblNexusRequests.Text = Utilities.UpdateRequestCounts(modUpdate.ResponseHeaders, _settings.UserName);
                 UpdateProgress.Value++;
                 ProcessJson(mod, args.Result);
             }
@@ -523,8 +516,7 @@ public partial class FrmMain : Form
 
         var qmrUpdate = new WebClient();
 
-
-            qmrUpdate.Headers.Add("apikey", Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector));
+        qmrUpdate.Headers.Add("apikey", Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector));
 
         qmrUpdate.Headers.Add("Application-Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
         qmrUpdate.Headers.Add("Application-Name", "QMod-Manager-Reloaded");
@@ -533,13 +525,13 @@ public partial class FrmMain : Form
         qmrUpdate.DownloadStringAsync(new Uri("https://api.nexusmods.com/v1/games/graveyardkeeper/mods/40.json"));
         void CheckForQmrUpdatesCompleted(object sender, DownloadStringCompletedEventArgs args)
         {
-            LblNexusRequests.Text = Utilities.UpdateRequestCounts(qmrUpdate.ResponseHeaders,_settings.UserName);
+            LblNexusRequests.Text = Utilities.UpdateRequestCounts(qmrUpdate.ResponseHeaders, _settings.UserName);
             try
             {
-                var nexusMod = JsonSerializer.Deserialize<Rootobject>(args.Result);
+                var nexusMod = JsonSerializer.Deserialize<NexusMod>(args.Result);
                 if (nexusMod == null) return;
                 var currentVersion = Version.Parse(FixVersion(Assembly.GetExecutingAssembly().GetName().Version.ToString()));
-                var newVersion = Version.Parse(FixVersion(nexusMod.version));
+                var newVersion = Version.Parse(FixVersion(nexusMod.Version));
                 var result = currentVersion.CompareTo(newVersion);
                 if (result < 0)
                 {
@@ -561,7 +553,6 @@ public partial class FrmMain : Form
             }
         }
     }
-
 
     private void ChecklistToolStripMenuItem1_Click(object sender, EventArgs e)
     {
@@ -1186,12 +1177,12 @@ public partial class FrmMain : Form
     {
         try
         {
-            var nexusMod = JsonSerializer.Deserialize<Rootobject>(results);
+            var nexusMod = JsonSerializer.Deserialize<NexusMod>(results);
             if (nexusMod == null) return;
             Console.WriteLine(
-                $@"QMod: {mod.DisplayName}, Nexus Mod: {nexusMod.name}, Version: {nexusMod.version}");
+                $@"QMod: {mod.DisplayName}, Nexus Mod: {nexusMod.Name}, Version: {nexusMod.Version}");
             var currentVersion = Version.Parse(FixVersion(mod.Version));
-            var newVersion = Version.Parse(FixVersion(nexusMod.version));
+            var newVersion = Version.Parse(FixVersion(nexusMod.Version));
             var result = currentVersion.CompareTo(newVersion);
             if (result < 0)
             {

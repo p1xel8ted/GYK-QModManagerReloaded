@@ -9,13 +9,12 @@ public class QMod
 {
     public string AssemblyName { get; set; }
     public string Author { get; set; }
-    public string DisplayName { get; set; }
+    public string Config { get; set; }
     public string Description { get; set; }
+    public string DisplayName { get; set; }
     public bool Enable { get; set; }
     public string EntryMethod { get; set; }
     public string Id { get; set; }
-    public int NexusId { get; set; }
-    public string Config { get; set; }
     [JsonIgnore]
     public Assembly LoadedAssembly { get; set; }
 
@@ -23,7 +22,9 @@ public class QMod
     [JsonIgnore]
     public string ModAssemblyPath { get; set; }
 
+    public int NexusId { get; set; }
     public string Version { get; set; }
+
     public static QMod FromJsonFile(string file)
     {
         var value = File.ReadAllText(file);

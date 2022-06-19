@@ -70,6 +70,7 @@ public class Injector
             return (false, $"Intros patch injected ERROR: {ex.Message}");
         }
     }
+
     public bool IsInjected()
     {
         try

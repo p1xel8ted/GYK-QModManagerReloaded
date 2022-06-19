@@ -14,6 +14,7 @@ namespace QModReloadedGUI
         private readonly string _gameLocation;
         private readonly string _path;
         private string _contents;
+
         public FrmConfigEdit(ref QMod mod, ref DataGridView dgvLog, string gameLocation)
         {
             InitializeComponent();

@@ -21,6 +21,7 @@ public class QModLoader
     };
 
     private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
+
     public static void Patch()
     {
         Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
@@ -109,7 +110,7 @@ public class QModLoader
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-           // toInspect = toInspect.Where(x => x.m.Name is "Patch");
+            // toInspect = toInspect.Where(x => x.m.Name is "Patch");
 
             foreach (var method in toInspect)
                 if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
@@ -136,7 +137,7 @@ public class QModLoader
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-           // toInspect = toInspect.Where(x => x.m.Name is "Patch");
+            // toInspect = toInspect.Where(x => x.m.Name is "Patch");
 
             if (toInspect.Any(method => method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
                     .Any(instruction => instruction.OpCode == OpCodes.Newobj && instruction.Operand.ToString().Contains("HarmonyLib.Harmony"))))
@@ -151,6 +152,7 @@ public class QModLoader
 
         return false;
     }
+
     private static void LoadMod(QMod mod)
     {
         try
