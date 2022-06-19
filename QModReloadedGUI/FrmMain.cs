@@ -3,6 +3,7 @@ using Mono.Cecil.Cil;
 using QModReloaded;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,15 +12,21 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime;
+using System.Security.AccessControl;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
+using static QModReloadedGUI.Utilities;
 using File = System.IO.File;
 
 namespace QModReloadedGUI;
 
 public partial class FrmMain : Form
 {
+
+    private Settings _settings;
+    private Timer _updateTimer;
     private static readonly string[] CleanMd5Hashes = {
         "e5c55499ebbf010e341f0f56e12f6c74", "b75466bdcc44f5f098d4b22dc047b175"
     };
@@ -46,6 +53,14 @@ public partial class FrmMain : Form
     private string _modLocation = string.Empty;
     private int _rowIndexFromMouseDown;
     private int _rowIndexOfItemUnderMouseToDrop;
+    private string _dataPath;
+    private bool _canCheckForUpdates = true;
+
+    public FrmMain(Settings settings)
+    {
+        _settings = settings;
+        InitializeComponent();
+    }
 
     public FrmMain()
     {
@@ -424,13 +439,50 @@ public partial class FrmMain : Form
             break;
         }
     }
-
+    
     private void CheckForUpdates()
     {
-        if (Properties.Settings.Default.API.Length <= 0)
+        _updateTimer = new Timer
+        {
+            Interval = 500,
+            Enabled = true
+        };
+        _updateTimer.Tick += UpdateTimerTick;
+        _updateTimer.Start();
+
+        void UpdateTimerTick(object sender, EventArgs e)
+        {
+            if (UpdateProgress.Value >= UpdateProgress.Maximum)
+            {
+                _canCheckForUpdates = true;
+                _updateTimer.Stop();
+            }
+            else
+            {
+                _canCheckForUpdates = false;
+
+            }
+
+            updatesToolStripMenuItem.Enabled = _canCheckForUpdates;
+        }
+
+        if (!_canCheckForUpdates) return;
+        if (_settings.ApiKey==null)
         {
             MessageBox.Show(@"You haven't set your API key. This is required for NexusMods to allow access to the API.",
                 @"No API Key", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            return;
+        }
+
+        PairedKeys pairedKeys = null;
+        if (File.Exists(_dataPath))
+        {
+             pairedKeys = JsonSerializer.Deserialize<PairedKeys>(File.ReadAllText(_dataPath),
+                new JsonSerializerOptions {AllowTrailingCommas = true});
+      
+        }
+        if (pairedKeys?.Vector is null)
+        {
             return;
         }
 
@@ -446,10 +498,13 @@ public partial class FrmMain : Form
         foreach (var mod in _modList)
         {
             var modUpdate = new WebClient();
-            modUpdate.Headers.Add("apikey", Properties.Settings.Default.API);
+
+            modUpdate.Headers.Add("apikey", Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector));
+
             modUpdate.DownloadStringCompleted += CheckForUpdatesDownloadedCompleted;
             modUpdate.Headers.Add("Application-Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             modUpdate.Headers.Add("Application-Name", "QMod-Manager-Reloaded");
+            modUpdate.Headers.Add("User-Agent", $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
             if (mod.DisplayName.ToLower().Contains("harmony"))
             {
                 WriteLog($"Skipping Harmony1to2 Converted Mod {mod.DisplayName}");
@@ -460,19 +515,25 @@ public partial class FrmMain : Form
 
             void CheckForUpdatesDownloadedCompleted(object sender, DownloadStringCompletedEventArgs args)
             {
+               LblNexusRequests.Text = Utilities.UpdateRequestCounts(modUpdate.ResponseHeaders,_settings.UserName);
                 UpdateProgress.Value++;
                 ProcessJson(mod, args.Result);
             }
         }
 
         var qmrUpdate = new WebClient();
-        qmrUpdate.Headers.Add("apikey", Properties.Settings.Default.API);
+
+
+            qmrUpdate.Headers.Add("apikey", Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector));
+
         qmrUpdate.Headers.Add("Application-Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
         qmrUpdate.Headers.Add("Application-Name", "QMod-Manager-Reloaded");
+        qmrUpdate.Headers.Add("User-Agent", $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
         qmrUpdate.DownloadStringCompleted += CheckForQmrUpdatesCompleted;
         qmrUpdate.DownloadStringAsync(new Uri("https://api.nexusmods.com/v1/games/graveyardkeeper/mods/40.json"));
         void CheckForQmrUpdatesCompleted(object sender, DownloadStringCompletedEventArgs args)
         {
+            LblNexusRequests.Text = Utilities.UpdateRequestCounts(qmrUpdate.ResponseHeaders,_settings.UserName);
             try
             {
                 var nexusMod = JsonSerializer.Deserialize<Rootobject>(args.Result);
@@ -500,6 +561,7 @@ public partial class FrmMain : Form
             }
         }
     }
+
 
     private void ChecklistToolStripMenuItem1_Click(object sender, EventArgs e)
     {
@@ -656,8 +718,8 @@ public partial class FrmMain : Form
 
     private void ChkLaunchExeDirectly_CheckStateChanged(object sender, EventArgs e)
     {
-        Properties.Settings.Default.LaunchDirectly = ChkLaunchExeDirectly.Checked;
-        Properties.Settings.Default.Save();
+        _settings.LaunchDirectly = ChkLaunchExeDirectly.Checked;
+        _settings.Save();
     }
 
     private void ChkToggleMods_Click(object sender, EventArgs e)
@@ -867,6 +929,9 @@ public partial class FrmMain : Form
 
         Text = $@"QMod Manager Reloaded v{Assembly.GetExecutingAssembly().GetName().Version}";
 
+        Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "QMR"));
+        _dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "QMR", "k.json");
+
         CheckForUpdates();
     }
 
@@ -1057,7 +1122,7 @@ public partial class FrmMain : Form
 
     private void NexusAPIKeyToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        _frmNexus ??= new FrmNexus();
+        _frmNexus ??= new FrmNexus(_dataPath, ref LblNexusRequests, ref _settings);
         _frmNexus.ShowDialog();
         _frmNexus = null;
     }
@@ -1168,7 +1233,7 @@ public partial class FrmMain : Form
     {
         try
         {
-            if (Properties.Settings.Default.LaunchDirectly)
+            if (_settings.LaunchDirectly)
             {
                 RunDirect();
                 return;
@@ -1224,8 +1289,8 @@ public partial class FrmMain : Form
             TxtGameLocation.Text = _gameLocation.location;
             _modLocation = Path.Combine(_gameLocation.location, "QMods");
             TxtModFolderLocation.Text = _modLocation;
-            Properties.Settings.Default.GamePath = _gameLocation.location;
-            Properties.Settings.Default.Save();
+            _settings.GamePath = _gameLocation.location;
+            _settings.Save();
         }
         else
         {

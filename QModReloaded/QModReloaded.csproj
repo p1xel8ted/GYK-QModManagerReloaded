@@ -3,7 +3,7 @@
     <AssemblyName>QModReloaded</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <TargetFramework>net48</TargetFramework>
-    <Configurations>Debug;Release;Release Installer;Debug NonGYK</Configurations>
+    <Configurations>Debug;Release;Release Installer;Debug NonGYK;Release GOG</Configurations>
   </PropertyGroup>
   <PropertyGroup>
     <LangVersion>latest</LangVersion>

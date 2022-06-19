@@ -1,4 +1,6 @@
 ﻿using System;
+using System.IO;
+using System.Text.Json;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -17,9 +19,10 @@ namespace QModReloadedGUI
             {
                 if (mutex.WaitOne(0, false))
                 {
+                    var settings = Settings.FromJsonFile();
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new FrmMain());
+                    Application.Run(new FrmMain(settings));
                 }
                 else
                 {
