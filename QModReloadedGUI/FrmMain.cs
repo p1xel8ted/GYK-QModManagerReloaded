@@ -1,17 +1,18 @@
-﻿using Mono.Cecil;
+﻿using Ionic.Zip;
+using Mono.Cecil;
 using Mono.Cecil.Cil;
 using QModReloaded;
-using SharpCompress.Common;
-using SharpCompress.Readers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
@@ -138,7 +139,6 @@ public partial class FrmMain : Form
         }
 
         if (path == null) return (false, null);
-        Console.WriteLine($@"Found config: {path}");
         return !File.Exists(path) ? (false, null) : (true, path);
     }
 
@@ -224,58 +224,52 @@ public partial class FrmMain : Form
 
     private void AddMod(string file, bool update = false, QMod mod = null)
     {
-        using (Stream stream = File.OpenRead(file))
-        using (var reader = ReaderFactory.Open(stream))
+        try
         {
-            while (reader.MoveToNextEntry())
+            var modZip = new FileInfo(file);
+            if (!modZip.Exists) return;
+            using (var zip = Ionic.Zip.ZipFile.Read(modZip.FullName))
             {
-                if (!reader.Entry.IsDirectory)
+                foreach (var e in zip)
                 {
-                    Console.WriteLine(reader.Entry.Key);
-                    reader.WriteEntryToDirectory(@"H:\Test", new ExtractionOptions()
+                    if (e.ToString().EndsWith("dll"))
                     {
-                        ExtractFullPath = true,
-                        Overwrite = true
-                    });
+                        var newFile = e.ToString().Remove(0, 10);
+                        var path = _modLocation + "\\" + newFile.Substring(0, newFile.Length - 4);
+   
+                        zip.ExtractAll(path, ExtractExistingFileAction.OverwriteSilently);
+                        break;
+                    }
+                    zip.ExtractAll(_modLocation, ExtractExistingFileAction.OverwriteSilently);
+                    break;
                 }
             }
+
+            if (update)
+            {
+                if (mod != null)
+                {
+                    mod.UpdateAvailable = false;
+                    WriteLog($"[ZIP]: Updated {mod.DisplayName}");
+                }
+            }
+            else
+            {
+                WriteLog($"[ZIP]: Extracted {modZip.Name}");
+            }
+
+            BtnRefresh_Click(null,null);
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"[ZIP]: {ex.Message}", true);
         }
 
-        //using (ZipFile zip = ZipFile.Read(NameOfExistingZipFile))
-        //{
-        //    zip.ExtractAll(args[1]);
-        //}
-        //try
-        //{
-
-        //    var modZip = new FileInfo(file);
-        //    if (!modZip.Exists) return;
-        //    var modArchive = ZipFile.OpenRead(modZip.FullName);
-        //    foreach (var entry in modArchive.Entries)
-        //    {
-        //        if (entry.FullName.EndsWith("dll", StringComparison.OrdinalIgnoreCase))
-        //        {
-        //            ZipFile.ExtractToDirectory(file,
-        //                _modLocation + "\\" + entry.FullName.Substring(0, entry.FullName.Length - 4));
-        //            break;
-        //        }
-
-        //        ZipFile.ExtractToDirectory(file, _modLocation);
-        //        break;
-        //    }
-
-        //    WriteLog(update ? $"[ZIP]: Updated {mod.DisplayName}" : $"[ZIP]: Extracted {modZip.Name}");
-        //}
-        //catch (Exception ex)
-        //{
-        //    WriteLog($"[ZIP]: {ex.Message}", true);
-        //}
-
-        //if (!update) return;
-        //_modUpdateCounter--;
-        //if (_modUpdateCounter > 0) return;
-        //UpdateProgress.Value = 0;
-        //UpdateProgress.Visible = false;
+        if (!update) return;
+        _modUpdateCounter--;
+        if (_modUpdateCounter > 0) return;
+        UpdateProgress.Value = 0;
+        UpdateProgress.Visible = false;
     }
 
     private void BtnAddMod_Click(object sender, EventArgs e)
@@ -352,7 +346,9 @@ public partial class FrmMain : Form
             MessageBox.Show(@"No mods installed to refresh!", @"Umm", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             return;
         }
-        UpdateModJson();
+
+        LblErrors.Visible = false;
+        UpdateModJson(true);
         LoadMods();
     }
 
@@ -475,6 +471,8 @@ public partial class FrmMain : Form
             if (UpdateProgress.Value >= UpdateProgress.Maximum)
             {
                 _canCheckForUpdates = true;
+                UpdateProgress.Visible = false;
+                UpdateModJson(true);
                 _updateTimer.Stop();
             }
             else
@@ -774,8 +772,6 @@ public partial class FrmMain : Form
             {
                 DgvMods[e.ColumnIndex, e.RowIndex].Value = 0;
                 ToggleModEnabled(false, e.RowIndex);
-                DgvMods.Rows.InsertCopy(e.RowIndex, DgvMods.Rows.Count);
-                DgvMods.Rows.RemoveAt(e.RowIndex);
             }
         }
 
@@ -1068,6 +1064,8 @@ public partial class FrmMain : Form
                                     mod.Version, mod.Author, string.Empty, mod.Id);
                             }
 
+                            DgvMods.Rows[rowIndex].DefaultCellStyle.BackColor = mod.UpdateAvailable ? Color.LightGreen : Color.White;
+
                             var row = DgvMods.Rows[rowIndex];
                             if (!isModCompatible)
                             {
@@ -1129,7 +1127,6 @@ public partial class FrmMain : Form
         openConfigToolStripMenuItem.Enabled = exists;
         openConfigToolStripMenuItem.Visible = exists;
         ModMenuName.Text = _contextMenuMod.DisplayName;
-        Console.WriteLine(@$"Mod: {_contextMenuMod.DisplayName}, ID: {_contextMenuMod.NexusId}");
 
         ModMenuUpdate.Visible = _settings.IsPremium;
         UpdateDivider.Visible = _settings.IsPremium;
@@ -1160,12 +1157,7 @@ public partial class FrmMain : Form
 
     private void OpenConfigToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        //if (DgvMods.CurrentRow == null) return;
-        //var rowIndex = DgvMods.CurrentRow.Index;
-        //var foundMod = _modList.FirstOrDefault(x => x.Id == DgvMods[7, rowIndex].Value.ToString());
-
-        //if (foundMod == null || foundMod.Config == string.Empty) return;
-        try
+   try
         {
             modListCtxMenu.Close();
             WriteLog($"Opening {_contextMenuMod.Config} for {_contextMenuMod.DisplayName}");
@@ -1220,8 +1212,7 @@ public partial class FrmMain : Form
         {
             var nexusMod = JsonSerializer.Deserialize<NexusMod>(results);
             if (nexusMod == null) return;
-            Console.WriteLine(
-                $@"QMod: {mod.DisplayName}, Nexus Mod: {nexusMod.Name}, Version: {nexusMod.Version}");
+
             var currentVersion = Version.Parse(FixVersion(mod.Version));
             var newVersion = Version.Parse(FixVersion(nexusMod.Version));
             var result = currentVersion.CompareTo(newVersion);
@@ -1277,20 +1268,17 @@ public partial class FrmMain : Form
 
             if (IsSteamCopy())
             {
-                Console.WriteLine(@"Steam Copy: TRUE");
                 using var steam = new Process();
                 steam.StartInfo.FileName = "steam://rungameid/599140";
                 steam.Start();
             }
             else
             {
-                Console.WriteLine(@"Steam Copy: FALSE");
                 RunDirect();
             }
 
             void RunDirect()
             {
-                Console.WriteLine(@"Running Direct: TRUE");
                 var path = Path.Combine(_gameLocation.location, "Graveyard Keeper.exe");
                 using var gyk = new Process();
                 gyk.StartInfo.FileName = path;
@@ -1314,7 +1302,6 @@ public partial class FrmMain : Form
         _path = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\"));
         //var di = new DirectoryInfo(Path.Combine(Application.StartupPath,@"..\..", "Graveyard Keeper_Data\\Managed\\Graveyard Keeper.exe"));
         var fi = new FileInfo(Path.Combine(_path, "Graveyard Keeper.exe"));
-        Console.WriteLine(@$"Path: {_path}");
 
         if (fi.Exists)
         {
@@ -1419,9 +1406,13 @@ public partial class FrmMain : Form
         CheckQueueEverything();
     }
 
-    private void UpdateModJson()
+    private void UpdateModJson(bool silent = false)
     {
-        WriteLog("Updating mod.json files for all installed mods. Information is pulled from the mods directly.");
+        if (!silent)
+        {
+            WriteLog("Updating mod.json files for all installed mods. Information is pulled from the mods directly.");
+        }
+
         foreach (var mod in _modList)
         {
             var (exists, file) = GetModConfigIfItExists(mod.ModAssemblyPath);

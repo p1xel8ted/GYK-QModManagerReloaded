@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmOptions));
             this.ChkUpdateOnStartup = new System.Windows.Forms.CheckBox();
             this.ChkLaunchExeDirectly = new System.Windows.Forms.CheckBox();
-            this.ChkDisabledAtBottom = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // ChkUpdateOnStartup
@@ -57,24 +56,11 @@
             this.ChkLaunchExeDirectly.UseVisualStyleBackColor = true;
             this.ChkLaunchExeDirectly.CheckedChanged += new System.EventHandler(this.ChkLaunchExeDirectly_CheckedChanged);
             // 
-            // ChkDisabledAtBottom
-            // 
-            this.ChkDisabledAtBottom.AutoSize = true;
-            this.ChkDisabledAtBottom.Location = new System.Drawing.Point(12, 59);
-            this.ChkDisabledAtBottom.Name = "ChkDisabledAtBottom";
-            this.ChkDisabledAtBottom.Size = new System.Drawing.Size(244, 18);
-            this.ChkDisabledAtBottom.TabIndex = 40;
-            this.ChkDisabledAtBottom.Text = "Move disabled mods to the bottom of the list";
-            this.ChkDisabledAtBottom.UseCompatibleTextRendering = true;
-            this.ChkDisabledAtBottom.UseVisualStyleBackColor = true;
-            this.ChkDisabledAtBottom.CheckedChanged += new System.EventHandler(this.ChkDisabledAtBottom_CheckedChanged);
-            // 
             // FrmOptions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.ChkDisabledAtBottom);
+            this.ClientSize = new System.Drawing.Size(189, 65);
             this.Controls.Add(this.ChkLaunchExeDirectly);
             this.Controls.Add(this.ChkUpdateOnStartup);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -96,6 +82,5 @@
 
         private System.Windows.Forms.CheckBox ChkUpdateOnStartup;
         private System.Windows.Forms.CheckBox ChkLaunchExeDirectly;
-        private System.Windows.Forms.CheckBox ChkDisabledAtBottom;
     }
 }

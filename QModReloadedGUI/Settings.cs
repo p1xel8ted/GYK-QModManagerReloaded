@@ -13,7 +13,6 @@ namespace QModReloadedGUI
         public bool LaunchDirectly { get; set; }
         public bool UpdateOnStartup { get; set; } = true;
         public string UserName { get; set; }
-        public bool DisabledModsAtBottom { get; set; } = true;
         public static Settings FromJsonFile()
         {
             if (!File.Exists(Path)) return new Settings();
