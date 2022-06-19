@@ -18,6 +18,7 @@ namespace QModReloadedGUI
 
         public static void WriteLog(string message, string gameLocation)
         {
+            if (string.IsNullOrEmpty(gameLocation)) return;
             using var streamWriter = new StreamWriter(Path.Combine(gameLocation, "qmod_reloaded_log.txt"),
                 true);
             streamWriter.WriteLine(message);
