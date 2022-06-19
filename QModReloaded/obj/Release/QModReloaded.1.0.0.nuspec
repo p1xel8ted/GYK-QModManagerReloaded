@@ -20,9 +20,9 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release\net48\QModReloaded.dll" target="lib\net48\QModReloaded.dll" />
-    <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\icon.ico" target="content\icon.ico" />
-    <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\icon.ico" target="contentFiles\any\net48\icon.ico" />
-    <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\image.png" target="\image.png" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\bin\Release\net48\QModReloaded.dll" target="lib\net48\QModReloaded.dll" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\icon.ico" target="content\icon.ico" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloaded\icon.ico" target="contentFiles\any\net48\icon.ico" />
+    <file src="H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\image.png" target="\image.png" />
   </files>
 </package>

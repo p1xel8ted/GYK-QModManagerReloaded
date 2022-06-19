@@ -1,13 +1,14 @@
 ﻿using Mono.Cecil;
 using Mono.Cecil.Cil;
 using QModReloaded;
+using SharpCompress.Common;
+using SharpCompress.Readers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
@@ -37,20 +38,24 @@ public partial class FrmMain : Form
     private readonly List<QMod> _modList = new();
     private bool _canCheckForUpdates = true;
     private QMod _contextMenuMod;
-    private string _dataPath;
+    private int _modUpdateCounter;
+    private static readonly string BasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "QMR");
+    private readonly string _dataPath = Path.Combine(BasePath, "k.json");
     private Rectangle _dragBoxFromMouseDown;
     private FrmAbout _frmAbout;
     private FrmChecklist _frmChecklist;
     private FrmConfigEdit _frmConfigEdit;
     private FrmNexus _frmNexus;
+    private FrmOptions _frmOptions;
     private FrmResModifier _frmResModifier;
     private (string location, bool found) _gameLocation;
     private Injector _injector;
-    private string _modLocation = string.Empty;
+    private static string _modLocation = string.Empty;
     private int _rowIndexFromMouseDown;
     private int _rowIndexOfItemUnderMouseToDrop;
     private Settings _settings;
     private Timer _updateTimer;
+
     public FrmMain(Settings settings)
     {
         _settings = settings;
@@ -217,33 +222,60 @@ public partial class FrmMain : Form
         _frmAbout = null;
     }
 
-    private bool AddMod(string file)
+    private void AddMod(string file, bool update = false, QMod mod = null)
     {
-        try
+        using (Stream stream = File.OpenRead(file))
+        using (var reader = ReaderFactory.Open(stream))
         {
-            var modZip = new FileInfo(file);
-            if (!modZip.Exists) return false;
-            var modArchive = ZipFile.OpenRead(modZip.FullName);
-            foreach (var entry in modArchive.Entries)
+            while (reader.MoveToNextEntry())
             {
-                if (entry.FullName.EndsWith("dll", StringComparison.OrdinalIgnoreCase))
+                if (!reader.Entry.IsDirectory)
                 {
-                    ZipFile.ExtractToDirectory(file,
-                        _modLocation + "\\" + entry.FullName.Substring(0, entry.FullName.Length - 4));
-                    break;
+                    Console.WriteLine(reader.Entry.Key);
+                    reader.WriteEntryToDirectory(@"H:\Test", new ExtractionOptions()
+                    {
+                        ExtractFullPath = true,
+                        Overwrite = true
+                    });
                 }
-
-                ZipFile.ExtractToDirectory(file, _modLocation);
-                break;
             }
+        }
 
-            return true;
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"ZIP Module: {ex.Message}", true);
-            return false;
-        }
+        //using (ZipFile zip = ZipFile.Read(NameOfExistingZipFile))
+        //{
+        //    zip.ExtractAll(args[1]);
+        //}
+        //try
+        //{
+
+        //    var modZip = new FileInfo(file);
+        //    if (!modZip.Exists) return;
+        //    var modArchive = ZipFile.OpenRead(modZip.FullName);
+        //    foreach (var entry in modArchive.Entries)
+        //    {
+        //        if (entry.FullName.EndsWith("dll", StringComparison.OrdinalIgnoreCase))
+        //        {
+        //            ZipFile.ExtractToDirectory(file,
+        //                _modLocation + "\\" + entry.FullName.Substring(0, entry.FullName.Length - 4));
+        //            break;
+        //        }
+
+        //        ZipFile.ExtractToDirectory(file, _modLocation);
+        //        break;
+        //    }
+
+        //    WriteLog(update ? $"[ZIP]: Updated {mod.DisplayName}" : $"[ZIP]: Extracted {modZip.Name}");
+        //}
+        //catch (Exception ex)
+        //{
+        //    WriteLog($"[ZIP]: {ex.Message}", true);
+        //}
+
+        //if (!update) return;
+        //_modUpdateCounter--;
+        //if (_modUpdateCounter > 0) return;
+        //UpdateProgress.Value = 0;
+        //UpdateProgress.Visible = false;
     }
 
     private void BtnAddMod_Click(object sender, EventArgs e)
@@ -252,17 +284,8 @@ public partial class FrmMain : Form
         if (dlgResult == DialogResult.OK)
             foreach (var zip in DlgFile.FileNames)
             {
-                var result = AddMod(zip);
-                if (result)
-                {
-                    WriteLog($"Extracted {zip}.");
-                }
-                else
-                {
-                    WriteLog($"Issue extracting {zip}.", true);
-                }
+                AddMod(zip);
             }
-
         LoadMods();
     }
 
@@ -437,6 +460,8 @@ public partial class FrmMain : Form
 
     private void CheckForUpdates()
     {
+        _modUpdateCounter = 0;
+        UpdateProgress.Visible = true;
         _updateTimer = new Timer
         {
             Interval = 500,
@@ -508,9 +533,20 @@ public partial class FrmMain : Form
 
             void CheckForUpdatesDownloadedCompleted(object sender, DownloadStringCompletedEventArgs args)
             {
-                LblNexusRequests.Text = Utilities.UpdateRequestCounts(modUpdate.ResponseHeaders, _settings.UserName);
+                LblNexusRequests.Text = UpdateRequestCounts(modUpdate.ResponseHeaders, _settings.UserName, _settings.IsPremium);
+                try
+                {
+                    ProcessJson(mod, args.Result);
+                }
+                catch (Exception ex) when (ex.InnerException != null)
+                {
+                    WriteLog($"[Updates]: Mod: {mod.DisplayName}, {ex.InnerException.Message}", true);
+                }
+                catch (Exception ex)
+                {
+                    WriteLog($"[Updates]: Mod: {mod.DisplayName}, {ex.Message}", true);
+                }
                 UpdateProgress.Value++;
-                ProcessJson(mod, args.Result);
             }
         }
 
@@ -525,7 +561,7 @@ public partial class FrmMain : Form
         qmrUpdate.DownloadStringAsync(new Uri("https://api.nexusmods.com/v1/games/graveyardkeeper/mods/40.json"));
         void CheckForQmrUpdatesCompleted(object sender, DownloadStringCompletedEventArgs args)
         {
-            LblNexusRequests.Text = Utilities.UpdateRequestCounts(qmrUpdate.ResponseHeaders, _settings.UserName);
+            LblNexusRequests.Text = UpdateRequestCounts(qmrUpdate.ResponseHeaders, _settings.UserName, _settings.IsPremium);
             try
             {
                 var nexusMod = JsonSerializer.Deserialize<NexusMod>(args.Result);
@@ -545,11 +581,11 @@ public partial class FrmMain : Form
             }
             catch (Exception ex) when (ex.InnerException != null)
             {
-                WriteLog($"Updates: {ex.InnerException.Message}", true);
+                WriteLog($"[Updates]: QMR, {ex.InnerException.Message}", true);
             }
             catch (Exception ex)
             {
-                WriteLog($"Updates: {ex.Message}", true);
+                WriteLog($"[Updates]: QMR, {ex.Message}", true);
             }
         }
     }
@@ -611,7 +647,7 @@ public partial class FrmMain : Form
 
         try
         {
-            if (!CleanMd5Hashes.Contains(Utilities.CalculateMd5(Path.Combine(_gameLocation.location,
+            if (!CleanMd5Hashes.Contains(CalculateMd5(Path.Combine(_gameLocation.location,
                     "Graveyard Keeper_Data\\Managed\\Assembly-CSharp.dll")))) return;
 
             File.Copy(Path.Combine(_gameLocation.location, "Graveyard Keeper_Data\\Managed\\Assembly-CSharp.dll"),
@@ -707,12 +743,6 @@ public partial class FrmMain : Form
         }
     }
 
-    private void ChkLaunchExeDirectly_CheckStateChanged(object sender, EventArgs e)
-    {
-        _settings.LaunchDirectly = ChkLaunchExeDirectly.Checked;
-        _settings.Save();
-    }
-
     private void ChkToggleMods_Click(object sender, EventArgs e)
     {
         foreach (DataGridViewRow row in DgvMods.Rows)
@@ -744,6 +774,8 @@ public partial class FrmMain : Form
             {
                 DgvMods[e.ColumnIndex, e.RowIndex].Value = 0;
                 ToggleModEnabled(false, e.RowIndex);
+                DgvMods.Rows.InsertCopy(e.RowIndex, DgvMods.Rows.Count);
+                DgvMods.Rows.RemoveAt(e.RowIndex);
             }
         }
 
@@ -904,15 +936,18 @@ public partial class FrmMain : Form
 
     private void FrmMain_Load(object sender, EventArgs e)
     {
+        Directory.CreateDirectory(BasePath);
         SetLocations();
         LoadMods();
         UpdateModJson();
         LoadMods();
+
         BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
         DgvMods.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
         DgvMods.AllowUserToResizeRows = false;
+        DgvMods.AutoGenerateColumns = true;
         DgvMods.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         DgvMods.Columns[4].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
         DgvMods.Columns[5].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -920,10 +955,10 @@ public partial class FrmMain : Form
 
         Text = $@"QMod Manager Reloaded v{Assembly.GetExecutingAssembly().GetName().Version}";
 
-        Directory.CreateDirectory(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "QMR"));
-        _dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "QMR", "k.json");
-
-        CheckForUpdates();
+        if (_settings.UpdateOnStartup)
+        {
+            CheckForUpdates();
+        }
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
@@ -1018,8 +1053,8 @@ public partial class FrmMain : Form
 
                             var isModCompatible = IsModCompatible(Path.Combine(mod.ModAssemblyPath, dllFileName));
                             var (configExists, configFile) = GetModConfigIfItExists(mod.ModAssemblyPath);
-                            int rowIndex;
                             mod.Config = "none";
+                            int rowIndex;
                             // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
                             if (configExists)
                             {
@@ -1096,6 +1131,10 @@ public partial class FrmMain : Form
         ModMenuName.Text = _contextMenuMod.DisplayName;
         Console.WriteLine(@$"Mod: {_contextMenuMod.DisplayName}, ID: {_contextMenuMod.NexusId}");
 
+        ModMenuUpdate.Visible = _settings.IsPremium;
+        UpdateDivider.Visible = _settings.IsPremium;
+
+        ModMenuUpdate.Enabled = _contextMenuMod.UpdateAvailable;
         ModMenuName.Enabled = _contextMenuMod.NexusId > 0;
     }
 
@@ -1103,6 +1142,7 @@ public partial class FrmMain : Form
     {
         try
         {
+            modListCtxMenu.Close();
             Process.Start($"https://www.nexusmods.com/graveyardkeeper/mods/{_contextMenuMod.NexusId}");
         }
         catch (Exception)
@@ -1120,22 +1160,23 @@ public partial class FrmMain : Form
 
     private void OpenConfigToolStripMenuItem_Click(object sender, EventArgs e)
     {
-        if (DgvMods.CurrentRow == null) return;
-        var rowIndex = DgvMods.CurrentRow.Index;
-        var foundMod = _modList.FirstOrDefault(x => x.Id == DgvMods[7, rowIndex].Value.ToString());
+        //if (DgvMods.CurrentRow == null) return;
+        //var rowIndex = DgvMods.CurrentRow.Index;
+        //var foundMod = _modList.FirstOrDefault(x => x.Id == DgvMods[7, rowIndex].Value.ToString());
 
-        if (foundMod == null || foundMod.Config == string.Empty) return;
+        //if (foundMod == null || foundMod.Config == string.Empty) return;
         try
         {
-            WriteLog($"Opening {foundMod.Config} for {foundMod.DisplayName}");
+            modListCtxMenu.Close();
+            WriteLog($"Opening {_contextMenuMod.Config} for {_contextMenuMod.DisplayName}");
 
-            _frmConfigEdit ??= new FrmConfigEdit(ref foundMod, ref DgvLog, _gameLocation.location);
+            _frmConfigEdit ??= new FrmConfigEdit(ref _contextMenuMod, ref DgvLog, _gameLocation.location);
             _frmConfigEdit.ShowDialog();
             _frmConfigEdit = null;
         }
         catch (Exception ex)
         {
-            WriteLog($"Issue opening {foundMod.Config} for {foundMod.DisplayName}. Exception: {ex.Message}");
+            WriteLog($"Issue opening {_contextMenuMod.Config} for {_contextMenuMod.DisplayName}. Exception: {ex.Message}");
         }
     }
 
@@ -1186,11 +1227,14 @@ public partial class FrmMain : Form
             var result = currentVersion.CompareTo(newVersion);
             if (result < 0)
             {
+                _modUpdateCounter++;
+                mod.UpdateAvailable = true;
                 DgvMods.Rows[FindModRow(mod.Id)].DefaultCellStyle.BackColor = Color.LightGreen;
                 WriteLog($"Update available for {mod.DisplayName} on NexusMods!", alert: true);
             }
             else
             {
+                mod.UpdateAvailable = false;
                 DgvMods.Rows[FindModRow(mod.Id)].DefaultCellStyle.BackColor = Color.White;
             }
         }
@@ -1209,6 +1253,7 @@ public partial class FrmMain : Form
 
     private void RemoveModToolStripMenuItem_Click(object sender, EventArgs e)
     {
+        modListCtxMenu.Close();
         BtnRemove_Click(sender, e);
     }
 
@@ -1339,15 +1384,20 @@ public partial class FrmMain : Form
         {
             foreach (DataGridViewRow row in DgvMods.Rows)
             {
-                row.Visible = true;
+                row.DefaultCellStyle.BackColor = Color.White;
             }
+            return;
         }
 
         foreach (DataGridViewRow row in DgvMods.Rows)
         {
+            row.DefaultCellStyle.BackColor = Color.White;
             foreach (DataGridViewCell cell in row.Cells)
             {
-                row.Visible = cell.Value.ToString().ToLower().Contains(TxtFilter.Text.ToLower());
+                if (cell.Value.ToString().ToLower().Contains(TxtFilter.Text.ToLower()))
+                {
+                    row.DefaultCellStyle.BackColor = Color.Chartreuse;
+                }
             }
         }
     }
@@ -1438,5 +1488,121 @@ public partial class FrmMain : Form
         }
 
         DgvLog.FirstDisplayedScrollingRowIndex = DgvLog.RowCount - 1;
+    }
+
+    private void NexusPageToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            Process.Start("https://www.nexusmods.com/graveyardkeeper/mods/40");
+        }
+        catch (Exception)
+        {
+            WriteLog($"Error launching Nexus page for QMod Manager Reloaded (NexusID: 40)", true);
+        }
+    }
+
+    private void ProcessDownloadLink(QMod mod, string url, string apiKey, string fileName)
+    {
+        var downloadPath = Path.Combine(BasePath, "ModUpdates");
+        Directory.CreateDirectory(downloadPath);
+        var newFile = Path.Combine(downloadPath, fileName);
+
+        var modDownloader = new WebClient();
+        modDownloader.Headers.Add("apikey", apiKey);
+        modDownloader.DownloadFileCompleted += DownloadCompleted;
+        modDownloader.Headers.Add("Application-Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        modDownloader.Headers.Add("Application-Name", "QMod-Manager-Reloaded");
+        modDownloader.Headers.Add("User-Agent", $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
+
+        modDownloader.DownloadFileAsync(new Uri(url), newFile);
+
+        void DownloadCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            AddMod(newFile, true, mod);
+        }
+        modDownloader.Dispose();
+    }
+
+    private void StartUpdates(QMod mod)
+    {
+        if (!_canCheckForUpdates)
+        {
+            WriteLog("Please wait for the current update operation to finish.", true);
+            return;
+        }
+
+        if (mod.NexusId <= 0)
+        {
+            WriteLog($"[Update]: {mod.DisplayName} doesn't have a valid NexusID. This can be obtained from the Nexus URL for the specified mod.");
+            return;
+        }
+        var modUpdate = new WebClient();
+        var pairedKeys = JsonSerializer.Deserialize<PairedKeys>(File.ReadAllText(_dataPath), new JsonSerializerOptions { AllowTrailingCommas = true });
+        if (pairedKeys?.Vector is null)
+        {
+            return;
+        }
+        modUpdate.Headers.Add("apikey", Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector));
+
+        modUpdate.DownloadStringCompleted += UpdateFilesDownloadedCompleted;
+        modUpdate.Headers.Add("Application-Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+        modUpdate.Headers.Add("Application-Name", "QMod-Manager-Reloaded");
+        modUpdate.Headers.Add("User-Agent", $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
+
+        modUpdate.DownloadStringAsync(new Uri($"https://api.nexusmods.com/v1/games/graveyardkeeper/mods/{mod.NexusId}/files.json"));
+
+        void UpdateFilesDownloadedCompleted(object sender, DownloadStringCompletedEventArgs args)
+        {
+            LblNexusRequests.Text = UpdateRequestCounts(modUpdate.ResponseHeaders, _settings.UserName, _settings.IsPremium);
+
+            var nexusModFiles = JsonSerializer.Deserialize<NexusModFiles>(args.Result);
+            if (nexusModFiles == null) return;
+            var updateFile = nexusModFiles.FileUpdates.Last().NewFileId;
+            var apiKey = Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector);
+
+            var fileUpdate = new WebClient();
+            fileUpdate.DownloadStringCompleted += DownloadedCompleted;
+            fileUpdate.Headers.Add("apikey", apiKey);
+            fileUpdate.Headers.Add("Application-Version", Assembly.GetExecutingAssembly().GetName().Version.ToString());
+            fileUpdate.Headers.Add("Application-Name", "QMod-Manager-Reloaded");
+            fileUpdate.Headers.Add("User-Agent",
+                $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
+
+            fileUpdate.DownloadStringAsync(new Uri($"https://api.nexusmods.com/v1/games/graveyardkeeper/mods/{mod.NexusId}/files/{updateFile}/download_link.json"));
+
+            void DownloadedCompleted(object sender, DownloadStringCompletedEventArgs innerArgs)
+            {
+                var downloadLocation = JsonSerializer.Deserialize<List<NexusModFilesServer>>(innerArgs.Result);
+                if (downloadLocation is not { Count: > 0 }) return;
+
+                var location = downloadLocation.FirstOrDefault(x => x.ShortName == "Nexus CDN");
+                ProcessDownloadLink(mod, location?.Uri, apiKey, nexusModFiles.FileUpdates.Last().NewFileName);
+            }
+            fileUpdate.Dispose();
+        }
+        modUpdate.Dispose();
+    }
+
+    private void ModMenuUpdate_Click(object sender, EventArgs e)
+    {
+        modListCtxMenu.Close();
+        StartUpdates(_contextMenuMod);
+    }
+
+    private void OptionsToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _frmOptions ??= new FrmOptions(ref _settings);
+        _frmOptions.ShowDialog();
+        _frmOptions = null;
+    }
+
+    private void UpdateAllToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        modListCtxMenu.Close();
+        foreach (var mod in _modList.Where(x => x.UpdateAvailable))
+        {
+            StartUpdates(mod);
+        }
     }
 }

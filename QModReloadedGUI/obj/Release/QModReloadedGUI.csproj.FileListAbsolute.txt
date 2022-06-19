@@ -36,22 +36,3 @@ H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\bin\Release
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\bin\Release\System.Threading.Tasks.Extensions.xml
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\bin\Release\System.ValueTuple.xml
 H:\OneDrive\Development\GraveyardKeeper\QModReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.GeneratedMSBuildEditorConfig.editorconfig
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.csproj.AssemblyReference.cache
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.csproj.SuggestedBindingRedirects.cache
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.FrmAbout.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.FrmChecklist.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.FrmConfigEdit.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.FrmMain.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.FrmNexus.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.Properties.Resources.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.FrmResModifier.resources
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.csproj.GenerateResource.cache
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.csproj.CoreCompileInputs.cache
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.exe
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.pdb
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\0Harmony.dll
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\dep\0Harmony.dll
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\QModReloadedGUI.exe.config
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\QModReloadedGUI.exe
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\QModReloadedGUI.pdb
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release\QModReloadedGUI.csproj.CopyComplete

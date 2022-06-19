@@ -18,6 +18,8 @@ public class QMod
     [JsonIgnore]
     public Assembly LoadedAssembly { get; set; }
 
+    [JsonIgnore] public bool UpdateAvailable { get; set; }
+
     public int LoadOrder { get; set; } = -1;
     [JsonIgnore]
     public string ModAssemblyPath { get; set; }

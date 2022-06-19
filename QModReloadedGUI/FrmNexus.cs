@@ -39,7 +39,7 @@ namespace QModReloadedGUI
 
                 void ValidateKeyCompleted(object sender, DownloadStringCompletedEventArgs args)
                 {
-                    _lblNexusRequests.Text = UpdateRequestCounts(validateKey.ResponseHeaders, _settings.UserName);
+                    _lblNexusRequests.Text = UpdateRequestCounts(validateKey.ResponseHeaders, _settings.UserName,_settings.IsPremium);
                     var validate = JsonSerializer.Deserialize<Validate>(args.Result);
                     if (validate != null)
                     {
@@ -98,6 +98,11 @@ namespace QModReloadedGUI
             {
                 //
             }
+        }
+
+        private void LblValidated_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

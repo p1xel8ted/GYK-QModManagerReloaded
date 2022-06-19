@@ -61,6 +61,7 @@
             this.LblValidated.TabIndex = 2;
             this.LblValidated.Text = "label1";
             this.LblValidated.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.LblValidated.Click += new System.EventHandler(this.LblValidated_Click);
             // 
             // FrmNexus
             // 

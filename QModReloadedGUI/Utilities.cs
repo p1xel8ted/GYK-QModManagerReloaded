@@ -23,11 +23,12 @@ namespace QModReloadedGUI
             streamWriter.WriteLine(message);
         }
 
-        internal static string UpdateRequestCounts(NameValueCollection responseHeaders, string userName)
+        internal static string UpdateRequestCounts(NameValueCollection responseHeaders, string userName, bool premium)
         {
+            if (responseHeaders == null) return string.Empty;
             var dailyRemaining = responseHeaders.GetValues("x-rl-daily-remaining")?[0];
             var dailyLimit = responseHeaders.GetValues("x-rl-daily-limit")?[0];
-            return $@"{userName}, Daily Requests: {dailyRemaining}/{dailyLimit}";
+            return premium ? $@"{userName} (Premium), Daily Requests: {dailyRemaining}/{dailyLimit}" : $@"{userName} (Standard), Daily Requests: {dailyRemaining}/{dailyLimit}";
         }
 
         public class PairedKeys
