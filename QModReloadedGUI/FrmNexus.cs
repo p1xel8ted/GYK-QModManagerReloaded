@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Text.Json;
 using System.Windows.Forms;
 using static QModReloadedGUI.Utilities;
@@ -58,7 +59,7 @@ namespace QModReloadedGUI
                         _settings.ApiKey = Obscure.Encrypt(TxtApi.Text.Trim(), obscurer.Key, obscurer.Vector);
                         _settings.Save();
                         File.Delete(_homePath);
-                        File.WriteAllText(_homePath, JsonSerializer.Serialize(new PairedKeys { Lock = obscurer.Key, Vector = obscurer.Vector }, new JsonSerializerOptions() { WriteIndented = true }));
+                        File.WriteAllText(_homePath, JsonSerializer.Serialize(new PairedKeys { Lock = obscurer.Key, Vector = obscurer.Vector }, new JsonSerializerOptions() { WriteIndented = true }), Encoding.Default);
                         File.SetAttributes(_homePath, FileAttributes.Hidden);
                     }
                     else

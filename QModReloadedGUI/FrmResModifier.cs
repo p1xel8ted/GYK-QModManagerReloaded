@@ -44,7 +44,7 @@ public partial class FrmResModifier : Form
         {
             if (TxtMaxHeight.Text.Length <= 0)
             {
-                WriteLog("Res Modifier (GetCurrentResolutions): Obtained current max resolution.");
+                WriteLog("[RESOLUTION]: Obtained current max in-game resolution.");
             }
             var currentHeight = Convert.ToInt32(_prc?.Body.Instructions[19].Operand.ToString());
             var currentWidth = Convert.ToInt32(_prc?.Body.Instructions[22].Operand.ToString());
@@ -53,7 +53,7 @@ public partial class FrmResModifier : Form
         }
         catch (Exception ex)
         {
-            WriteLog($"Res Modifier (GetCurrentResolutions): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
+            WriteLog($"[RESOLUTION]: Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
         }
     }
 
@@ -76,7 +76,7 @@ public partial class FrmResModifier : Form
         }
         catch (Exception ex)
         {
-            WriteLog($"Res Modifier (Initial Load): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
+            WriteLog($"[RESOLUTION]: Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
         }
     }
 
@@ -91,12 +91,12 @@ public partial class FrmResModifier : Form
             _prc?.Replace(_prc?.Body.Instructions[22], newWidth);
 
             _resAssembly.Write(Path.Combine(_gameLocation, "Graveyard Keeper_Data\\Managed\\Assembly-CSharp.dll"));
-            WriteLog($"Res Modifier (Update Resolutions): Successfully patched in {TxtRequestedMaxWidth.Text} x {TxtRequestedMaxHeight.Text}.");
+            WriteLog($"[RESOLUTION]: Successfully patched in {TxtRequestedMaxWidth.Text} x {TxtRequestedMaxHeight.Text}.");
             MessageBox.Show(@"Successfully patched in new resolution. I think.", @"Done!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         catch (Exception ex)
         {
-            WriteLog($"Res Modifier (Update Resolution): Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
+            WriteLog($"[RESOLUTION]: Message: {ex.Message}, Source: {ex.Source}, Trace: {ex.StackTrace}", true);
         }
     }
 
@@ -114,12 +114,12 @@ public partial class FrmResModifier : Form
         if (error)
         {
             logMessage = "-----------------------------------------\n";
-            logMessage += dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : [ERROR] : " + message + "\n";
+            logMessage += dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : [RESOLUTION][ERROR] : " + message + "\n";
             logMessage += "-----------------------------------------";
         }
         else
         {
-            logMessage = dt.ToShortDateString() + " " + dt.ToLongTimeString() + " : " + message;
+            logMessage = dt.ToShortDateString() + " " + dt.ToLongTimeString() + " [RESOLUTION] : " + message;
         }
         _dgvLog.FirstDisplayedScrollingRowIndex = _dgvLog.RowCount - 1;
         Utilities.WriteLog(logMessage, _gameLocation);

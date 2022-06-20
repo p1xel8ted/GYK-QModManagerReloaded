@@ -275,6 +275,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="icon.ico" />
+    <None Include="Resources\gerry.png" />
     <None Include="Resources\question-mark.png" />
     <None Include="Resources\settings.png" />
     <None Include="Resources\Color logo - no background.png" />

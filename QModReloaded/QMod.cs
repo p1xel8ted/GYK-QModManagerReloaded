@@ -32,4 +32,15 @@ public class QMod
         var value = File.ReadAllText(file);
         return JsonSerializer.Deserialize<QMod>(value);
     }
+
+    public void SaveJson()
+    {
+        var jsonOptions = new JsonSerializerOptions()
+        {
+            WriteIndented = true,
+            IncludeFields = true,
+            UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement
+        };
+        File.WriteAllText(Path.Combine(ModAssemblyPath, "mod.json"), JsonSerializer.Serialize(this, jsonOptions));
+    }
 }

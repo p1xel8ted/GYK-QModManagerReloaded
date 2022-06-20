@@ -92,8 +92,7 @@ public class QModLoader
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"Couldn't find a PatchAll. Not a valid mod.",
             Version = modInfo.ProductVersion
         };
-        var newJson = JsonSerializer.Serialize(newMod, JsonOptions);
-        File.WriteAllText(Path.Combine(path, "mod.json"), newJson);
+        newMod.SaveJson();
         var files = new FileInfo(Path.Combine(path, "mod.json"));
         return files.Exists;
     }

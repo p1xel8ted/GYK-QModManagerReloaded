@@ -8,14 +8,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using static QModReloadedGUI.Utilities;
 using File = System.IO.File;
 
@@ -96,9 +95,9 @@ public partial class FrmMain : Form
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"{fileNameWithoutExt}.MainPatcher.Patch",
             Version = modInfo.FileVersion
         };
-        var newJson = JsonSerializer.Serialize(newMod, JsonOptions);
+        
         if (path == null) return false;
-        File.WriteAllText(Path.Combine(path, "mod.json"), newJson);
+        newMod.SaveJson();
         var files = new FileInfo(Path.Combine(path, "mod.json"));
         return files.Exists;
     }
@@ -224,24 +223,45 @@ public partial class FrmMain : Form
 
     private void AddMod(string file, bool update = false, QMod mod = null)
     {
+        var success = false;
         try
         {
             var modZip = new FileInfo(file);
+            if (file.ToLower().EndsWith(".rar"))
+            {
+                WriteLog(
+                    update
+                        ? $"[Zip]: This update file, {modZip.Name} is a RAR, I can only handle ZIP at this time."
+                        : $"[Zip]: This file, {modZip.Name} is a RAR, I can only handle ZIP at this time.", true);
+
+                return;
+            }
+            
             if (!modZip.Exists) return;
-            using (var zip = Ionic.Zip.ZipFile.Read(modZip.FullName))
+            using (var zip = ZipFile.Read(modZip.FullName))
             {
                 foreach (var e in zip)
                 {
-                    if (e.ToString().EndsWith("dll"))
+                    try
                     {
-                        var newFile = e.ToString().Remove(0, 10);
-                        var path = _modLocation + "\\" + newFile.Substring(0, newFile.Length - 4);
-   
-                        zip.ExtractAll(path, ExtractExistingFileAction.OverwriteSilently);
+                        if (e.ToString().EndsWith("dll"))
+                        {
+                            var newFile = e.ToString().Remove(0, 10);
+                            var path = _modLocation + "\\" + newFile.Substring(0, newFile.Length - 4);
+
+                            zip.ExtractAll(path, ExtractExistingFileAction.OverwriteSilently);
+                            success = true;
+                            break;
+                        }
+                        zip.ExtractAll(_modLocation, ExtractExistingFileAction.OverwriteSilently);
+                        success = true;
                         break;
                     }
-                    zip.ExtractAll(_modLocation, ExtractExistingFileAction.OverwriteSilently);
-                    break;
+                    catch (Exception ex)
+                    {
+                        WriteLog($"[Zip]: Issue extracting {modZip.Name}, Message: {ex.Message}");
+                        success = false;
+                    }
                 }
             }
 
@@ -249,23 +269,49 @@ public partial class FrmMain : Form
             {
                 if (mod != null)
                 {
-                    mod.UpdateAvailable = false;
-                    WriteLog($"[ZIP]: Updated {mod.DisplayName}");
+                    if (success)
+                    {
+                        mod.UpdateAvailable = false;
+                        WriteLog($"[Zip]: Updated {mod.DisplayName}");
+                    }
+                    else
+                    {
+                        mod.UpdateAvailable = true;
+                        WriteLog($"[Zip]: Failed to update {mod.DisplayName}");
+                    }
+                }
+                else
+                {
+                    WriteLog(success ? $"[Zip]: Updated unknown mod." : $"[ZIP]: Failed to update unknown mod.");
+                }
+
+                if (success && _settings.DeleteUpdates)
+                {
+                    try
+                    {
+                        File.Delete(file);
+                        WriteLog($"[Zip]: Removed downloaded updated file {modZip.Name}");
+                    }
+                    catch (Exception ex)
+                    {
+                        WriteLog($"[Zip]: Error removing downloaded updated file {modZip.Name}. Message: {ex.Message}");
+                    }
                 }
             }
             else
             {
-                WriteLog($"[ZIP]: Extracted {modZip.Name}");
+                WriteLog(success ? $"[Zip]: Extracted {modZip.Name}" : $"[ZIP]: Failed to extract {modZip.Name}");
             }
 
-            BtnRefresh_Click(null,null);
+            BtnRefresh_Click(null, null);
         }
         catch (Exception ex)
         {
-            WriteLog($"[ZIP]: {ex.Message}", true);
+            WriteLog($"[Zip]: {ex.Message}", true);
         }
-
+   
         if (!update) return;
+        if (!success) return;
         _modUpdateCounter--;
         if (_modUpdateCounter > 0) return;
         UpdateProgress.Value = 0;
@@ -280,7 +326,7 @@ public partial class FrmMain : Form
             {
                 AddMod(zip);
             }
-        LoadMods();
+        LoadMods(true);
     }
 
     private void BtnLaunchModless_Click(object sender, EventArgs e)
@@ -291,8 +337,7 @@ public partial class FrmMain : Form
         {
             WriteLog("Disabling mods and launching game.");
             mod.Enable = false;
-            var newJson = JsonSerializer.Serialize(mod, JsonOptions);
-            File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), newJson);
+            mod.SaveJson();
         }
         RunGame();
     }
@@ -310,10 +355,21 @@ public partial class FrmMain : Form
     {
         var file = Path.Combine(_gameLocation.location, "qmod_reloaded_log.txt");
         if (File.Exists(file))
-            Process.Start(file);
+        {
+            if (_settings.UsePreferredEditor)
+            {
+                LaunchEditor(file);
+            }
+            else
+            {
+                Process.Start(file);
+            }
+        }
         else
+        {
             MessageBox.Show(@"No log available yet.", @"Log", MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
+        }
     }
 
     private void BtnOpenModDir_Click(object sender, EventArgs e)
@@ -349,7 +405,8 @@ public partial class FrmMain : Form
 
         LblErrors.Visible = false;
         UpdateModJson(true);
-        LoadMods();
+        LoadMods(true);
+        ChkHideDisabledMods_CheckedChanged(null, null);
     }
 
     private void BtnRemove_Click(object sender, EventArgs e)
@@ -397,14 +454,14 @@ public partial class FrmMain : Form
             WriteLog(message);
             var dlgResult = MessageBox.Show(
                 @"Intros have been disabled, would you like to apply the patch now?",
-                @"Done!", MessageBoxButtons.YesNo);
+                @"Done!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dlgResult == DialogResult.Yes) BtnPatch_Click(sender, e);
         }
         else
         {
             WriteLog(message, true);
             MessageBox.Show(@"There was an issue patching out intros. Validate Steam files and try again.", @"Hmmm",
-                MessageBoxButtons.OK);
+                MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
 
@@ -456,6 +513,7 @@ public partial class FrmMain : Form
 
     private void CheckForUpdates()
     {
+        UpdateModJson(true);
         _modUpdateCounter = 0;
         UpdateProgress.Visible = true;
         _updateTimer = new Timer
@@ -601,6 +659,7 @@ public partial class FrmMain : Form
         if (!_gameLocation.found) return;
 
         _injector = new Injector(_path);
+        var mod = FindMod("NoIntros");
         if (_injector.IsInjected())
         {
             LblPatched.Text = @"Mod Injector Installed";
@@ -618,28 +677,36 @@ public partial class FrmMain : Form
 
         if (_injector.IsNoIntroInjected())
         {
-            if (ModInList("intros"))
+            if (mod is {Enable: true})
             {
-                LblIntroPatched.Text = @"Intros Removed (via mod and patch?).";
-                LblIntroPatched.ForeColor = Color.DarkOrange;
+                WriteLog("[INJECTOR]: Intros removed via patch, disabling NoIntros as it's redundant.");
+                DgvMods.Rows[FindModRow("NoIntros")].Cells[0].Value = 0; 
+                mod.Enable = false;
+                mod.SaveJson();
             }
-            else
-            {
-                LblIntroPatched.Text = @"Intros Removed (via patch).";
-                LblIntroPatched.ForeColor = Color.Green;
-            }
+            LblIntroPatched.Text = @"Intros Removed (via patch)";
+            LblIntroPatched.ForeColor = Color.Green;
         }
         else
         {
-            if (ModInList("intros"))
+            if (mod is { Enable: true })
             {
-                LblIntroPatched.Text = @"Intros Removed (via mod).";
+                LblIntroPatched.Text = @"Intros Removed (via mod)";
                 LblIntroPatched.ForeColor = Color.Green;
             }
             else
             {
-                LblIntroPatched.Text = @"Intros Not Removed";
-                LblIntroPatched.ForeColor = Color.Red;
+                if (mod is {Enable: false})
+                {
+                    LblIntroPatched.Text = @"Intros Not Removed (NoIntros mod is disabled)";
+                    LblIntroPatched.ForeColor = Color.Red;
+                }
+                else
+                {
+                    LblIntroPatched.Text = @"Intros Not Removed";
+                    LblIntroPatched.ForeColor = Color.Red;
+                }
+
             }
         }
 
@@ -732,11 +799,11 @@ public partial class FrmMain : Form
         if (showOrderMessage)
         {
             MessageBox.Show(
-                @"It seems you have all or some of the following mods installed. Please ensure their load order is as follows:" +
-                @"\n\nExhaust-less/FasterCraft - doesn't matter which order." +
-                @"\nQueue Everything!* - must come after the above two." +
-                @"\nI Neeeed Sticks! - must come after the above three." +
-                @"\n\nIt doesn't matter if other mods are in-between.",
+                @"It seems you have all or some of the following mods installed. Please ensure their load order is as follows:" + 
+                "\n\nExhaust-less/FasterCraft - doesn't matter which order." +
+                "\nQueue Everything!* - must come after the above two." +
+                "\nI Neeeed Sticks! - must come after the above three." +
+                "\n\nIt doesn't matter if other mods are in-between.",
                 @"Load Order Issue", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }
@@ -745,6 +812,7 @@ public partial class FrmMain : Form
     {
         foreach (DataGridViewRow row in DgvMods.Rows)
         {
+            if (!row.Visible) continue;
             if (ChkToggleMods.Checked)
             {
                 row.Cells[0].Value = 1;
@@ -935,8 +1003,8 @@ public partial class FrmMain : Form
         Directory.CreateDirectory(BasePath);
         SetLocations();
         LoadMods();
-        UpdateModJson();
-        LoadMods();
+       // UpdateModJson();
+        LoadMods(true);
 
         BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -955,11 +1023,13 @@ public partial class FrmMain : Form
         {
             CheckForUpdates();
         }
+
+        ChkHideDisabledMods.Checked = _settings.HideDisabledMods;
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
     {
-        if (WindowState == FormWindowState.Minimized)
+        if (WindowState == FormWindowState.Minimized && _settings.MinToSysTray)
         {
             ShowInTaskbar = false;
         }
@@ -970,11 +1040,12 @@ public partial class FrmMain : Form
         BtnRunGame_Click(sender, e);
     }
 
-    private void LoadMods()
+    private void LoadMods(bool silentLoad = false)
     {
         try
         {
             LblErrors.Text = string.Empty;
+            ErrorSeparator.Visible = false;
             _modList.Clear();
             DgvMods.Rows.Clear();
             if (!_gameLocation.found) return;
@@ -994,7 +1065,8 @@ public partial class FrmMain : Form
                 string jsonFile = null;
                 if (modJsonFile.Length == 1 && infoJsonFile.Length == 1)
                 {
-                    WriteLog(
+                    if (!silentLoad)
+                        WriteLog(
                         $"Multiple JSON detected for {dllFileName}. Please remove one. Either mod.json or info.json, not both.");
                     continue;
                 }
@@ -1015,7 +1087,8 @@ public partial class FrmMain : Form
                     var createResult = CreateJson(dllFile);
                     if (createResult == false)
                     {
-                        WriteLog("Error creating JSON file.", true);
+                        if (!silentLoad)
+                            WriteLog("Error creating JSON file.", true);
                     }
                     else
                     {
@@ -1025,14 +1098,16 @@ public partial class FrmMain : Form
 
                 if (jsonFile == null)
                 {
-                    WriteLog($"{dllFileName} didn't have a valid json.", true);
+                    if (!silentLoad)
+                        WriteLog($"{dllFileName} didn't have a valid json.", true);
                 }
                 else
                 {
                     var mod = QMod.FromJsonFile(Path.Combine(path, jsonFile));
                     if (mod == null)
                     {
-                        WriteLog($"{dllFileName} didn't have a valid json.", true);
+                        if (!silentLoad)
+                            WriteLog($"{dllFileName} didn't have a valid json.", true);
                     }
                     else
                     {
@@ -1043,8 +1118,7 @@ public partial class FrmMain : Form
                             if (mod.LoadOrder <= 0)
                             {
                                 mod.LoadOrder = _modList.Count + 1;
-                                var json = JsonSerializer.Serialize(mod, JsonOptions);
-                                File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), json);
+                                mod.SaveJson();
                             }
 
                             var isModCompatible = IsModCompatible(Path.Combine(mod.ModAssemblyPath, dllFileName));
@@ -1070,29 +1144,40 @@ public partial class FrmMain : Form
                             if (!isModCompatible)
                             {
                                 row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                WriteLog(
+                                if (!silentLoad)
+                                    WriteLog(
                                     mod.DisplayName +
                                     " added, but it's not Harmony 2 compatible, and will not load without updating by the author.",
                                     true);
                             }
                             else
                             {
-                                WriteLog(mod.DisplayName + " added.");
+                                if(!silentLoad)
+                                    WriteLog(mod.DisplayName + " added.");
                             }
                             _modList.Add(mod);
                         }
                         else
                         {
-                            WriteLog(mod.DisplayName + " had issues and wasn't loaded.", true);
+                            if (!silentLoad)
+                                WriteLog(mod.DisplayName + " had issues and wasn't loaded.", true);
                         }
                     }
                 }
             }
 
             DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
-            WriteLog(
+            if (!silentLoad)
+                WriteLog(
                 "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
-            UpdateModJson();
+            if (silentLoad)
+            {
+                UpdateModJson(true);
+            }
+            else
+            {
+                UpdateModJson();
+            }
         }
         catch (Exception ex)
         {
@@ -1114,10 +1199,6 @@ public partial class FrmMain : Form
         _frmResModifier = null;
     }
 
-    private bool ModInList(string mod)
-    {
-        return _modList.Any(x => x.DisplayName.ToLower().Contains(mod.ToLower()));
-    }
 
     private void ModListCtxMenu_Opening(object sender, CancelEventArgs e)
     {
@@ -1129,9 +1210,11 @@ public partial class FrmMain : Form
         ModMenuName.Text = _contextMenuMod.DisplayName;
 
         ModMenuUpdate.Visible = _settings.IsPremium;
+        ModMenuUpdateAll.Visible = _settings.IsPremium;
         UpdateDivider.Visible = _settings.IsPremium;
 
         ModMenuUpdate.Enabled = _contextMenuMod.UpdateAvailable;
+        ModMenuUpdateAll.Enabled = _settings.IsPremium;
         ModMenuName.Enabled = _contextMenuMod.NexusId > 0;
     }
 
@@ -1155,16 +1238,32 @@ public partial class FrmMain : Form
         _frmNexus = null;
     }
 
+    private void LaunchEditor(string args)
+    {
+        var p = new Process();
+        p.StartInfo.FileName = _settings.PreferredEditor;
+        p.StartInfo.Arguments = $"\"{args}\"";
+        p.StartInfo.UseShellExecute = false;
+        p.Start();
+    }
+
     private void OpenConfigToolStripMenuItem_Click(object sender, EventArgs e)
     {
-   try
+        try
         {
             modListCtxMenu.Close();
             WriteLog($"Opening {_contextMenuMod.Config} for {_contextMenuMod.DisplayName}");
-
-            _frmConfigEdit ??= new FrmConfigEdit(ref _contextMenuMod, ref DgvLog, _gameLocation.location);
-            _frmConfigEdit.ShowDialog();
-            _frmConfigEdit = null;
+            if (_settings.OverrideConfigEditor)
+            {
+                var configPath = Path.Combine(_contextMenuMod.ModAssemblyPath, _contextMenuMod.Config).Replace("\\\\", "\\");
+                LaunchEditor(configPath);
+            }
+            else
+            {
+                _frmConfigEdit ??= new FrmConfigEdit(ref _contextMenuMod, ref DgvLog, _gameLocation.location);
+                _frmConfigEdit.ShowDialog();
+                _frmConfigEdit = null;
+            }
         }
         catch (Exception ex)
         {
@@ -1198,7 +1297,16 @@ public partial class FrmMain : Form
     {
         try
         {
-            Process.Start(Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log"));
+            var path = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\",
+                "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
+            if (_settings.UsePreferredEditor)
+            {
+                LaunchEditor(path);
+            }
+            else
+            {
+                Process.Start(path);
+            }
         }
         catch (Exception ex)
         {
@@ -1220,7 +1328,12 @@ public partial class FrmMain : Form
             {
                 _modUpdateCounter++;
                 mod.UpdateAvailable = true;
-                DgvMods.Rows[FindModRow(mod.Id)].DefaultCellStyle.BackColor = Color.LightGreen;
+                var row = DgvMods.Rows[FindModRow(mod.Id)];
+                if (!row.Visible)
+                {
+                    row.Visible = true;
+                }
+                row.DefaultCellStyle.BackColor = Color.LightGreen;
                 WriteLog($"Update available for {mod.DisplayName} on NexusMods!", alert: true);
             }
             else
@@ -1328,7 +1441,7 @@ public partial class FrmMain : Form
         if (!_gameLocation.found) return;
         if (new DirectoryInfo(_modLocation).Exists) return;
         Directory.CreateDirectory(_modLocation);
-        WriteLog("INFO: QMods directory created.");
+        WriteLog("[INFO]: QMods directory created.");
     }
 
     private void ToggleModEnabled(bool enabled, int row)
@@ -1340,8 +1453,7 @@ public partial class FrmMain : Form
             if (modFound == null) return;
             modFound.Enable = enabled;
 
-            var newJson = JsonSerializer.Serialize(modFound, JsonOptions);
-            File.WriteAllText(Path.Combine(modFound.ModAssemblyPath, "mod.json"), newJson);
+            modFound.SaveJson();
         }
         catch (Exception)
         {
@@ -1369,6 +1481,7 @@ public partial class FrmMain : Form
     {
         if (TxtFilter.Text.Length <= 0)
         {
+            ChkHideDisabledMods_CheckedChanged(null, null);
             foreach (DataGridViewRow row in DgvMods.Rows)
             {
                 row.DefaultCellStyle.BackColor = Color.White;
@@ -1383,6 +1496,10 @@ public partial class FrmMain : Form
             {
                 if (cell.Value.ToString().ToLower().Contains(TxtFilter.Text.ToLower()))
                 {
+                    if (!row.Visible)
+                    {
+                        row.Visible = true;
+                    }
                     row.DefaultCellStyle.BackColor = Color.Chartreuse;
                 }
             }
@@ -1398,17 +1515,16 @@ public partial class FrmMain : Form
             {
                 DgvMods.Rows[row.Index].Cells[1].Value = row.Index + 1;
                 mod.LoadOrder = row.Index + 1;
-                var json = JsonSerializer.Serialize(mod, JsonOptions);
-                File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), json);
+                mod.SaveJson();
             }
         }
 
         CheckQueueEverything();
     }
 
-    private void UpdateModJson(bool silent = false)
+    private void UpdateModJson(bool silentUpdate = false)
     {
-        if (!silent)
+        if (!silentUpdate)
         {
             WriteLog("Updating mod.json files for all installed mods. Information is pulled from the mods directly.");
         }
@@ -1429,8 +1545,7 @@ public partial class FrmMain : Form
             mod.Description = modInfo.FileDescription;
             mod.Version = modInfo.ProductVersion;
             mod.EntryMethod = $"{namesp}.{type}.{method}";
-            var newJson = JsonSerializer.Serialize(mod, JsonOptions);
-            File.WriteAllText(Path.Combine(mod.ModAssemblyPath, "mod.json"), newJson);
+            mod.SaveJson();
         }
     }
 
@@ -1470,11 +1585,13 @@ public partial class FrmMain : Form
         if (errors > 0)
         {
             LblErrors.Visible = true;
+            ErrorSeparator.Visible = true;
             LblErrors.Text = $@"Errors: {errors}";
         }
         else
         {
             LblErrors.Text = "";
+            ErrorSeparator.Visible = false;
             LblErrors.Visible = false;
         }
 
@@ -1495,9 +1612,18 @@ public partial class FrmMain : Form
 
     private void ProcessDownloadLink(QMod mod, string url, string apiKey, string fileName)
     {
-        var downloadPath = Path.Combine(BasePath, "ModUpdates");
+        var downloadPath = _settings.UseCustomDownloadDir ? _settings.CustomDownloadDir : Path.Combine(BasePath, "ModUpdates");
         Directory.CreateDirectory(downloadPath);
         var newFile = Path.Combine(downloadPath, fileName);
+        if (!_settings.AlwaysRedownload)
+        {
+            if (File.Exists(newFile))
+            {
+                WriteLog($"[Update]: Update file {fileName} already exists, as per configuration, using that instead of re-downloading.");
+                AddMod(newFile, true, mod);
+                return;
+            }
+        }
 
         var modDownloader = new WebClient();
         modDownloader.Headers.Add("apikey", apiKey);
@@ -1507,7 +1633,7 @@ public partial class FrmMain : Form
         modDownloader.Headers.Add("User-Agent", $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
 
         modDownloader.DownloadFileAsync(new Uri(url), newFile);
-
+        LblNexusRequests.Text = UpdateRequestCounts(modDownloader.ResponseHeaders, _settings.UserName, _settings.IsPremium);
         void DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             AddMod(newFile, true, mod);
@@ -1519,13 +1645,13 @@ public partial class FrmMain : Form
     {
         if (!_canCheckForUpdates)
         {
-            WriteLog("Please wait for the current update operation to finish.", true);
+            WriteLog("[Update]: Please wait for the current update operation to finish.", true);
             return;
         }
 
         if (mod.NexusId <= 0)
         {
-            WriteLog($"[Update]: {mod.DisplayName} doesn't have a valid NexusID. This can be obtained from the Nexus URL for the specified mod.");
+            WriteLog($"[Update]: {mod.DisplayName} doesn't have a valid NexusID. This can be obtained from the Nexus URL for the specified mod and added to the mods mod.json file.");
             return;
         }
         var modUpdate = new WebClient();
@@ -1567,12 +1693,13 @@ public partial class FrmMain : Form
                 var downloadLocation = JsonSerializer.Deserialize<List<NexusModFilesServer>>(innerArgs.Result);
                 if (downloadLocation is not { Count: > 0 }) return;
 
-                var location = downloadLocation.FirstOrDefault(x => x.ShortName == "Nexus CDN");
+                var location = downloadLocation.FirstOrDefault(x => x.ShortName.ToLower().Contains("nexus"));
                 ProcessDownloadLink(mod, location?.Uri, apiKey, nexusModFiles.FileUpdates.Last().NewFileName);
             }
             fileUpdate.Dispose();
+            modUpdate.Dispose();
         }
-        modUpdate.Dispose();
+       
     }
 
     private void ModMenuUpdate_Click(object sender, EventArgs e)
@@ -1596,4 +1723,27 @@ public partial class FrmMain : Form
             StartUpdates(mod);
         }
     }
+
+    private void ChkHideDisabledMods_CheckedChanged(object sender, EventArgs e)
+    {
+        if (ChkHideDisabledMods.Checked)
+        {
+            foreach (DataGridViewRow row in DgvMods.Rows)
+            {
+                if (row.Cells[0].Value.Equals(0))
+                {
+                    row.Visible = false;
+                }
+            }
+        }
+        else
+        {
+            foreach (DataGridViewRow row in DgvMods.Rows)
+            {
+                row.Visible = true;
+            }
+        }
+        
+    }
+
 }
