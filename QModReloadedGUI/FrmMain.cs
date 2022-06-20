@@ -1451,8 +1451,12 @@ public partial class FrmMain : Form
             var modFound = FindMod(DgvMods.Rows[row].Cells[7].Value.ToString());
 
             if (modFound == null) return;
-            modFound.Enable = enabled;
+            if (ChkHideDisabledMods.Checked)
+            {
+                DgvMods.Rows[row].Visible = enabled;
+            }
 
+            modFound.Enable = enabled;
             modFound.SaveJson();
         }
         catch (Exception)
@@ -1743,7 +1747,8 @@ public partial class FrmMain : Form
                 row.Visible = true;
             }
         }
-        
+
+        CheckAllModsActive();
     }
 
 }
