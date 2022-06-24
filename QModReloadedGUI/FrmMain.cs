@@ -1053,7 +1053,7 @@ public partial class FrmMain : Form
                 // GetModEntryPoint(dllFile);
                 var path = new FileInfo(dllFile).DirectoryName;
                 var modInfo = FileVersionInfo.GetVersionInfo(dllFile);
-                if (modInfo.FileDescription.Equals("QModHelper")) continue;
+                if (modInfo.FileDescription.Contains("QModHelper")) continue;
                 if (path == null) continue;
                 var dllFileName = new FileInfo(dllFile).Name;
                 var modJsonFile = Directory.GetFiles(path, "mod.json", SearchOption.TopDirectoryOnly);
