@@ -54,6 +54,7 @@ public class QModLoader
             }
 
             var modToAdd = QMod.FromJsonFile(jsonPath);
+
             modToAdd.LoadedAssembly = Assembly.LoadFrom(dllFile);
             modToAdd.ModAssemblyPath = dllFile;
             mods.Add(modToAdd);
@@ -63,6 +64,10 @@ public class QModLoader
 
         foreach (var mod in mods)
         {
+            if (mod.Description.Contains("QModHelper"))
+            {
+                mod.Enable = true;
+            }
             if (mod.Enable)
                 LoadMod(mod);
             else

@@ -27,12 +27,6 @@ public partial class FrmMain : Form
     };
 
     //hash for Assembly-CSharp.dll 1.405
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        WriteIndented = true,
-        IncludeFields = true,
-        UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement
-    };
 
     private static string _path = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\"));
     private readonly List<QMod> _modList = new();
@@ -1058,6 +1052,8 @@ public partial class FrmMain : Form
             {
                 // GetModEntryPoint(dllFile);
                 var path = new FileInfo(dllFile).DirectoryName;
+                var modInfo = FileVersionInfo.GetVersionInfo(dllFile);
+                if (modInfo.FileDescription.Equals("QModHelper")) continue;
                 if (path == null) continue;
                 var dllFileName = new FileInfo(dllFile).Name;
                 var modJsonFile = Directory.GetFiles(path, "mod.json", SearchOption.TopDirectoryOnly);
@@ -1104,6 +1100,7 @@ public partial class FrmMain : Form
                 else
                 {
                     var mod = QMod.FromJsonFile(Path.Combine(path, jsonFile));
+                    
                     if (mod == null)
                     {
                         if (!silentLoad)
@@ -1456,7 +1453,15 @@ public partial class FrmMain : Form
                 DgvMods.Rows[row].Visible = enabled;
             }
 
-            modFound.Enable = enabled;
+            if (modFound.Description.Equals("QModHelper"))
+            {
+                modFound.Enable = true;
+            }
+            else
+            {
+                modFound.Enable = enabled;
+            }
+
             modFound.SaveJson();
         }
         catch (Exception)
