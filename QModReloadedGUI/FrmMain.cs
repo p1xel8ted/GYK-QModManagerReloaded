@@ -397,7 +397,14 @@ public partial class FrmMain : Form
             return;
         }
 
+        foreach (DataGridViewRow row in DgvLog.Rows)
+        {
+            row.DefaultCellStyle.BackColor = Color.White;
+        }
+
         LblErrors.Visible = false;
+        
+        LoadMods(true);
         UpdateModJson(true);
         LoadMods(true);
         ChkHideDisabledMods_CheckedChanged(null, null);
@@ -565,6 +572,12 @@ public partial class FrmMain : Form
 
         foreach (var mod in _modList)
         {
+            if (mod.NexusId <= 0)
+            {
+                UpdateProgress.Value++;
+                WriteLog($"[Updates]: {mod.DisplayName} doesn't have a NexusID set. Skipping.",true);
+                continue;
+            }
             var modUpdate = new WebClient();
 
             modUpdate.Headers.Add("apikey", Obscure.Decrypt(_settings.ApiKey, pairedKeys.Lock, pairedKeys.Vector));
@@ -575,7 +588,7 @@ public partial class FrmMain : Form
             modUpdate.Headers.Add("User-Agent", $"QMod-Manager-Reloaded/{Assembly.GetExecutingAssembly().GetName().Version} {Environment.OSVersion}");
             if (mod.DisplayName.ToLower().Contains("harmony"))
             {
-                WriteLog($"Skipping Harmony1to2 Converted Mod {mod.DisplayName}");
+                WriteLog($"[Updates]: Skipping Harmony1to2 Converted Mod {mod.DisplayName}");
                 UpdateProgress.Value++;
                 continue;
             }
