@@ -1028,7 +1028,7 @@ public partial class FrmMain : Form
 
         if (_settings.UpdateOnStartup)
         {
-            CheckForUpdates();
+           // CheckForUpdates();
         }
 
         ChkHideDisabledMods.Checked = _settings.HideDisabledMods;

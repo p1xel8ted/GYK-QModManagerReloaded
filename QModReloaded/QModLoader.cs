@@ -6,27 +6,19 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace QModReloaded;
 
 public class QModLoader
 {
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        WriteIndented = true,
-        IncludeFields = true,
-        UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement
-    };
-
     private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
 
     public static void Patch()
     {
+
         Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
         Logger.WriteLog("Patch method called. Attempting to load mods.");
-
+        LoadHelper();
         var dllFiles =
             Directory.EnumerateDirectories(QModBaseDir).SelectMany(
                 directory => Directory.EnumerateFiles(directory, "*.dll"));
@@ -59,6 +51,8 @@ public class QModLoader
             modToAdd.ModAssemblyPath = dllFile;
             mods.Add(modToAdd);
         }
+
+
 
         mods.Sort((m1, m2) => m1.LoadOrder.CompareTo(m2.LoadOrder));
 
@@ -100,6 +94,27 @@ public class QModLoader
         newMod.SaveJson();
         var files = new FileInfo(Path.Combine(path, "mod.json"));
         return files.Exists;
+    }
+
+    private static void LoadHelper()
+    {
+        try
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, "Graveyard Keeper_Data\\Managed\\Helper.dll");
+            var assembly = Assembly.LoadFile(path);
+            var m = GetModEntryPoint(path);
+            var methodToLoad = assembly.GetType(m.namesp + "." + m.type).GetMethod(m.method);
+            methodToLoad?.Invoke(m, Array.Empty<object>());
+            Logger.WriteLog("Successfully invoked QMod Helper entry method.");
+        }
+        catch (FileNotFoundException ex)
+        {
+            Logger.WriteLog($"Could not find QMod Helper. {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Logger.WriteLog($"Error invoking QMod Helper. {ex.Message}");
+        }
     }
 
     private static (string namesp, string type, string method, bool found) GetModEntryPoint(string mod)

@@ -274,6 +274,9 @@
     <Content Include="dep\0Harmony.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <AdditionalFiles Include="dep\Helper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
     <Content Include="icon.ico" />
     <None Include="Resources\gerry.png" />
     <None Include="Resources\question-mark.png" />

@@ -32,24 +32,24 @@
             this.ChkUpdateOnStartup = new System.Windows.Forms.CheckBox();
             this.ChkLaunchExeDirectly = new System.Windows.Forms.CheckBox();
             this.GrpMisc = new System.Windows.Forms.GroupBox();
+            this.ChkHideDisabled = new System.Windows.Forms.CheckBox();
             this.ChkMinimizeTray = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ChkOverride = new System.Windows.Forms.CheckBox();
+            this.BtnBrowse = new System.Windows.Forms.Button();
             this.ChkEditor = new System.Windows.Forms.CheckBox();
             this.TxtEditor = new System.Windows.Forms.TextBox();
             this.DlgEditor = new System.Windows.Forms.OpenFileDialog();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.LblInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.GrpUpdates = new System.Windows.Forms.GroupBox();
-            this.ChkRemoveDownloadedFile = new System.Windows.Forms.CheckBox();
-            this.TxtDownloadDir = new System.Windows.Forms.TextBox();
+            this.ChkRedownload = new System.Windows.Forms.CheckBox();
             this.ChkDownloadDirectory = new System.Windows.Forms.CheckBox();
+            this.BtnBrowseUpdate = new System.Windows.Forms.Button();
+            this.TxtDownloadDir = new System.Windows.Forms.TextBox();
+            this.ChkRemoveDownloadedFile = new System.Windows.Forms.CheckBox();
             this.DlgDownload = new System.Windows.Forms.FolderBrowserDialog();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.BtnBrowseUpdate = new System.Windows.Forms.Button();
-            this.BtnBrowse = new System.Windows.Forms.Button();
-            this.ChkRedownload = new System.Windows.Forms.CheckBox();
-            this.ChkHideDisabled = new System.Windows.Forms.CheckBox();
             this.GrpMisc.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -60,6 +60,7 @@
             // ChkUpdateOnStartup
             // 
             this.ChkUpdateOnStartup.AutoSize = true;
+            this.ChkUpdateOnStartup.Enabled = false;
             this.ChkUpdateOnStartup.Location = new System.Drawing.Point(6, 19);
             this.ChkUpdateOnStartup.Name = "ChkUpdateOnStartup";
             this.ChkUpdateOnStartup.Size = new System.Drawing.Size(163, 17);
@@ -93,6 +94,18 @@
             this.GrpMisc.TabIndex = 40;
             this.GrpMisc.TabStop = false;
             this.GrpMisc.Text = "Misc. Options";
+            // 
+            // ChkHideDisabled
+            // 
+            this.ChkHideDisabled.AutoSize = true;
+            this.ChkHideDisabled.Location = new System.Drawing.Point(140, 19);
+            this.ChkHideDisabled.Name = "ChkHideDisabled";
+            this.ChkHideDisabled.Size = new System.Drawing.Size(167, 17);
+            this.ChkHideDisabled.TabIndex = 40;
+            this.ChkHideDisabled.Text = "Hide disabled mods by default";
+            this.ChkHideDisabled.UseVisualStyleBackColor = true;
+            this.ChkHideDisabled.CheckedChanged += new System.EventHandler(this.ChkHideDisabled_CheckedChanged);
+            this.ChkHideDisabled.MouseHover += new System.EventHandler(this.ChkHideDisabled_MouseHover);
             // 
             // ChkMinimizeTray
             // 
@@ -130,6 +143,19 @@
             this.ChkOverride.UseVisualStyleBackColor = true;
             this.ChkOverride.CheckedChanged += new System.EventHandler(this.ChkOverride_CheckedChanged);
             this.ChkOverride.MouseHover += new System.EventHandler(this.ChkOverride_MouseHover);
+            // 
+            // BtnBrowse
+            // 
+            this.BtnBrowse.Image = global::QModReloadedGUI.Properties.Resources.folder_open;
+            this.BtnBrowse.Location = new System.Drawing.Point(314, 36);
+            this.BtnBrowse.Name = "BtnBrowse";
+            this.BtnBrowse.Size = new System.Drawing.Size(75, 23);
+            this.BtnBrowse.TabIndex = 2;
+            this.BtnBrowse.Text = "&Browse";
+            this.BtnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnBrowse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnBrowse.UseVisualStyleBackColor = true;
+            this.BtnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
             // 
             // ChkEditor
             // 
@@ -188,29 +214,23 @@
             this.GrpUpdates.TabStop = false;
             this.GrpUpdates.Text = "Updates";
             // 
-            // ChkRemoveDownloadedFile
+            // ChkRedownload
             // 
-            this.ChkRemoveDownloadedFile.AutoSize = true;
-            this.ChkRemoveDownloadedFile.Location = new System.Drawing.Point(6, 42);
-            this.ChkRemoveDownloadedFile.Name = "ChkRemoveDownloadedFile";
-            this.ChkRemoveDownloadedFile.Size = new System.Drawing.Size(159, 17);
-            this.ChkRemoveDownloadedFile.TabIndex = 1;
-            this.ChkRemoveDownloadedFile.Text = "Delete downloaded updates";
-            this.ChkRemoveDownloadedFile.UseVisualStyleBackColor = true;
-            this.ChkRemoveDownloadedFile.CheckedChanged += new System.EventHandler(this.ChkRemoveDownloadedFile_CheckedChanged);
-            this.ChkRemoveDownloadedFile.MouseHover += new System.EventHandler(this.ChkRemoveDownloadedFile_MouseHover);
-            // 
-            // TxtDownloadDir
-            // 
-            this.TxtDownloadDir.Location = new System.Drawing.Point(6, 111);
-            this.TxtDownloadDir.Name = "TxtDownloadDir";
-            this.TxtDownloadDir.ReadOnly = true;
-            this.TxtDownloadDir.Size = new System.Drawing.Size(383, 20);
-            this.TxtDownloadDir.TabIndex = 2;
+            this.ChkRedownload.AutoSize = true;
+            this.ChkRedownload.Enabled = false;
+            this.ChkRedownload.Location = new System.Drawing.Point(6, 88);
+            this.ChkRedownload.Name = "ChkRedownload";
+            this.ChkRedownload.Size = new System.Drawing.Size(161, 17);
+            this.ChkRedownload.TabIndex = 5;
+            this.ChkRedownload.Text = "Always re-download updates";
+            this.ChkRedownload.UseVisualStyleBackColor = true;
+            this.ChkRedownload.CheckedChanged += new System.EventHandler(this.ChkRedownload_CheckedChanged);
+            this.ChkRedownload.MouseHover += new System.EventHandler(this.ChkRedownload_MouseHover);
             // 
             // ChkDownloadDirectory
             // 
             this.ChkDownloadDirectory.AutoSize = true;
+            this.ChkDownloadDirectory.Enabled = false;
             this.ChkDownloadDirectory.Location = new System.Drawing.Point(6, 65);
             this.ChkDownloadDirectory.Name = "ChkDownloadDirectory";
             this.ChkDownloadDirectory.Size = new System.Drawing.Size(174, 17);
@@ -219,6 +239,42 @@
             this.ChkDownloadDirectory.UseVisualStyleBackColor = true;
             this.ChkDownloadDirectory.CheckedChanged += new System.EventHandler(this.ChkDownloadDirectory_CheckedChanged);
             this.ChkDownloadDirectory.MouseHover += new System.EventHandler(this.ChkDownloadDirectory_MouseHover);
+            // 
+            // BtnBrowseUpdate
+            // 
+            this.BtnBrowseUpdate.Enabled = false;
+            this.BtnBrowseUpdate.Image = global::QModReloadedGUI.Properties.Resources.folder_open;
+            this.BtnBrowseUpdate.Location = new System.Drawing.Point(314, 84);
+            this.BtnBrowseUpdate.Name = "BtnBrowseUpdate";
+            this.BtnBrowseUpdate.Size = new System.Drawing.Size(75, 23);
+            this.BtnBrowseUpdate.TabIndex = 3;
+            this.BtnBrowseUpdate.Text = "&Browse";
+            this.BtnBrowseUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BtnBrowseUpdate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnBrowseUpdate.UseVisualStyleBackColor = true;
+            this.BtnBrowseUpdate.Click += new System.EventHandler(this.BtnBrowseUpdate_Click);
+            // 
+            // TxtDownloadDir
+            // 
+            this.TxtDownloadDir.Enabled = false;
+            this.TxtDownloadDir.Location = new System.Drawing.Point(6, 111);
+            this.TxtDownloadDir.Name = "TxtDownloadDir";
+            this.TxtDownloadDir.ReadOnly = true;
+            this.TxtDownloadDir.Size = new System.Drawing.Size(383, 20);
+            this.TxtDownloadDir.TabIndex = 2;
+            // 
+            // ChkRemoveDownloadedFile
+            // 
+            this.ChkRemoveDownloadedFile.AutoSize = true;
+            this.ChkRemoveDownloadedFile.Enabled = false;
+            this.ChkRemoveDownloadedFile.Location = new System.Drawing.Point(6, 42);
+            this.ChkRemoveDownloadedFile.Name = "ChkRemoveDownloadedFile";
+            this.ChkRemoveDownloadedFile.Size = new System.Drawing.Size(159, 17);
+            this.ChkRemoveDownloadedFile.TabIndex = 1;
+            this.ChkRemoveDownloadedFile.Text = "Delete downloaded updates";
+            this.ChkRemoveDownloadedFile.UseVisualStyleBackColor = true;
+            this.ChkRemoveDownloadedFile.CheckedChanged += new System.EventHandler(this.ChkRemoveDownloadedFile_CheckedChanged);
+            this.ChkRemoveDownloadedFile.MouseHover += new System.EventHandler(this.ChkRemoveDownloadedFile_MouseHover);
             // 
             // DlgDownload
             // 
@@ -233,56 +289,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 44;
             this.pictureBox1.TabStop = false;
-            // 
-            // BtnBrowseUpdate
-            // 
-            this.BtnBrowseUpdate.Image = global::QModReloadedGUI.Properties.Resources.folder_open;
-            this.BtnBrowseUpdate.Location = new System.Drawing.Point(314, 84);
-            this.BtnBrowseUpdate.Name = "BtnBrowseUpdate";
-            this.BtnBrowseUpdate.Size = new System.Drawing.Size(75, 23);
-            this.BtnBrowseUpdate.TabIndex = 3;
-            this.BtnBrowseUpdate.Text = "&Browse";
-            this.BtnBrowseUpdate.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnBrowseUpdate.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BtnBrowseUpdate.UseVisualStyleBackColor = true;
-            this.BtnBrowseUpdate.Click += new System.EventHandler(this.BtnBrowseUpdate_Click);
-            // 
-            // BtnBrowse
-            // 
-            this.BtnBrowse.Image = global::QModReloadedGUI.Properties.Resources.folder_open;
-            this.BtnBrowse.Location = new System.Drawing.Point(314, 36);
-            this.BtnBrowse.Name = "BtnBrowse";
-            this.BtnBrowse.Size = new System.Drawing.Size(75, 23);
-            this.BtnBrowse.TabIndex = 2;
-            this.BtnBrowse.Text = "&Browse";
-            this.BtnBrowse.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.BtnBrowse.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.BtnBrowse.UseVisualStyleBackColor = true;
-            this.BtnBrowse.Click += new System.EventHandler(this.BtnBrowse_Click);
-            // 
-            // ChkRedownload
-            // 
-            this.ChkRedownload.AutoSize = true;
-            this.ChkRedownload.Location = new System.Drawing.Point(6, 88);
-            this.ChkRedownload.Name = "ChkRedownload";
-            this.ChkRedownload.Size = new System.Drawing.Size(161, 17);
-            this.ChkRedownload.TabIndex = 5;
-            this.ChkRedownload.Text = "Always re-download updates";
-            this.ChkRedownload.UseVisualStyleBackColor = true;
-            this.ChkRedownload.CheckedChanged += new System.EventHandler(this.ChkRedownload_CheckedChanged);
-            this.ChkRedownload.MouseHover += new System.EventHandler(this.ChkRedownload_MouseHover);
-            // 
-            // ChkHideDisabled
-            // 
-            this.ChkHideDisabled.AutoSize = true;
-            this.ChkHideDisabled.Location = new System.Drawing.Point(140, 19);
-            this.ChkHideDisabled.Name = "ChkHideDisabled";
-            this.ChkHideDisabled.Size = new System.Drawing.Size(167, 17);
-            this.ChkHideDisabled.TabIndex = 40;
-            this.ChkHideDisabled.Text = "Hide disabled mods by default";
-            this.ChkHideDisabled.UseVisualStyleBackColor = true;
-            this.ChkHideDisabled.CheckedChanged += new System.EventHandler(this.ChkHideDisabled_CheckedChanged);
-            this.ChkHideDisabled.MouseHover += new System.EventHandler(this.ChkHideDisabled_MouseHover);
             // 
             // FrmOptions
             // 

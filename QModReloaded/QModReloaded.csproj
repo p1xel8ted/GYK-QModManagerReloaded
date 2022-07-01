@@ -10,7 +10,7 @@
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
+    <BaseOutputPath>..\..\..\..\..\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\</BaseOutputPath>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <DebugType>embedded</DebugType>
     <SignAssembly>False</SignAssembly>
@@ -53,6 +53,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="0Harmony.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Helper.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

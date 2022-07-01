@@ -34,3 +34,6 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\ob
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.csproj.CoreCompileInputs.cache
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.csproj.CopyComplete
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Release Installer\net48\QModReloaded.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Release Installer\net48\0Harmony.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Release Installer\net48\Helper.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Release Installer\net48\QModReloaded.dll

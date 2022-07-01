@@ -20,7 +20,7 @@
     </contentFiles>
   </metadata>
   <files>
-    <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Release Installer\net48\QModReloaded.dll" target="lib\net48\QModReloaded.dll" />
+    <file src="H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Release Installer\net48\QModReloaded.dll" target="lib\net48\QModReloaded.dll" />
     <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\icon.ico" target="content\icon.ico" />
     <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\icon.ico" target="contentFiles\any\net48\icon.ico" />
     <file src="H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\image.png" target="\image.png" />
