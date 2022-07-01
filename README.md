@@ -30,7 +30,7 @@ https://www.nexusmods.com/graveyardkeeper/mods/47
 - Backup/restore clean Assembly-CSharp.dll files. GOG and Steam as of 1.405. 
 
 
-![alt text](https://github.com/p1xel8ted/GYK-QModManagerReloaded/blob/44c7f0b61b33de21a64b2ad7b12dd0aac2b3021e/main_ui_new.png)
+![alt text](https://github.com/p1xel8ted/GYK-QModManagerReloaded/blob/d5919293c51efbc6732ed949c4635629a657dffd/main_ui_new2.png)
 
 
 # Mod Developers
@@ -83,6 +83,7 @@ The output of above, looks like:
   "Enable": true,
   "AssemblyName": "MiscBitsAndBobs.dll",
   "EntryMethod": "MiscBitsAndBobs.MainPatcher.Patch",
+  "NexusID": 5
   "LoadOrder": 6
 }
 ```
