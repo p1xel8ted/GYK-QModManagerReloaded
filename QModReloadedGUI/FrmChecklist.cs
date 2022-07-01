@@ -54,7 +54,7 @@ namespace QModReloadedGUI
 
                 c.ForeColor = c.Checked ? Color.Green : Color.Red;
             }
-            if (allFound == 16)
+            if (allFound == 17)
             {
                 ChkPatcherLocation.Checked = true;
                 ChkPatcherLocation.ForeColor = Color.Green;
