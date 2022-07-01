@@ -15,7 +15,6 @@ public class Injector
     public Injector(string gamePath)
     {
         _loader = Path.Combine(gamePath, "Graveyard Keeper_Data\\Managed\\Assembly-CSharp.dll");
-        Console.WriteLine($"Injector Path: {_loader}");
     }
 
     public (bool injected, string message) Inject()
@@ -70,6 +69,7 @@ public class Injector
             return (false, $"Intros patch injected ERROR: {ex.Message}");
         }
     }
+
     public bool IsInjected()
     {
         try

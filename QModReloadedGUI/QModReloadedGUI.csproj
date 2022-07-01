@@ -50,7 +50,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>..\..\..\..\..\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -88,7 +88,52 @@
     <Deterministic>false</Deterministic>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release GOG|AnyCPU'">
+    <OutputPath>..\..\..\..\..\GOG Games\Graveyard Keeper\Graveyard Keeper_Data\Managed\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Standalone|AnyCPU'">
+    <OutputPath>bin\Standalone\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Standalone Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Standalone Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>embedded</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>latest</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -103,7 +148,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
-    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -113,6 +157,9 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.6.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
     <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
@@ -154,6 +201,21 @@
     <Compile Include="FrmMain.Designer.cs">
       <DependentUpon>FrmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmNexus.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNexus.Designer.cs">
+      <DependentUpon>FrmNexus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOptions.Designer.cs">
+      <DependentUpon>FrmOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Nexus\NexusMod.cs" />
+    <Compile Include="Nexus\NexusModFiles.cs" />
+    <Compile Include="Nexus\NexusModFilesServer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FrmResModifier.cs">
@@ -162,11 +224,7 @@
     <Compile Include="FrmResModifier.Designer.cs">
       <DependentUpon>FrmResModifier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Utilities.cs" />
     <EmbeddedResource Include="FrmAbout.resx">
       <DependentUpon>FrmAbout.cs</DependentUpon>
@@ -179,6 +237,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMain.resx">
       <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNexus.resx">
+      <DependentUpon>FrmNexus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOptions.resx">
+      <DependentUpon>FrmOptions.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -197,10 +261,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\QModReloaded\QModReloaded.csproj">
@@ -213,7 +274,16 @@
     <Content Include="dep\0Harmony.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <AdditionalFiles Include="dep\Helper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
     <Content Include="icon.ico" />
+    <None Include="Resources\gerry.png" />
+    <None Include="Resources\question-mark.png" />
+    <None Include="Resources\settings.png" />
+    <None Include="Resources\Color logo - no background.png" />
+    <None Include="Resources\planet-earth-5056.png" />
+    <None Include="Resources\nexus_mod_manager_icon_256x2561.ico" />
     <None Include="Resources\heart.ico" />
     <None Include="Resources\play.ico" />
     <None Include="Resources\stop.ico" />
@@ -242,12 +312,8 @@
       <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <AssemblySearchPaths>$(AssemblySearchPaths.Replace('{AssemblyFolders}', '').Split(';'))</AssemblySearchPaths>
@@ -256,11 +322,4 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.4\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.4\build\System.Text.Json.targets'))" />
-  </Target>
-  <Import Project="..\packages\System.Text.Json.6.0.4\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.4\build\System.Text.Json.targets')" />
 </Project>

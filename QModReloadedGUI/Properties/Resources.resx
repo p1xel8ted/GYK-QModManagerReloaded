@@ -118,11 +118,14 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="folder_open1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\folder_open1.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\stop.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="arrow_next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow_next.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="file" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\file.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="maximize" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\maximize.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -130,20 +133,29 @@
   <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\login.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="nexus_mod_manager_icon_256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\nexus_mod_manager_icon_256x2561.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="folder_files" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_files.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Color logo - no background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Color logo - no background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="comments" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\comments.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\play.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="planet-earth-5056" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\planet-earth-5056.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="application" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\application.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="question-mark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\question-mark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="action_add" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\action_add.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -151,17 +163,23 @@
   <data name="folder_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\folder_open.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="action_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\action_delete.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="play" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\play.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="search" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\search.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="action_check" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\action_check.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="stop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\stop.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="heart" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\heart.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="file" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\file.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="settings" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\settings.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="arrow_top" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow_top.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -175,10 +193,10 @@
   <data name="arrow_down" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\arrow_down.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="action_delete" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\action_delete.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="folder_open1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_open1.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="heart" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\heart.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="gerry" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\gerry.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

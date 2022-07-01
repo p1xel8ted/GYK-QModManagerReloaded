@@ -6,26 +6,19 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace QModReloaded;
 
 public class QModLoader
 {
-    private static readonly JsonSerializerOptions JsonOptions = new()
-    {
-        WriteIndented = true,
-        IncludeFields = true,
-        UnknownTypeHandling = JsonUnknownTypeHandling.JsonElement
-    };
-
     private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
+
     public static void Patch()
     {
+
         Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
         Logger.WriteLog("Patch method called. Attempting to load mods.");
-
+        LoadHelper();
         var dllFiles =
             Directory.EnumerateDirectories(QModBaseDir).SelectMany(
                 directory => Directory.EnumerateFiles(directory, "*.dll"));
@@ -53,15 +46,22 @@ public class QModLoader
             }
 
             var modToAdd = QMod.FromJsonFile(jsonPath);
+
             modToAdd.LoadedAssembly = Assembly.LoadFrom(dllFile);
             modToAdd.ModAssemblyPath = dllFile;
             mods.Add(modToAdd);
         }
 
+
+
         mods.Sort((m1, m2) => m1.LoadOrder.CompareTo(m2.LoadOrder));
 
         foreach (var mod in mods)
         {
+            if (mod.Description.Contains("QModHelper"))
+            {
+                mod.Enable = true;
+            }
             if (mod.Enable)
                 LoadMod(mod);
             else
@@ -86,14 +86,35 @@ public class QModLoader
             Description = modInfo.FileDescription,
             AssemblyName = AssemblyName.GetAssemblyName(sFile.FullName).Name,
             Author = modInfo.CompanyName,
+            NexusId = -1,
             Id = fileNameWithoutExt,
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"Couldn't find a PatchAll. Not a valid mod.",
             Version = modInfo.ProductVersion
         };
-        var newJson = JsonSerializer.Serialize(newMod, JsonOptions);
-        File.WriteAllText(Path.Combine(path, "mod.json"), newJson);
+        newMod.SaveJson();
         var files = new FileInfo(Path.Combine(path, "mod.json"));
         return files.Exists;
+    }
+
+    private static void LoadHelper()
+    {
+        try
+        {
+            var path = Path.Combine(Environment.CurrentDirectory, "Graveyard Keeper_Data\\Managed\\Helper.dll");
+            var assembly = Assembly.LoadFile(path);
+            var m = GetModEntryPoint(path);
+            var methodToLoad = assembly.GetType(m.namesp + "." + m.type).GetMethod(m.method);
+            methodToLoad?.Invoke(m, Array.Empty<object>());
+            Logger.WriteLog("Successfully invoked QMod Helper entry method.");
+        }
+        catch (FileNotFoundException ex)
+        {
+            Logger.WriteLog($"Could not find QMod Helper. {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Logger.WriteLog($"Error invoking QMod Helper. {ex.Message}");
+        }
     }
 
     private static (string namesp, string type, string method, bool found) GetModEntryPoint(string mod)
@@ -108,7 +129,7 @@ public class QModLoader
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-           // toInspect = toInspect.Where(x => x.m.Name is "Patch");
+            // toInspect = toInspect.Where(x => x.m.Name is "Patch");
 
             foreach (var method in toInspect)
                 if (method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
@@ -135,7 +156,7 @@ public class QModLoader
                     .Where(m => m.HasBody)
                     .Select(m => new { t, m }));
 
-           // toInspect = toInspect.Where(x => x.m.Name is "Patch");
+            // toInspect = toInspect.Where(x => x.m.Name is "Patch");
 
             if (toInspect.Any(method => method.m.Body.Instructions.Where(instruction => instruction.Operand != null)
                     .Any(instruction => instruction.OpCode == OpCodes.Newobj && instruction.Operand.ToString().Contains("HarmonyLib.Harmony"))))
@@ -150,6 +171,7 @@ public class QModLoader
 
         return false;
     }
+
     private static void LoadMod(QMod mod)
     {
         try

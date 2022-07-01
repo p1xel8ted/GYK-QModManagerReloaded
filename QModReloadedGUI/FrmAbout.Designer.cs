@@ -32,7 +32,6 @@ namespace QModReloadedGUI
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAbout));
-            this.LblTitle = new System.Windows.Forms.Label();
             this.LblCredits = new System.Windows.Forms.Label();
             this.LblCreditsUrl = new System.Windows.Forms.LinkLabel();
             this.LblMyUrl = new System.Windows.Forms.LinkLabel();
@@ -42,21 +41,10 @@ namespace QModReloadedGUI
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // LblTitle
-            // 
-            this.LblTitle.AutoSize = true;
-            this.LblTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblTitle.Location = new System.Drawing.Point(151, 9);
-            this.LblTitle.Name = "LblTitle";
-            this.LblTitle.Size = new System.Drawing.Size(353, 40);
-            this.LblTitle.TabIndex = 1;
-            this.LblTitle.Text = "QMod Manager Reloaded";
-            this.LblTitle.UseCompatibleTextRendering = true;
-            // 
             // LblCredits
             // 
             this.LblCredits.AutoSize = true;
-            this.LblCredits.Location = new System.Drawing.Point(154, 97);
+            this.LblCredits.Location = new System.Drawing.Point(12, 345);
             this.LblCredits.Name = "LblCredits";
             this.LblCredits.Size = new System.Drawing.Size(210, 17);
             this.LblCredits.TabIndex = 2;
@@ -66,7 +54,7 @@ namespace QModReloadedGUI
             // LblCreditsUrl
             // 
             this.LblCreditsUrl.AutoSize = true;
-            this.LblCreditsUrl.Location = new System.Drawing.Point(154, 118);
+            this.LblCreditsUrl.Location = new System.Drawing.Point(12, 328);
             this.LblCreditsUrl.Name = "LblCreditsUrl";
             this.LblCreditsUrl.Size = new System.Drawing.Size(233, 17);
             this.LblCreditsUrl.TabIndex = 3;
@@ -78,7 +66,7 @@ namespace QModReloadedGUI
             // LblMyUrl
             // 
             this.LblMyUrl.AutoSize = true;
-            this.LblMyUrl.Location = new System.Drawing.Point(157, 69);
+            this.LblMyUrl.Location = new System.Drawing.Point(12, 311);
             this.LblMyUrl.Name = "LblMyUrl";
             this.LblMyUrl.Size = new System.Drawing.Size(301, 17);
             this.LblMyUrl.TabIndex = 4;
@@ -89,7 +77,7 @@ namespace QModReloadedGUI
             // 
             // TxtVersion
             // 
-            this.TxtVersion.Location = new System.Drawing.Point(157, 44);
+            this.TxtVersion.Location = new System.Drawing.Point(12, 286);
             this.TxtVersion.Name = "TxtVersion";
             this.TxtVersion.ReadOnly = true;
             this.TxtVersion.Size = new System.Drawing.Size(239, 20);
@@ -98,7 +86,7 @@ namespace QModReloadedGUI
             // BtnOK
             // 
             this.BtnOK.Image = global::QModReloadedGUI.Properties.Resources.heart;
-            this.BtnOK.Location = new System.Drawing.Point(436, 108);
+            this.BtnOK.Location = new System.Drawing.Point(274, 332);
             this.BtnOK.Name = "BtnOK";
             this.BtnOK.Size = new System.Drawing.Size(61, 23);
             this.BtnOK.TabIndex = 6;
@@ -111,25 +99,25 @@ namespace QModReloadedGUI
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-2, -9);
+            this.pictureBox1.Image = global::QModReloadedGUI.Properties.Resources.Color_logo___no_background;
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(150, 150);
+            this.pictureBox1.Size = new System.Drawing.Size(321, 269);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.PictureBox1_Click);
             // 
             // FrmAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 141);
+            this.ClientSize = new System.Drawing.Size(347, 367);
             this.Controls.Add(this.TxtVersion);
             this.Controls.Add(this.BtnOK);
             this.Controls.Add(this.LblMyUrl);
             this.Controls.Add(this.LblCreditsUrl);
             this.Controls.Add(this.LblCredits);
-            this.Controls.Add(this.LblTitle);
             this.Controls.Add(this.pictureBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -150,7 +138,6 @@ namespace QModReloadedGUI
         #endregion
 
         private PictureBox pictureBox1;
-        private Label LblTitle;
         private Label LblCredits;
         private LinkLabel LblCreditsUrl;
         private LinkLabel LblMyUrl;

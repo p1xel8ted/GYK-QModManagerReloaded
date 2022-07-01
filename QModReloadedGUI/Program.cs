@@ -17,9 +17,10 @@ namespace QModReloadedGUI
             {
                 if (mutex.WaitOne(0, false))
                 {
+                    var settings = Settings.FromJsonFile();
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new FrmMain());
+                    Application.Run(new FrmMain(settings));
                 }
                 else
                 {

@@ -34,13 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_0649B305F9A8BD7B76D3E4508C857F79"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_0649B305F9A8BD7B76D3E4508C857F79"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,25 +88,13 @@
         "Entry"
         {
         "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
         "OwnerKey" = "8:_479D2029092B8A7566849A39A5C022D5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2C47FB0BEC3A4C3DA03679A2B79686B0"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2C47FB0BEC3A4C3DA03679A2B79686B0"
-        "OwnerKey" = "8:_E7C6D6897E91A929F489C56399057CF2"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -111,8 +105,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_31B859C9557F4C62BB647F6508E1CB45"
-        "OwnerKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -123,14 +117,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
-        "OwnerKey" = "8:_E7C6D6897E91A929F489C56399057CF2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
-        "OwnerKey" = "8:_2C47FB0BEC3A4C3DA03679A2B79686B0"
+        "OwnerKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -142,18 +130,12 @@
         "Entry"
         {
         "MsmKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
-        "OwnerKey" = "8:_E7C6D6897E91A929F489C56399057CF2"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_44C213BA78CFC0D31DECA5A9473AEAEA"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
+        "MsmKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
         "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -161,6 +143,18 @@
         {
         "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
         "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
+        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -171,8 +165,32 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4E5CE9C8D1388A7C608E91F5136BAFCB"
-        "OwnerKey" = "8:_44C213BA78CFC0D31DECA5A9473AEAEA"
+        "MsmKey" = "8:_5138B04F01044F09B0A19067419FC448"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_60CCFFD5D0C565E3267E6DB2790FC6BA"
+        "OwnerKey" = "8:_D838182AD06542F898030F96CE7DD0B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_60CCFFD5D0C565E3267E6DB2790FC6BA"
+        "OwnerKey" = "8:_5138B04F01044F09B0A19067419FC448"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_62AFFBF19C654349A0B810E4FC269BDC"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A0CF2AC818F37F49B016F6B8F0519930"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -183,7 +201,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A0CF2AC818F37F49B016F6B8F0519930"
+        "MsmKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
         "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -195,8 +213,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "MsmKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -208,12 +232,30 @@
         "Entry"
         {
         "MsmKey" = "8:_D5EF5F5FBF9AD54388832683A15F029A"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D5EF5F5FBF9AD54388832683A15F029A"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D838182AD06542F898030F96CE7DD0B4"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DAA26DFC294EC03A888A56A1B6CA6B58"
         "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -231,8 +273,8 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_E7C6D6897E91A929F489C56399057CF2"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmKey" = "8:_EDF79AE01BDA45F9BC9EA00D9AC76F38"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -243,8 +285,56 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_FAB4D51AF8C31C2F51FE0112F8A0812A"
+        "OwnerKey" = "8:_D838182AD06542F898030F96CE7DD0B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_FAB4D51AF8C31C2F51FE0112F8A0812A"
+        "OwnerKey" = "8:_5138B04F01044F09B0A19067419FC448"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_31B859C9557F4C62BB647F6508E1CB45"
+        "OwnerKey" = "8:_119A8BF9C39C2B56815F07A81448161C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5138B04F01044F09B0A19067419FC448"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_62AFFBF19C654349A0B810E4FC269BDC"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D838182AD06542F898030F96CE7DD0B4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_60CCFFD5D0C565E3267E6DB2790FC6BA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FAB4D51AF8C31C2F51FE0112F8A0812A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EDF79AE01BDA45F9BC9EA00D9AC76F38"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -256,19 +346,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E7C6D6897E91A929F489C56399057CF2"
+        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_2C47FB0BEC3A4C3DA03679A2B79686B0"
+        "OwnerKey" = "8:_DAA26DFC294EC03A888A56A1B6CA6B58"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -328,19 +418,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_44C213BA78CFC0D31DECA5A9473AEAEA"
+        "OwnerKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_4E5CE9C8D1388A7C608E91F5136BAFCB"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_119A8BF9C39C2B56815F07A81448161C"
+        "OwnerKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -416,6 +500,102 @@
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
         "OutputFilename" = "8:Release\\QModReloadedSetup.msi"
+        "PackageFilesAs" = "3:2"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "Compression" = "3:2"
+        "SignOutput" = "11:FALSE"
+        "CertificateFile" = "8:"
+        "PrivateKeyFile" = "8:"
+        "TimeStampServer" = "8:"
+        "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.8"
+                    }
+                }
+            }
+        }
+        "Release GOG"
+        {
+        "DisplayName" = "8:Release GOG"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:Release GOG\\QModReloadedSetup.msi"
+        "PackageFilesAs" = "3:2"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "Compression" = "3:2"
+        "SignOutput" = "11:FALSE"
+        "CertificateFile" = "8:"
+        "PrivateKeyFile" = "8:"
+        "TimeStampServer" = "8:"
+        "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.8"
+                    }
+                }
+            }
+        }
+        "Standalone"
+        {
+        "DisplayName" = "8:Standalone"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:Standalone\\QModReloadedSetup.msi"
+        "PackageFilesAs" = "3:2"
+        "PackageFileSize" = "3:-2147483648"
+        "CabType" = "3:1"
+        "Compression" = "3:2"
+        "SignOutput" = "11:FALSE"
+        "CertificateFile" = "8:"
+        "PrivateKeyFile" = "8:"
+        "TimeStampServer" = "8:"
+        "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.8"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.8"
+                    }
+                }
+            }
+        }
+        "Standalone Debug"
+        {
+        "DisplayName" = "8:Standalone Debug"
+        "IsDebugOnly" = "11:FALSE"
+        "IsReleaseOnly" = "11:FALSE"
+        "OutputFilename" = "8:Standalone Debug\\QModReloadedSetup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -594,68 +774,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_2C47FB0BEC3A4C3DA03679A2B79686B0"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Mono.Cecil.Inject, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_2C47FB0BEC3A4C3DA03679A2B79686B0"
-                    {
-                    "Name" = "8:Mono.Cecil.Inject.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Mono.Cecil.Inject.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_31B859C9557F4C62BB647F6508E1CB45"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_31B859C9557F4C62BB647F6508E1CB45"
-                    {
-                    "Name" = "8:0Harmony.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\QModReloaded\\0Harmony.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3816B5F0A8CBF3A2725EBDF77242C265"
             {
             "AssemblyRegister" = "3:1"
@@ -718,20 +836,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_44C213BA78CFC0D31DECA5A9473AEAEA"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_393AB1DB033EB78B6FA287ABC6891887"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.IO.Compression.FileSystem, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"
+            "AssemblyAsmDisplayName" = "8:System.Text.Encoding.CodePages, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_44C213BA78CFC0D31DECA5A9473AEAEA"
+                    "_393AB1DB033EB78B6FA287ABC6891887"
                     {
-                    "Name" = "8:System.IO.Compression.FileSystem.dll"
+                    "Name" = "8:System.Text.Encoding.CodePages.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.IO.Compression.FileSystem.dll"
+            "SourcePath" = "8:System.Text.Encoding.CodePages.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
@@ -780,20 +898,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4E5CE9C8D1388A7C608E91F5136BAFCB"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5138B04F01044F09B0A19067419FC448"
             {
             "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:System.IO.Compression, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_4E5CE9C8D1388A7C608E91F5136BAFCB"
+                    "_5138B04F01044F09B0A19067419FC448"
                     {
-                    "Name" = "8:System.IO.Compression.dll"
+                    "Name" = "8:Helper.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.IO.Compression.dll"
+            "SourcePath" = "8:H:\\Games\\steamapps\\common\\Graveyard Keeper\\Graveyard Keeper_Data\\Managed\\dep\\Helper.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
@@ -807,8 +925,70 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_60CCFFD5D0C565E3267E6DB2790FC6BA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Assembly-CSharp, Version=11.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_60CCFFD5D0C565E3267E6DB2790FC6BA"
+                    {
+                    "Name" = "8:Assembly-CSharp.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Assembly-CSharp.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9EA25DBEAB9E4131AD733D0C0BF764AA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_62AFFBF19C654349A0B810E4FC269BDC"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_62AFFBF19C654349A0B810E4FC269BDC"
+                    {
+                    "Name" = "8:0Harmony.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:H:\\Games\\steamapps\\common\\Graveyard Keeper\\Graveyard Keeper_Data\\Managed\\dep\\0Harmony.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A0CF2AC818F37F49B016F6B8F0519930"
@@ -873,6 +1053,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Mono.Cecil.Inject, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+                    {
+                    "Name" = "8:Mono.Cecil.Inject.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Mono.Cecil.Inject.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D5EF5F5FBF9AD54388832683A15F029A"
             {
             "AssemblyRegister" = "3:1"
@@ -887,6 +1098,99 @@
                     }
                 }
             "SourcePath" = "8:System.Numerics.Vectors.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D7A941DE8FF621CE1439A487041D2400"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:QModReloaded, Version=1.0.8217.36800, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D7A941DE8FF621CE1439A487041D2400"
+                    {
+                    "Name" = "8:QModReloaded.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:QModReloaded.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D838182AD06542F898030F96CE7DD0B4"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Helper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D838182AD06542F898030F96CE7DD0B4"
+                    {
+                    "Name" = "8:Helper.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:H:\\Games\\steamapps\\common\\Graveyard Keeper\\Graveyard Keeper_Data\\Managed\\dep\\Helper.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9EA25DBEAB9E4131AD733D0C0BF764AA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DAA26DFC294EC03A888A56A1B6CA6B58"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_DAA26DFC294EC03A888A56A1B6CA6B58"
+                    {
+                    "Name" = "8:DotNetZip.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:DotNetZip.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
@@ -931,27 +1235,27 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_E7C6D6897E91A929F489C56399057CF2"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EDF79AE01BDA45F9BC9EA00D9AC76F38"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:QModReloaded, Version=1.0.8199.39666, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_E7C6D6897E91A929F489C56399057CF2"
+                    "_EDF79AE01BDA45F9BC9EA00D9AC76F38"
                     {
-                    "Name" = "8:QModReloaded.dll"
+                    "Name" = "8:0Harmony.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:QModReloaded.dll"
+            "SourcePath" = "8:H:\\Games\\steamapps\\common\\Graveyard Keeper\\Graveyard Keeper_Data\\Managed\\dep\\0Harmony.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Folder" = "8:_9EA25DBEAB9E4131AD733D0C0BF764AA"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -963,7 +1267,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F450C388FA25494390C5EB01E72F50C5"
@@ -984,6 +1288,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FAB4D51AF8C31C2F51FE0112F8A0812A"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:0Harmony, Version=2.2.1.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_FAB4D51AF8C31C2F51FE0112F8A0812A"
+                    {
+                    "Name" = "8:0Harmony.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:0Harmony.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_9EA25DBEAB9E4131AD733D0C0BF764AA"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -1013,6 +1348,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_9EA25DBEAB9E4131AD733D0C0BF764AA"
+                    {
+                    "Name" = "8:dep"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_A6B2D131975A4CDCB039670361C0C716"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_B7C9260166924B8C9D39434F7769BCD3"
@@ -1043,7 +1389,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QMod Manager Reloaded"
         "ProductCode" = "8:{192F47E1-B3E8-4C19-AEB1-0F496EFB3B9A}"
-        "PackageCode" = "8:{6C0CD661-0ED2-41D5-95BE-22523EDBD35E}"
+        "PackageCode" = "8:{F36A2C0A-394D-45C4-92CE-BFD2E64B292C}"
         "UpgradeCode" = "8:{6DA88B12-976C-4870-8B40-55D243D60614}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1592,7 +1938,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2EFCEF6FAE9E485BB62435AC9E1AC228"
             {
-            "SourcePath" = "8:..\\QModReloadedGUI\\obj\\Debug NonGYK\\QModReloadedGUI.exe"
+            "SourcePath" = "8:..\\QModReloadedGUI\\obj\\Release Installer\\QModReloadedGUI.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"

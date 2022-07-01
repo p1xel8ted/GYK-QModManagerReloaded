@@ -75,3 +75,13 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.csproj.CopyComplete
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.exe
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.pdb
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\DotNetZip.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Text.Encoding.CodePages.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\DotNetZip.pdb
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\DotNetZip.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\System.Text.Encoding.CodePages.xml
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmConfigEdit.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmNexus.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Release Installer\QModReloadedGUI.FrmOptions.resources
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\Helper.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\bin\Release Installer\dep\Helper.dll
