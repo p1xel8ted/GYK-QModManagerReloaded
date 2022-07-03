@@ -81,5 +81,10 @@ namespace QModReloadedGUI
             _dgvLog.FirstDisplayedScrollingRowIndex = _dgvLog.RowCount - 1;
             Utilities.WriteLog(logMessage, _gameLocation);
         }
+
+        private void TxtConfig_TextChanged(object sender, EventArgs e)
+        {
+            TxtConfig.Font = TxtConfig.Font;
+        }
     }
 }

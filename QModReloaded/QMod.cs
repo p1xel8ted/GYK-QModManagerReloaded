@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Reflection;
 using System.Text.Json;
@@ -9,6 +10,7 @@ public class QMod
 {
     public string AssemblyName { get; set; }
     public string Author { get; set; }
+    [JsonIgnore]
     public string Config { get; set; }
     public string Description { get; set; }
     public string DisplayName { get; set; }
@@ -26,7 +28,7 @@ public class QMod
 
     public int NexusId { get; set; }
     public string Version { get; set; }
-
+    
     public static QMod FromJsonFile(string file)
     {
         var value = File.ReadAllText(file);

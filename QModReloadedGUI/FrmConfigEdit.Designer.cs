@@ -44,6 +44,7 @@
             this.TxtConfig.Size = new System.Drawing.Size(776, 426);
             this.TxtConfig.TabIndex = 0;
             this.TxtConfig.Text = "";
+            this.TxtConfig.TextChanged += new System.EventHandler(this.TxtConfig_TextChanged);
             // 
             // FrmConfigEdit
             // 

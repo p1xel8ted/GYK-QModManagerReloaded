@@ -12,9 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using static QModReloadedGUI.Utilities;
 using File = System.IO.File;
 
@@ -89,7 +87,7 @@ public partial class FrmMain : Form
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"{fileNameWithoutExt}.MainPatcher.Patch",
             Version = modInfo.FileVersion
         };
-        
+
         if (path == null) return false;
         newMod.SaveJson();
         var files = new FileInfo(Path.Combine(path, "mod.json"));
@@ -230,7 +228,7 @@ public partial class FrmMain : Form
 
                 return;
             }
-            
+
             if (!modZip.Exists) return;
             using (var zip = ZipFile.Read(modZip.FullName))
             {
@@ -303,7 +301,7 @@ public partial class FrmMain : Form
         {
             WriteLog($"[Zip]: {ex.Message}", true);
         }
-   
+
         if (!update) return;
         if (!success) return;
         _modUpdateCounter--;
@@ -403,7 +401,7 @@ public partial class FrmMain : Form
         }
 
         LblErrors.Visible = false;
-        
+
         LoadMods(true);
         UpdateModJson(true);
         LoadMods(true);
@@ -419,7 +417,7 @@ public partial class FrmMain : Form
         {
             var modId = rows.Cells[7].Value.ToString();
             var mod = FindMod(modId);
-            if (mod == null) return;
+            if (mod == null) continue;
             Directory.Delete(mod.ModAssemblyPath, true);
             _modList.Remove(mod);
         }
@@ -575,7 +573,7 @@ public partial class FrmMain : Form
             if (mod.NexusId <= 0)
             {
                 UpdateProgress.Value++;
-                WriteLog($"[Updates]: {mod.DisplayName} doesn't have a NexusID set. Skipping.",true);
+                WriteLog($"[Updates]: {mod.DisplayName} doesn't have a NexusID set. Skipping.", true);
                 continue;
             }
             var modUpdate = new WebClient();
@@ -684,10 +682,10 @@ public partial class FrmMain : Form
 
         if (_injector.IsNoIntroInjected())
         {
-            if (mod is {Enable: true})
+            if (mod is { Enable: true })
             {
                 WriteLog("[INJECTOR]: Intros removed via patch, disabling NoIntros as it's redundant.");
-                DgvMods.Rows[FindModRow("NoIntros")].Cells[0].Value = 0; 
+                DgvMods.Rows[FindModRow("NoIntros")].Cells[0].Value = 0;
                 mod.Enable = false;
                 mod.SaveJson();
             }
@@ -703,7 +701,7 @@ public partial class FrmMain : Form
             }
             else
             {
-                if (mod is {Enable: false})
+                if (mod is { Enable: false })
                 {
                     LblIntroPatched.Text = @"Intros Not Removed (NoIntros mod is disabled)";
                     LblIntroPatched.ForeColor = Color.Red;
@@ -713,7 +711,6 @@ public partial class FrmMain : Form
                     LblIntroPatched.Text = @"Intros Not Removed";
                     LblIntroPatched.ForeColor = Color.Red;
                 }
-
             }
         }
 
@@ -806,7 +803,7 @@ public partial class FrmMain : Form
         if (showOrderMessage)
         {
             MessageBox.Show(
-                @"It seems you have all or some of the following mods installed. Please ensure their load order is as follows:" + 
+                @"It seems you have all or some of the following mods installed. Please ensure their load order is as follows:" +
                 "\n\nExhaust-less/FasterCraft - doesn't matter which order." +
                 "\nQueue Everything!* - must come after the above two." +
                 "\nI Neeeed Sticks! - must come after the above three." +
@@ -1010,7 +1007,7 @@ public partial class FrmMain : Form
         Directory.CreateDirectory(BasePath);
         SetLocations();
         LoadMods();
-       // UpdateModJson();
+        // UpdateModJson();
         LoadMods(true);
 
         BtnRefresh.Enabled = _modList.Count > 0;
@@ -1028,7 +1025,7 @@ public partial class FrmMain : Form
 
         if (_settings.UpdateOnStartup)
         {
-           // CheckForUpdates();
+            // CheckForUpdates();
         }
 
         ChkHideDisabledMods.Checked = _settings.HideDisabledMods;
@@ -1052,153 +1049,137 @@ public partial class FrmMain : Form
         try
         {
             LblErrors.Text = string.Empty;
-            ErrorSeparator.Visible = false;
-            _modList.Clear();
-            DgvMods.Rows.Clear();
-            if (!_gameLocation.found) return;
+        ErrorSeparator.Visible = false;
+        _modList.Clear();
+        DgvMods.Rows.Clear();
+        if (!_gameLocation.found) return;
 
-            var dllFiles =
-                Directory.EnumerateDirectories(_modLocation).SelectMany(
-                    directory => Directory.EnumerateFiles(directory, "*.dll"));
+        var dllFiles =
+            Directory.EnumerateDirectories(_modLocation).SelectMany(
+                directory => Directory.EnumerateFiles(directory, "*.dll"));
 
-            foreach (var dllFile in dllFiles)
+        foreach (var dllFile in dllFiles)
+        {
+            // GetModEntryPoint(dllFile);
+            var path = new FileInfo(dllFile).DirectoryName;
+            var modInfo = FileVersionInfo.GetVersionInfo(dllFile);
+            if (modInfo.FileDescription.Contains("QModHelper")) continue;
+            if (path == null) continue;
+            var dllFileName = new FileInfo(dllFile).Name;
+            var modJsonFile = Directory.GetFiles(path, "mod.json", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            var infoJsonFile = Directory.GetFiles(path, "info.json", SearchOption.TopDirectoryOnly).FirstOrDefault();
+            const string jsonFile = "mod.json";
+            if (!string.IsNullOrEmpty(modJsonFile) && !string.IsNullOrEmpty(infoJsonFile))
             {
-                // GetModEntryPoint(dllFile);
-                var path = new FileInfo(dllFile).DirectoryName;
-                var modInfo = FileVersionInfo.GetVersionInfo(dllFile);
-                if (modInfo.FileDescription.Contains("QModHelper")) continue;
-                if (path == null) continue;
-                var dllFileName = new FileInfo(dllFile).Name;
-                var modJsonFile = Directory.GetFiles(path, "mod.json", SearchOption.TopDirectoryOnly);
-                var infoJsonFile = Directory.GetFiles(path, "info.json", SearchOption.TopDirectoryOnly);
-                string jsonFile = null;
-                if (modJsonFile.Length == 1 && infoJsonFile.Length == 1)
+                File.Delete(infoJsonFile);
+            }
+
+            if (string.IsNullOrEmpty(modJsonFile))
+            {
+                if (!CreateJson(dllFile))
                 {
                     if (!silentLoad)
-                        WriteLog(
-                        $"Multiple JSON detected for {dllFileName}. Please remove one. Either mod.json or info.json, not both.");
+                        WriteLog($"Error creating JSON file for {dllFileName}", true);
                     continue;
-                }
-
-                if (modJsonFile.Length == 1)
-                {
-                    jsonFile = modJsonFile[0];
-                }
-                else if (infoJsonFile.Length == 1)
-                {
-                    File.Copy(infoJsonFile[0], Path.Combine(new FileInfo(infoJsonFile[0]).DirectoryName!, "mod.json"),
-                        true);
-                    File.Delete(infoJsonFile[0]);
-                    jsonFile = "mod.json";
-                }
-                else
-                {
-                    var createResult = CreateJson(dllFile);
-                    if (createResult == false)
-                    {
-                        if (!silentLoad)
-                            WriteLog("Error creating JSON file.", true);
-                    }
-                    else
-                    {
-                        jsonFile = "mod.json";
-                    }
-                }
-
-                if (jsonFile == null)
-                {
-                    if (!silentLoad)
-                        WriteLog($"{dllFileName} didn't have a valid json.", true);
-                }
-                else
-                {
-                    var mod = QMod.FromJsonFile(Path.Combine(path, jsonFile));
-                    
-                    if (mod == null)
-                    {
-                        if (!silentLoad)
-                            WriteLog($"{dllFileName} didn't have a valid json.", true);
-                    }
-                    else
-                    {
-                        mod.ModAssemblyPath = path;
-
-                        if (!string.IsNullOrEmpty(mod.EntryMethod))
-                        {
-                            if (mod.LoadOrder <= 0)
-                            {
-                                mod.LoadOrder = _modList.Count + 1;
-                                mod.SaveJson();
-                            }
-
-                            var isModCompatible = IsModCompatible(Path.Combine(mod.ModAssemblyPath, dllFileName));
-                            var (configExists, configFile) = GetModConfigIfItExists(mod.ModAssemblyPath);
-                            mod.Config = "none";
-                            int rowIndex;
-                            // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
-                            if (configExists)
-                            {
-                                rowIndex = DgvMods.Rows.Add(Convert.ToInt32(mod.Enable), mod.LoadOrder, mod.DisplayName, mod.Description,
-                                    mod.Version, mod.Author, "...", mod.Id);
-                                mod.Config = Path.GetFileName(configFile);
-                            }
-                            else
-                            {
-                                rowIndex = DgvMods.Rows.Add(Convert.ToInt32(mod.Enable), mod.LoadOrder, mod.DisplayName, mod.Description,
-                                    mod.Version, mod.Author, string.Empty, mod.Id);
-                            }
-
-                            DgvMods.Rows[rowIndex].DefaultCellStyle.BackColor = mod.UpdateAvailable ? Color.LightGreen : Color.White;
-
-                            var row = DgvMods.Rows[rowIndex];
-                            if (!isModCompatible)
-                            {
-                                row.DefaultCellStyle.BackColor = Color.LightCoral;
-                                if (!silentLoad)
-                                    WriteLog(
-                                    mod.DisplayName +
-                                    " added, but it's not Harmony 2 compatible, and will not load without updating by the author.",
-                                    true);
-                            }
-                            else
-                            {
-                                if(!silentLoad)
-                                    WriteLog(mod.DisplayName + " added.");
-                            }
-                            _modList.Add(mod);
-                        }
-                        else
-                        {
-                            if (!silentLoad)
-                                WriteLog(mod.DisplayName + " had issues and wasn't loaded.", true);
-                        }
-                    }
                 }
             }
 
-            DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
-            if (!silentLoad)
-                WriteLog(
-                "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
-            if (silentLoad)
+            //if (jsonFile == null)
+            //{
+            //    if (!silentLoad)
+            //        WriteLog($"{dllFileName} didn't have a valid json.", true);
+            //}
+            //else
+            //{
+            var mod = QMod.FromJsonFile(Path.Combine(path, jsonFile));
+
+            if (mod == null)
             {
-                UpdateModJson(true);
+                //should never hit this as we created a proper one further up
+                if (!silentLoad)
+                    WriteLog($"{dllFileName} didn't have a valid json.", true);
             }
             else
             {
-                UpdateModJson();
+                mod.ModAssemblyPath = path;
+
+                if (!string.IsNullOrEmpty(mod.EntryMethod))
+                {
+                    if (mod.LoadOrder <= 0)
+                    {
+                        mod.LoadOrder = _modList.Count + 1;
+                        mod.SaveJson();
+                    }
+
+                    var isModCompatible = IsModCompatible(Path.Combine(mod.ModAssemblyPath, dllFileName));
+                    var (configExists, configFile) = GetModConfigIfItExists(mod.ModAssemblyPath);
+                    mod.Config = "none";
+                    int rowIndex;
+                    // ReSharper disable once ConvertIfStatementToConditionalTernaryExpression
+                    if (configExists)
+                    {
+                        rowIndex = DgvMods.Rows.Add(Convert.ToInt32(mod.Enable), mod.LoadOrder, mod.DisplayName, mod.Description,
+                            mod.Version, mod.Author, "...", mod.Id);
+                        mod.Config = Path.GetFileName(configFile);
+                    }
+                    else
+                    {
+                        rowIndex = DgvMods.Rows.Add(Convert.ToInt32(mod.Enable), mod.LoadOrder, mod.DisplayName, mod.Description,
+                            mod.Version, mod.Author, string.Empty, mod.Id);
+                    }
+
+                    DgvMods.Rows[rowIndex].DefaultCellStyle.BackColor = mod.UpdateAvailable ? Color.LightGreen : Color.White;
+
+                    var row = DgvMods.Rows[rowIndex];
+                    if (!isModCompatible)
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightCoral;
+                        if (!silentLoad)
+                            WriteLog(
+                            mod.DisplayName +
+                            " added, but it's not Harmony 2 compatible, and will not load without updating by the author.",
+                            true);
+                    }
+                    else
+                    {
+                        if (!silentLoad)
+                            WriteLog(mod.DisplayName + " added.");
+                    }
+                    _modList.Add(mod);
+                }
+                else
+                {
+                    if (!silentLoad)
+                        WriteLog(mod.DisplayName + " had issues and wasn't loaded. Is it Harmony2 compatible, and patched using PatchAll?", true);
+                }
             }
+            
         }
-        catch (Exception ex)
+
+        DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
+        if (!silentLoad)
+            WriteLog(
+            "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
+        if (silentLoad)
         {
-            WriteLog($"LoadMods() ERROR: {ex.Message}", true);
+            UpdateModJson(true);
         }
+        else
+        {
+            UpdateModJson();
+        }
+
 
         BtnRefresh.Enabled = _modList.Count > 0;
 
         CheckQueueEverything();
         CheckAllModsActive();
         CheckPatched();
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"LoadMods():{ex.Message}", true);
+        }
     }
 
     private void ModifyResolutionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1208,7 +1189,6 @@ public partial class FrmMain : Form
         _frmResModifier.ShowDialog();
         _frmResModifier = null;
     }
-
 
     private void ModListCtxMenu_Opening(object sender, CancelEventArgs e)
     {
@@ -1721,7 +1701,6 @@ public partial class FrmMain : Form
             fileUpdate.Dispose();
             modUpdate.Dispose();
         }
-       
     }
 
     private void ModMenuUpdate_Click(object sender, EventArgs e)
@@ -1768,5 +1747,4 @@ public partial class FrmMain : Form
 
         CheckAllModsActive();
     }
-
 }

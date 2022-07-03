@@ -450,27 +450,27 @@ namespace QModReloadedGUI
             this.UpdateDivider,
             this.ModMenuUpdate});
             this.modListCtxMenu.Name = "modListCtxMenu";
-            this.modListCtxMenu.Size = new System.Drawing.Size(147, 104);
+            this.modListCtxMenu.Size = new System.Drawing.Size(181, 126);
             this.modListCtxMenu.Opening += new System.ComponentModel.CancelEventHandler(this.ModListCtxMenu_Opening);
             // 
             // ModMenuName
             // 
             this.ModMenuName.Image = global::QModReloadedGUI.Properties.Resources.nexus_mod_manager_icon_256x256;
             this.ModMenuName.Name = "ModMenuName";
-            this.ModMenuName.Size = new System.Drawing.Size(146, 22);
+            this.ModMenuName.Size = new System.Drawing.Size(180, 22);
             this.ModMenuName.Text = "--";
             this.ModMenuName.Click += new System.EventHandler(this.ModMenuName_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(143, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(177, 6);
             // 
             // openConfigToolStripMenuItem
             // 
             this.openConfigToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.file;
             this.openConfigToolStripMenuItem.Name = "openConfigToolStripMenuItem";
-            this.openConfigToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.openConfigToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openConfigToolStripMenuItem.Text = "Open Config";
             this.openConfigToolStripMenuItem.Click += new System.EventHandler(this.OpenConfigToolStripMenuItem_Click);
             // 
@@ -478,14 +478,14 @@ namespace QModReloadedGUI
             // 
             this.removeModToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.action_delete;
             this.removeModToolStripMenuItem.Name = "removeModToolStripMenuItem";
-            this.removeModToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.removeModToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.removeModToolStripMenuItem.Text = "Remove Mod";
             this.removeModToolStripMenuItem.Click += new System.EventHandler(this.RemoveModToolStripMenuItem_Click);
             // 
             // UpdateDivider
             // 
             this.UpdateDivider.Name = "UpdateDivider";
-            this.UpdateDivider.Size = new System.Drawing.Size(143, 6);
+            this.UpdateDivider.Size = new System.Drawing.Size(177, 6);
             // 
             // ModMenuUpdate
             // 
@@ -493,7 +493,7 @@ namespace QModReloadedGUI
             this.ModMenuUpdateAll});
             this.ModMenuUpdate.Image = global::QModReloadedGUI.Properties.Resources.save;
             this.ModMenuUpdate.Name = "ModMenuUpdate";
-            this.ModMenuUpdate.Size = new System.Drawing.Size(146, 22);
+            this.ModMenuUpdate.Size = new System.Drawing.Size(180, 22);
             this.ModMenuUpdate.Text = "Install &Update";
             this.ModMenuUpdate.Click += new System.EventHandler(this.ModMenuUpdate_Click);
             // 
