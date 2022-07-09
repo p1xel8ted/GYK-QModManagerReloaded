@@ -325,13 +325,38 @@ public partial class FrmMain : Form
     {
         if (!_gameLocation.found) return;
         if (IsGameRunning()) return;
-        foreach (var mod in _modList)
+
+        if (Properties.Settings.Default.ModlessAlertShown == false)
         {
-            WriteLog("Disabling mods and launching game.");
-            mod.Enable = false;
-            mod.SaveJson();
+            var msgBoxResult =
+                MessageBox.Show(
+                    @"This will launch the game modless, meaning without mods. To launch the game with mods, click the skeleton/grave in the bottom right, or launch via Steam/GOG/EXE! Clicking OK will proceed to launch modless. You will only see this message once.",
+                    @"Halt!", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            switch (msgBoxResult)
+            {
+                case DialogResult.OK:
+                    Properties.Settings.Default.ModlessAlertShown = true;
+                    Properties.Settings.Default.Save();
+                    RunModless();
+                    return;
+                case DialogResult.Cancel:
+                    Properties.Settings.Default.ModlessAlertShown = true;
+                    Properties.Settings.Default.Save();
+                    return;
+            }
         }
-        RunGame();
+        RunModless();
+        void RunModless()
+        {
+            foreach (var mod in _modList)
+            {
+                WriteLog("Disabling mods and launching game.");
+                mod.Enable = false;
+                mod.SaveJson();
+            }
+
+            RunGame();
+        }
     }
 
     private void BtnOpenGameDir_Click(object sender, EventArgs e)
