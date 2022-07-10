@@ -34,13 +34,13 @@
         "Entry"
         {
         "MsmKey" = "8:_0649B305F9A8BD7B76D3E4508C857F79"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_0649B305F9A8BD7B76D3E4508C857F79"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -70,7 +70,13 @@
         "Entry"
         {
         "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,13 +88,7 @@
         "Entry"
         {
         "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
-        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_19BC8186F021194C7285576D01667B60"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -118,7 +118,25 @@
         "Entry"
         {
         "MsmKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
+        "OwnerKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -136,25 +154,25 @@
         "Entry"
         {
         "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
         "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
-        "OwnerKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
+        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
-        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_479D2029092B8A7566849A39A5C022D5"
+        "OwnerKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -172,12 +190,18 @@
         "Entry"
         {
         "MsmKey" = "8:_A0CF2AC818F37F49B016F6B8F0519930"
-        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_A0CF2AC818F37F49B016F6B8F0519930"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
         "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -189,8 +213,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "MsmKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -214,12 +244,18 @@
         "Entry"
         {
         "MsmKey" = "8:_D5EF5F5FBF9AD54388832683A15F029A"
-        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_D5EF5F5FBF9AD54388832683A15F029A"
+        "OwnerKey" = "8:_3816B5F0A8CBF3A2725EBDF77242C265"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
         "OwnerKey" = "8:_2EFCEF6FAE9E485BB62435AC9E1AC228"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -268,6 +304,18 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D7A941DE8FF621CE1439A487041D2400"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_EDF79AE01BDA45F9BC9EA00D9AC76F38"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -304,7 +352,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
+        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DAA26DFC294EC03A888A56A1B6CA6B58"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -323,12 +377,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A1FA21ED67C09F83B37F991E4CF1CCA4"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_393AB1DB033EB78B6FA287ABC6891887"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -370,7 +418,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_DAA26DFC294EC03A888A56A1B6CA6B58"
+        "OwnerKey" = "8:_38963E652CA2A33BAAB9E42C9D31A3E1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -1005,6 +1053,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Mono.Cecil.Inject, Version=1.2.7.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_A2B5E1DFF57FAC72F0D29FDF1181F43C"
+                    {
+                    "Name" = "8:Mono.Cecil.Inject.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Mono.Cecil.Inject.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_BEF36CA6600284EFDBE236127C413405"
             {
             "AssemblyRegister" = "3:1"
@@ -1050,6 +1129,37 @@
                     }
                 }
             "SourcePath" = "8:System.Numerics.Vectors.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D7A941DE8FF621CE1439A487041D2400"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:QModReloaded, Version=1.0.8226.23474, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_D7A941DE8FF621CE1439A487041D2400"
+                    {
+                    "Name" = "8:QModReloaded.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:QModReloaded.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_8DB1488A6F99426E8971F3C9D2B9A036"
@@ -1279,7 +1389,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QMod Manager Reloaded"
         "ProductCode" = "8:{192F47E1-B3E8-4C19-AEB1-0F496EFB3B9A}"
-        "PackageCode" = "8:{F36A2C0A-394D-45C4-92CE-BFD2E64B292C}"
+        "PackageCode" = "8:{CF7CA037-B761-446F-BBF8-50FFC333F8F9}"
         "UpgradeCode" = "8:{6DA88B12-976C-4870-8B40-55D243D60614}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
