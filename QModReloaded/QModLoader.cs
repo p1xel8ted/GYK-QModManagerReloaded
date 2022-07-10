@@ -12,13 +12,18 @@ namespace QModReloaded;
 public class QModLoader
 {
     private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
+    private static readonly string DisableMods = QModBaseDir + "\\disable";
 
     public static void Patch()
     {
-
-        Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
-        Logger.WriteLog("Patch method called. Attempting to load mods.");
         LoadHelper();
+        Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
+        if (File.Exists(DisableMods))
+        {
+            Logger.WriteLog("Game has been launched via Load Modless. Disabling mods.");
+            return;
+        }
+        Logger.WriteLog("Patch method called. Attempting to load mods.");
         var dllFiles =
             Directory.EnumerateDirectories(QModBaseDir).SelectMany(
                 directory => Directory.EnumerateFiles(directory, "*.dll"));

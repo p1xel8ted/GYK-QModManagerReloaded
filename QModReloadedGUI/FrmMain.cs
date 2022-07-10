@@ -348,13 +348,8 @@ public partial class FrmMain : Form
         RunModless();
         void RunModless()
         {
-            foreach (var mod in _modList)
-            {
-                WriteLog("Disabling mods and launching game.");
-                mod.Enable = false;
-                mod.SaveJson();
-            }
-
+            File.Create(Path.Combine(_modLocation, "disable")).Close();
+            WriteLog("Launching game without mods enabled.");
             RunGame();
         }
     }
@@ -874,6 +869,7 @@ public partial class FrmMain : Form
 
         if (e.ColumnIndex == 6)
         {
+            if (e.RowIndex < 0) return;
             var foundMod = _modList.FirstOrDefault(x => x.Id == DgvMods[7, e.RowIndex].Value.ToString());
 
             if (foundMod == null || foundMod.Config == string.Empty) return;
