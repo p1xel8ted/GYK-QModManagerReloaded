@@ -88,3 +88,9 @@ The output of above, looks like:
 }
 ```
 Config files, preferred is **Config.ini** - if you need a semi-decent INI handler that doesnt need external libraries, Config.cs and ConfigReader.cs can be taken from any of my mods.
+
+# Mod Users
+
+Do not install mods from GitHub. Mods should be installed from NexusMods or another source with Harmony2 mods.
+
+Once the mod is downloaded: open the UI, click '+ Add Mod', navigate to the .zip, select it, and press 'Open' to import the mod.
