@@ -63,6 +63,26 @@ namespace QModReloadedGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _61e11d6ea0473a3528b575b4_Button_3_p_500 {
+            get {
+                object obj = ResourceManager.GetObject("61e11d6ea0473a3528b575b4_Button-3-p-500", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _61e11d6ea0473a3528b575b4_Button_3_p_5001 {
+            get {
+                object obj = ResourceManager.GetObject("61e11d6ea0473a3528b575b4_Button-3-p-5001", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap action_add {
             get {
                 object obj = ResourceManager.GetObject("action_add", resourceCulture);
@@ -216,6 +236,56 @@ namespace QModReloadedGUI.Properties {
         internal static System.Drawing.Bitmap heart {
             get {
                 object obj = ResourceManager.GetObject("heart", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap intro_screen {
+            get {
+                object obj = ResourceManager.GetObject("intro.screen", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kofi_button_red_10 {
+            get {
+                object obj = ResourceManager.GetObject("kofi_button_red-10", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kofi_nexus {
+            get {
+                object obj = ResourceManager.GetObject("kofi-nexus", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap kofi_nexus_smaller {
+            get {
+                object obj = ResourceManager.GetObject("kofi-nexus-smaller", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap letter {
+            get {
+                object obj = ResourceManager.GetObject("letter", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

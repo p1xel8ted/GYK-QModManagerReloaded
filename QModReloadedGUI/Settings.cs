@@ -23,6 +23,7 @@ namespace QModReloadedGUI
         public string CustomDownloadDir { get; set; }
         public bool AlwaysRedownload { get; set; }
         public bool HideDisabledMods { get; set; }
+        public bool IntroShown { get; set; }
 
         public static Settings FromJsonFile()
         {

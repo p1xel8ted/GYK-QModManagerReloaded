@@ -39,6 +39,7 @@ public partial class FrmMain : Form
     private FrmConfigEdit _frmConfigEdit;
     private FrmNexus _frmNexus;
     private FrmOptions _frmOptions;
+    private FrmIntro _frmIntro;
     private FrmResModifier _frmResModifier;
     private (string location, bool found) _gameLocation;
     private Injector _injector;
@@ -1025,6 +1026,8 @@ public partial class FrmMain : Form
 
     private void FrmMain_Load(object sender, EventArgs e)
     {
+
+
         Directory.CreateDirectory(BasePath);
         SetLocations();
         LoadMods();
@@ -1050,6 +1053,16 @@ public partial class FrmMain : Form
         }
 
         ChkHideDisabledMods.Checked = _settings.HideDisabledMods;
+
+        if (!_settings.IntroShown)
+        {
+            _frmIntro ??= new FrmIntro();
+            _frmIntro.StartPosition = FormStartPosition.CenterParent;
+            _frmIntro.ShowDialog();
+            _frmIntro = null;
+            _settings.IntroShown = true;
+            _settings.Save();
+        }
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
@@ -1767,5 +1780,20 @@ public partial class FrmMain : Form
         }
 
         CheckAllModsActive();
+    }
+
+    private void FirstRunInfoToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        _frmIntro ??= new FrmIntro();
+        _frmIntro.StartPosition = FormStartPosition.CenterParent;
+        _frmIntro.ShowDialog();
+        _frmIntro = null;
+        _settings.IntroShown = true;
+        _settings.Save();
+    }
+
+    private void BtnKofi_Click(object sender, EventArgs e)
+    {
+        Process.Start("https://ko-fi.com/p1xel8ted");
     }
 }

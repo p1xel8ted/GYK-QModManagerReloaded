@@ -8,10 +8,14 @@
           "System.Threading.Tasks.Extensions": "4.5.4"
         },
         "compile": {
-          "lib/net461/Microsoft.Bcl.AsyncInterfaces.dll": {}
+          "lib/net461/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/Microsoft.Bcl.AsyncInterfaces.dll": {}
+          "lib/net461/Microsoft.Bcl.AsyncInterfaces.dll": {
+            "related": ".xml"
+          }
         }
       },
       "Microsoft.CodeAnalysis.NetAnalyzers/7.0.0-preview1.22217.1": {
@@ -27,10 +31,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net45/System.Buffers.dll": {}
+          "ref/net45/System.Buffers.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/System.Buffers.dll": {}
+          "lib/net461/System.Buffers.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Memory/4.5.5": {
@@ -45,10 +53,14 @@
           "mscorlib"
         ],
         "compile": {
-          "lib/net461/System.Memory.dll": {}
+          "lib/net461/System.Memory.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/System.Memory.dll": {}
+          "lib/net461/System.Memory.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Numerics.Vectors/4.5.0": {
@@ -58,10 +70,14 @@
           "mscorlib"
         ],
         "compile": {
-          "ref/net46/System.Numerics.Vectors.dll": {}
+          "ref/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net46/System.Numerics.Vectors.dll": {}
+          "lib/net46/System.Numerics.Vectors.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {
@@ -70,10 +86,14 @@
           "mscorlib"
         ],
         "compile": {
-          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {}
+          "lib/net461/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Text.Encodings.Web/6.0.0": {
@@ -84,10 +104,14 @@
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
         },
         "compile": {
-          "lib/net461/System.Text.Encodings.Web.dll": {}
+          "lib/net461/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/System.Text.Encodings.Web.dll": {}
+          "lib/net461/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.Text.Json/6.0.4": {
@@ -103,10 +127,14 @@
           "System.ValueTuple": "4.5.0"
         },
         "compile": {
-          "lib/net461/System.Text.Json.dll": {}
+          "lib/net461/System.Text.Json.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/System.Text.Json.dll": {}
+          "lib/net461/System.Text.Json.dll": {
+            "related": ".xml"
+          }
         },
         "build": {
           "build/System.Text.Json.targets": {}
@@ -121,10 +149,14 @@
           "mscorlib"
         ],
         "compile": {
-          "lib/net461/System.Threading.Tasks.Extensions.dll": {}
+          "lib/net461/System.Threading.Tasks.Extensions.dll": {
+            "related": ".xml"
+          }
         },
         "runtime": {
-          "lib/net461/System.Threading.Tasks.Extensions.dll": {}
+          "lib/net461/System.Threading.Tasks.Extensions.dll": {
+            "related": ".xml"
+          }
         }
       },
       "System.ValueTuple/4.5.0": {
@@ -136,7 +168,9 @@
           "ref/net47/System.ValueTuple.dll": {}
         },
         "runtime": {
-          "lib/net47/System.ValueTuple.dll": {}
+          "lib/net47/System.ValueTuple.dll": {
+            "related": ".xml"
+          }
         }
       }
     }
