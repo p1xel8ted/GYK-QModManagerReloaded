@@ -293,6 +293,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
     <Content Include="icon.ico" />
+    <None Include="Resources\gog.png" />
+    <None Include="Resources\circle-gaming-round-icon-steam-icon-358255.png" />
+    <None Include="Resources\Steam_icon_logo.ico" />
     <None Include="Resources\letter.ico" />
     <None Include="Resources\intro.screen.png" />
     <None Include="Resources\61e11d6ea0473a3528b575b4_Button-3-p-5001.png" />

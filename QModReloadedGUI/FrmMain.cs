@@ -465,7 +465,7 @@ public partial class FrmMain : Form
 
         var patchResult =
             MessageBox.Show(
-                @"Note! This is permanent and will require a Steam validate to restore the intros. Continue?",
+                @"Note! This is permanent and will require a re-install to restore the intros. Continue?",
                 @"Wait!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         if (patchResult != DialogResult.Yes) return;
         var (injected, message) = _injector.InjectNoIntros();
@@ -744,6 +744,22 @@ public partial class FrmMain : Form
                 Path.Combine(_gameLocation.location, "Graveyard Keeper_Data\\Managed\\dep\\Assembly-CSharp.dll"),
                 true);
             WriteLog("Clean Assembly-CSharp.dll detected. Backing up to Graveyard Keeper_Data\\Managed\\dep");
+
+            var result =
+                MessageBox.Show(
+                    @"It appears you have an un-patched game file. Mods will not work unless this file is patched. Would you like to do it now?",
+                    @"Woah!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
+            {
+                var innerResult =
+                    MessageBox.Show(
+                        @"On the next few dialogs, answer Yes to everything to complete patching successfully.",
+                        @"Answer Yes", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+                if (innerResult == DialogResult.OK)
+                {
+                    BtnRemoveIntros_Click(null,null);
+                }
+            }
         }
         catch (FileNotFoundException)
         {
@@ -1316,28 +1332,7 @@ public partial class FrmMain : Form
             WriteLog($"{ex.Message}", true);
         }
     }
-
-    private void OpenUnityLogToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            var path = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\",
-                "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
-            if (_settings.UsePreferredEditor)
-            {
-                LaunchEditor(path);
-            }
-            else
-            {
-                Process.Start(path);
-            }
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"{ex.Message}", true);
-        }
-    }
-
+    
     private void ProcessJson(QMod mod, string results)
     {
         try
@@ -1463,6 +1458,19 @@ public partial class FrmMain : Form
         }
 
         if (!_gameLocation.found) return;
+
+        Console.WriteLine(_gameLocation.location);
+        if (_gameLocation.location.ToLower().Contains("steamapps"))
+        {
+            steamToolStripMenuItem.Enabled = true;
+            gOGToolStripMenuItem.Enabled = false;
+        }
+        else
+        {
+            steamToolStripMenuItem.Enabled = false;
+            gOGToolStripMenuItem.Enabled = true;
+        }
+
         if (new DirectoryInfo(_modLocation).Exists) return;
         Directory.CreateDirectory(_modLocation);
         WriteLog("[INFO]: QMods directory created.");
@@ -1795,5 +1803,47 @@ public partial class FrmMain : Form
     private void BtnKofi_Click(object sender, EventArgs e)
     {
         Process.Start("https://ko-fi.com/p1xel8ted");
+    }
+
+    private void SteamToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            var path = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\",
+                "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
+            if (_settings.UsePreferredEditor)
+            {
+                LaunchEditor(path);
+            }
+            else
+            {
+                Process.Start(path);
+            }
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"{ex.Message}", true);
+        }
+    }
+
+    private void GOGToolStripMenuItem_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            var path = Path.Combine(_gameLocation.location,
+                "log.txt");
+            if (_settings.UsePreferredEditor)
+            {
+                LaunchEditor(path);
+            }
+            else
+            {
+                Process.Start(path);
+            }
+        }
+        catch (Exception ex)
+        {
+            WriteLog($"{ex.Message}", true);
+        }
     }
 }

@@ -153,6 +153,16 @@ namespace QModReloadedGUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap circle_gaming_round_icon_steam_icon_358255 {
+            get {
+                object obj = ResourceManager.GetObject("circle-gaming-round-icon-steam-icon-358255", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Color_logo___no_background {
             get {
                 object obj = ResourceManager.GetObject("Color logo - no background", resourceCulture);
@@ -226,6 +236,16 @@ namespace QModReloadedGUI.Properties {
         internal static System.Drawing.Bitmap gerry {
             get {
                 object obj = ResourceManager.GetObject("gerry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gog {
+            get {
+                object obj = ResourceManager.GetObject("gog", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -386,6 +406,16 @@ namespace QModReloadedGUI.Properties {
         internal static System.Drawing.Bitmap settings {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Steam_icon_logo {
+            get {
+                object obj = ResourceManager.GetObject("Steam_icon_logo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
