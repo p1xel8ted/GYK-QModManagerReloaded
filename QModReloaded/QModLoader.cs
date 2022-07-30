@@ -6,16 +6,20 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using static System.Net.Mime.MediaTypeNames;
+using static System.StringComparison;
 
 namespace QModReloaded;
 
 public class QModLoader
 {
     private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
+    private static readonly string ManagedDirectory = Environment.CurrentDirectory + "\\Graveyard Keeper_Data\\Managed";
     private static readonly string DisableMods = QModBaseDir + "\\disable";
 
     public static void Patch()
     {
+        CleanAndCopyHelper();
         LoadHelper();
         Logger.WriteLog("Assembly-CSharp.dll has been patched, (otherwise you wouldn't see this message.");
         if (File.Exists(DisableMods))
@@ -29,7 +33,7 @@ public class QModLoader
                 directory => Directory.EnumerateFiles(directory, "*.dll"));
 
         var mods = new List<QMod>();
-        foreach (var dllFile in dllFiles)
+        foreach (var dllFile in dllFiles.Where(a=>!a.ToLowerInvariant().Contains("helper")))
         {
             var directoryName = new FileInfo(dllFile).DirectoryName;
             var jsonPath = Path.Combine(directoryName!, "mod.json");
@@ -74,6 +78,94 @@ public class QModLoader
         }
     }
 
+    private static string FixVersion(string version)
+    {
+        var dotCount = version.Count(c => c == '.');
+        var fixedVersion = dotCount switch
+        {
+            0 =>
+                //i.e 1
+                $"{version}.0.0.0",
+            1 =>
+                //ie 1.0
+                $"{version}.0.0",
+            2 =>
+                //ie 1.2.3
+                $"{version}.0",
+            _ => "0.0.0.0"
+        };
+
+        return fixedVersion;
+    }
+
+    private const string HelperDll = "Helper.dll";
+
+    private static void CleanAndCopyHelper()
+    {
+        
+        Dictionary<FileInfo, Version> helpers = new();
+        helpers.Clear();
+
+        foreach (var file in Directory.GetFiles(QModBaseDir, HelperDll, SearchOption.AllDirectories))
+        {
+            var fi = new FileInfo(file);
+            var path = Path.GetDirectoryName(fi.FullName)!.ToLowerInvariant();
+            if (path.EndsWith("qmods", InvariantCultureIgnoreCase)) continue;
+            var ver = Version.Parse(FixVersion(FileVersionInfo.GetVersionInfo(file).FileVersion));
+            helpers.Add(fi, ver);
+        }
+
+        foreach (var file in Directory.GetFiles(ManagedDirectory, HelperDll, SearchOption.AllDirectories))
+        {
+            var fi = new FileInfo(file);
+            //var path = Path.GetDirectoryName(fi.FullName)!.ToLowerInvariant();
+            //if (path.EndsWith("qmods", InvariantCultureIgnoreCase)) continue;
+            var ver = Version.Parse(FixVersion(FileVersionInfo.GetVersionInfo(file).FileVersion));
+            helpers.Add(fi, ver);
+        }
+
+        var helperList = helpers.ToList();
+        helperList.Sort((pair1, pair2) => string.CompareOrdinal(pair1.Value.ToString(), pair2.Value.ToString()));
+
+        var currentVersion = new Version();
+        var currentVersionPath = Path.Combine(QModBaseDir, HelperDll);
+        var currentVersionExists = File.Exists(currentVersionPath);
+        if (currentVersionExists)
+        {
+            currentVersion = Version.Parse(FixVersion(FileVersionInfo.GetVersionInfo(currentVersionPath).FileVersion));
+        }
+        var newVersion = helperList[helperList.Count - 1].Value;
+
+        var result = currentVersion.CompareTo(newVersion);
+        if (result < 0)
+        {
+            try
+            {
+                var sourceFile = helperList[helperList.Count - 1].Key.FullName;
+                var destDepFile = Path.Combine(ManagedDirectory, "dep", HelperDll);
+                if (!string.Equals(sourceFile, destDepFile, Ordinal))
+                {
+                    File.Copy(sourceFile, destDepFile, true);
+                }
+                File.Copy(sourceFile, currentVersionPath, true);
+
+                Logger.WriteLog($"Updated QMod Helper to {newVersion}.", false);
+            }
+            catch (Exception)
+            {
+                Logger.WriteLog($"Issue updating QMod Helper to {newVersion}. Please update manually as one/all of the mods requires it to function.", true);
+            }
+        }
+
+        foreach (var helper in helperList.Where(helper => !Path.GetDirectoryName(helper.Key.FullName)!
+                     .EndsWith("dep", InvariantCultureIgnoreCase)))
+        {
+            File.Delete(helper.Key.FullName);
+        }
+
+
+    }
+
     private static bool CreateJson(string file)
     {
         var sFile = new FileInfo(file);
@@ -105,7 +197,7 @@ public class QModLoader
     {
         try
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "Graveyard Keeper_Data\\Managed\\Helper.dll");
+            var path = Path.Combine(Environment.CurrentDirectory, "QMods\\Helper.dll");
             var assembly = Assembly.LoadFile(path);
             var m = GetModEntryPoint(path);
             var methodToLoad = assembly.GetType(m.namesp + "." + m.type).GetMethod(m.method);
@@ -192,7 +284,7 @@ public class QModLoader
             var jsonEntry = $"{jsonEntrySplit[0]}.{jsonEntrySplit[1]}.{jsonEntrySplit[2]}";
             var foundEntry = $"{m.namesp}.{m.type}.{m.method}";
 
-            if (!jsonEntry.Equals(foundEntry, StringComparison.Ordinal))
+            if (!jsonEntry.Equals(foundEntry, Ordinal))
             {
                 Logger.WriteLog(
                     $"Found entry point in {mod.AssemblyName} does not match what's in the JSON. Ignoring JSON and loading found entry method.");

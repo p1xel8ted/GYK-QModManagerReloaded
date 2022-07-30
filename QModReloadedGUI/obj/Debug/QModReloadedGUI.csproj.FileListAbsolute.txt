@@ -52,6 +52,4 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmConfigEdit.resources
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmNexus.resources
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmOptions.resources
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Helper.dll
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\dep\Helper.dll
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloadedGUI\obj\Debug\QModReloadedGUI.FrmIntro.resources

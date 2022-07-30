@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -20,6 +21,8 @@ namespace QModReloadedGUI;
 
 public partial class FrmMain : Form
 {
+    private const string HelperDll = "Helper.dll";
+
     private static readonly string[] CleanMd5Hashes = {
         "e5c55499ebbf010e341f0f56e12f6c74", "b75466bdcc44f5f098d4b22dc047b175"
     };
@@ -1042,10 +1045,9 @@ public partial class FrmMain : Form
 
     private void FrmMain_Load(object sender, EventArgs e)
     {
-
-
         Directory.CreateDirectory(BasePath);
         SetLocations();
+        CleanAndCopyHelper();
         LoadMods();
         // UpdateModJson();
         LoadMods(true);
@@ -1079,6 +1081,89 @@ public partial class FrmMain : Form
             _settings.IntroShown = true;
             _settings.Save();
         }
+
+
+        var helperPresent = System.IO.File.Exists(Path.Combine(Application.StartupPath, @"..\..\", "QMods\\Helper.dll"));
+
+        if (helperPresent)
+        {
+            var helperVersion = FileVersionInfo
+    .GetVersionInfo(Path.Combine(Application.StartupPath, @"..\..\", "QMods\\Helper.dll")).FileVersion;
+            LblHelper.Text = @$"Helper: v{helperVersion}";
+            LblHelper.ForeColor = Color.Green;
+        }
+        else
+        {
+            LblHelper.Text = @"Helper Not Found!";
+            LblHelper.ForeColor = Color.Red;
+        }
+
+    }
+
+    private void CleanAndCopyHelper()
+    {
+
+        if (!_gameLocation.found) return;
+
+        Dictionary<FileInfo, Version> helpers = new();
+        helpers.Clear();
+
+        foreach (var file in Directory.GetFiles(_modLocation, HelperDll, SearchOption.AllDirectories))
+        {
+            var fi = new FileInfo(file);
+            var path = Path.GetDirectoryName(fi.FullName)!.ToLowerInvariant();
+            if (path.EndsWith("qmods")) continue;
+            var ver = Version.Parse(FixVersion(FileVersionInfo.GetVersionInfo(file).FileVersion));
+            helpers.Add(fi, ver);
+        }
+
+        foreach (var file in Directory.GetFiles(Application.StartupPath, HelperDll, SearchOption.AllDirectories))
+        {
+            var fi = new FileInfo(file);
+            var ver = Version.Parse(FixVersion(FileVersionInfo.GetVersionInfo(file).FileVersion));
+            helpers.Add(fi, ver);
+        }
+
+        var helperList = helpers.ToList();
+        helperList.Sort((pair1, pair2) => string.CompareOrdinal(pair1.Value.ToString(), pair2.Value.ToString()));
+
+        var currentVersion = new Version();
+        var currentVersionPath = Path.Combine(_modLocation, HelperDll);
+        var currentVersionExists = File.Exists(currentVersionPath);
+        if (currentVersionExists)
+        {
+            currentVersion = Version.Parse(FixVersion(FileVersionInfo.GetVersionInfo(currentVersionPath).FileVersion));
+        }
+        var newVersion = helperList[helperList.Count-1].Value;
+
+        var result = currentVersion.CompareTo(newVersion);
+        if (result < 0)
+        {
+            try
+            {
+                var sourceFile = helperList[helperList.Count - 1].Key.FullName;
+                var destDepFile = Path.Combine(Application.StartupPath, "dep", HelperDll);
+                if (!string.Equals(sourceFile, destDepFile, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    File.Copy(sourceFile, destDepFile, true);
+                }
+                File.Copy(sourceFile, currentVersionPath, true);
+               
+                WriteLog($"Updated QMod Helper to {newVersion}.",false,true);
+            }
+            catch (Exception)
+            {
+                WriteLog($"Issue updating QMod Helper to {newVersion}. Please update manually as one/all of the mods requires it to function.", true, false);
+            }
+        }
+
+        foreach (var helper in helperList.Where(helper => !Path.GetDirectoryName(helper.Key.FullName)!
+                     .EndsWith("dep", StringComparison.InvariantCultureIgnoreCase)))
+        {
+            File.Delete(helper.Key.FullName);
+        }
+
+
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
@@ -1098,6 +1183,8 @@ public partial class FrmMain : Form
     {
         try
         {
+
+
             LblErrors.Text = string.Empty;
         ErrorSeparator.Visible = false;
         _modList.Clear();
@@ -1108,7 +1195,7 @@ public partial class FrmMain : Form
             Directory.EnumerateDirectories(_modLocation).SelectMany(
                 directory => Directory.EnumerateFiles(directory, "*.dll"));
 
-        foreach (var dllFile in dllFiles)
+        foreach (var dllFile in dllFiles.Where(a=>!a.ToLowerInvariant().Contains("helper")))
         {
             // GetModEntryPoint(dllFile);
             var path = new FileInfo(dllFile).DirectoryName;
@@ -1129,7 +1216,10 @@ public partial class FrmMain : Form
                 if (!CreateJson(dllFile))
                 {
                     if (!silentLoad)
+                    {
                         WriteLog($"Error creating JSON file for {dllFileName}", true);
+                    }
+
                     continue;
                 }
             }
@@ -1147,7 +1237,9 @@ public partial class FrmMain : Form
             {
                 //should never hit this as we created a proper one further up
                 if (!silentLoad)
+                {
                     WriteLog($"{dllFileName} didn't have a valid json.", true);
+                }
             }
             else
             {
@@ -1185,22 +1277,31 @@ public partial class FrmMain : Form
                     {
                         row.DefaultCellStyle.BackColor = Color.LightCoral;
                         if (!silentLoad)
+                        {
                             WriteLog(
-                            mod.DisplayName +
-                            " added, but it's not Harmony 2 compatible, and will not load without updating by the author.",
-                            true);
+                                mod.DisplayName +
+                                " added, but it's not Harmony 2 compatible, and will not load without updating by the author.",
+                                true);
+                        }
                     }
                     else
                     {
                         if (!silentLoad)
+                        {
                             WriteLog(mod.DisplayName + " added.");
+                        }
                     }
                     _modList.Add(mod);
                 }
                 else
                 {
                     if (!silentLoad)
-                        WriteLog(mod.DisplayName + " had issues and wasn't loaded. Is it Harmony2 compatible, and patched using PatchAll?", true);
+                    {
+                        WriteLog(
+                            mod.DisplayName +
+                            " had issues and wasn't loaded. Is it Harmony2 compatible, and patched using PatchAll?",
+                            true);
+                    }
                 }
             }
             
@@ -1208,8 +1309,11 @@ public partial class FrmMain : Form
 
         DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
         if (!silentLoad)
+        {
             WriteLog(
-            "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
+                "All mods with an entry point added. This doesn't mean they'll load correctly or function if they do load.");
+        }
+
         if (silentLoad)
         {
             UpdateModJson(true);

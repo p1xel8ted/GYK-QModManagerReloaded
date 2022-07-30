@@ -36,5 +36,4 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\ob
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Debug\net48\QModReloaded.dll
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Debug\net48\Helper.dll
 H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\0Harmony.dll
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\Helper.dll
 H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\QModReloaded.dll

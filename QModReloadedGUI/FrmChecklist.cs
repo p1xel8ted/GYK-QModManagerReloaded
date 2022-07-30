@@ -1,4 +1,5 @@
-﻿using QModReloaded;
+﻿using Ionic.Zip;
+using QModReloaded;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -54,16 +55,7 @@ namespace QModReloadedGUI
 
                 c.ForeColor = c.Checked ? Color.Green : Color.Red;
             }
-            if (allFound == 19)
-            {
-                ChkPatcherLocation.Checked = true;
-                ChkPatcherLocation.ForeColor = Color.Green;
-            }
-            else
-            {
-                ChkPatcherLocation.Checked = false;
-                ChkPatcherLocation.ForeColor = Color.Red;
-            }
+
 
             var hVersion = CheckFileExists(Path.Combine(Application.StartupPath, "0Harmony.dll"));
             if (hVersion)
@@ -86,6 +78,31 @@ namespace QModReloadedGUI
             else
             {
                 LblHarmonyVersion.Visible = false;
+            }
+
+
+            var helperPresent = CheckFileExists(Path.Combine(Application.StartupPath, @"..\..\", "QMods\\Helper.dll"));
+            if (helperPresent)
+            {
+                allFound++;
+                ChkHelper.Checked = true;
+                ChkHelper.ForeColor = Color.Green;
+            }
+            else
+            {
+                ChkHelper.Checked = false;
+                ChkHelper.ForeColor = Color.Red;
+            }
+
+            if (allFound == 19)
+            {
+                ChkPatcherLocation.Checked = true;
+                ChkPatcherLocation.ForeColor = Color.Green;
+            }
+            else
+            {
+                ChkPatcherLocation.Checked = false;
+                ChkPatcherLocation.ForeColor = Color.Red;
             }
         }
     }
