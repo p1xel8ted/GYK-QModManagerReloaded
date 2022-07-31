@@ -425,7 +425,7 @@ public partial class FrmMain : Form
         }
 
         LblErrors.Visible = false;
-
+        CleanAndCopyHelper();
         LoadMods(true);
         UpdateModJson(true);
         LoadMods(true);
@@ -1105,6 +1105,14 @@ public partial class FrmMain : Form
 
         if (!_gameLocation.found) return;
 
+        var currentVersionPath = Path.Combine(_modLocation, HelperDll);
+        var destDepFile = Path.Combine(Application.StartupPath, "dep", HelperDll);
+        if (!File.Exists(currentVersionPath) && File.Exists(destDepFile))
+        {
+            WriteLog($"No Helper found in QMod directory. Copied backup copy.", false, true);
+            File.Copy(destDepFile, currentVersionPath, true);
+        }
+
         Dictionary<FileInfo, Version> helpers = new();
         helpers.Clear();
 
@@ -1128,7 +1136,7 @@ public partial class FrmMain : Form
         helperList.Sort((pair1, pair2) => string.CompareOrdinal(pair1.Value.ToString(), pair2.Value.ToString()));
 
         var currentVersion = new Version();
-        var currentVersionPath = Path.Combine(_modLocation, HelperDll);
+       
         var currentVersionExists = File.Exists(currentVersionPath);
         if (currentVersionExists)
         {
@@ -1142,7 +1150,7 @@ public partial class FrmMain : Form
             try
             {
                 var sourceFile = helperList[helperList.Count - 1].Key.FullName;
-                var destDepFile = Path.Combine(Application.StartupPath, "dep", HelperDll);
+                
                 if (!string.Equals(sourceFile, destDepFile, StringComparison.InvariantCultureIgnoreCase))
                 {
                     File.Copy(sourceFile, destDepFile, true);

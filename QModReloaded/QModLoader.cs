@@ -102,7 +102,15 @@ public class QModLoader
 
     private static void CleanAndCopyHelper()
     {
-        
+
+        var currentVersionPath = Path.Combine(QModBaseDir, HelperDll);
+        var destDepFile = Path.Combine(ManagedDirectory, "dep", HelperDll);
+        if (!File.Exists(currentVersionPath) && File.Exists(destDepFile))
+        {
+            Logger.WriteLog($"No Helper found in QMod directory. Copied backup copy.", false);
+            File.Copy(destDepFile, currentVersionPath, true);
+        }
+
         Dictionary<FileInfo, Version> helpers = new();
         helpers.Clear();
 
@@ -128,7 +136,7 @@ public class QModLoader
         helperList.Sort((pair1, pair2) => string.CompareOrdinal(pair1.Value.ToString(), pair2.Value.ToString()));
 
         var currentVersion = new Version();
-        var currentVersionPath = Path.Combine(QModBaseDir, HelperDll);
+        
         var currentVersionExists = File.Exists(currentVersionPath);
         if (currentVersionExists)
         {
@@ -142,7 +150,7 @@ public class QModLoader
             try
             {
                 var sourceFile = helperList[helperList.Count - 1].Key.FullName;
-                var destDepFile = Path.Combine(ManagedDirectory, "dep", HelperDll);
+              
                 if (!string.Equals(sourceFile, destDepFile, Ordinal))
                 {
                     File.Copy(sourceFile, destDepFile, true);
