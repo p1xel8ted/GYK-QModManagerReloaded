@@ -29,11 +29,11 @@ H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bi
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Debug\net48\System.ValueTuple.dll
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Debug\net48\Mono.Cecil.dll
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Debug\net48\Mono.Cecil.Inject.dll
+H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Debug\net48\Helper.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\0Harmony.dll
+H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\QModReloaded.dll
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Debug\net48\QModReloaded.csproj.AssemblyReference.cache
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Debug\net48\QModReloaded.GeneratedMSBuildEditorConfig.editorconfig
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Debug\net48\QModReloaded.csproj.CoreCompileInputs.cache
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Debug\net48\QModReloaded.csproj.CopyComplete
 H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\obj\Debug\net48\QModReloaded.dll
-H:\OneDrive\Development\Graveyard Keeper\GYK-QModManagerReloaded\QModReloaded\bin\Debug\net48\Helper.dll
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\0Harmony.dll
-H:\Games\steamapps\common\Graveyard Keeper\Graveyard Keeper_Data\Managed\Debug\net48\QModReloaded.dll

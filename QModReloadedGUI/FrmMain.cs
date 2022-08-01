@@ -1083,12 +1083,17 @@ public partial class FrmMain : Form
         }
 
 
+        UpdateHelperVersionText();
+    }
+
+    private void UpdateHelperVersionText()
+    {
         var helperPresent = System.IO.File.Exists(Path.Combine(Application.StartupPath, @"..\..\", "QMods\\Helper.dll"));
 
         if (helperPresent)
         {
             var helperVersion = FileVersionInfo
-    .GetVersionInfo(Path.Combine(Application.StartupPath, @"..\..\", "QMods\\Helper.dll")).FileVersion;
+                .GetVersionInfo(Path.Combine(Application.StartupPath, @"..\..\", "QMods\\Helper.dll")).FileVersion;
             LblHelper.Text = @$"Helper: v{helperVersion}";
             LblHelper.ForeColor = Color.Green;
         }
@@ -1097,7 +1102,6 @@ public partial class FrmMain : Form
             LblHelper.Text = @"Helper Not Found!";
             LblHelper.ForeColor = Color.Red;
         }
-
     }
 
     private void CleanAndCopyHelper()
@@ -1171,7 +1175,7 @@ public partial class FrmMain : Form
             File.Delete(helper.Key.FullName);
         }
 
-
+        UpdateHelperVersionText();
     }
 
     private void FrmMain_Resize(object sender, EventArgs e)
