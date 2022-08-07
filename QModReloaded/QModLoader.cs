@@ -13,9 +13,9 @@ namespace QModReloaded;
 
 public class QModLoader
 {
-    private static readonly string QModBaseDir = Environment.CurrentDirectory + "\\QMods";
-    private static readonly string ManagedDirectory = Environment.CurrentDirectory + "\\Graveyard Keeper_Data\\Managed";
-    private static readonly string DisableMods = QModBaseDir + "\\disable";
+    private static readonly string QModBaseDir = Path.Combine(Environment.CurrentDirectory, "QMods");
+    private static readonly string ManagedDirectory = Path.Combine(Environment.CurrentDirectory, "Graveyard Keeper_Data", "Managed");
+    private static readonly string DisableMods = Path.Combine(QModBaseDir, "disable");
 
     public static void Patch()
     {
@@ -205,7 +205,7 @@ public class QModLoader
     {
         try
         {
-            var path = Path.Combine(Environment.CurrentDirectory, "QMods\\Helper.dll");
+            var path = Path.Combine(Environment.CurrentDirectory, "QMods", "Helper.dll");
             var assembly = Assembly.LoadFile(path);
             var m = GetModEntryPoint(path);
             var methodToLoad = assembly.GetType(m.namesp + "." + m.type).GetMethod(m.method);
