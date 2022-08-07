@@ -1550,8 +1550,9 @@ public partial class FrmMain : Form
         _path = Path.GetFullPath(Path.Combine(Application.StartupPath, @"..\..\"));
         //var di = new DirectoryInfo(Path.Combine(Application.StartupPath,@"..\..", "Graveyard Keeper_Data\\Managed\\Graveyard Keeper.exe"));
         var fi = new FileInfo(Path.Combine(_path, "Graveyard Keeper.exe"));
+        var fiLinux = new FileInfo(Path.Combine(_path, "Graveyard Keeper.x86_64"));
 
-        if (fi.Exists)
+        if (fi.Exists || fiLinux.Exists)
         {
             LblPatched.Visible = true;
             LblIntroPatched.Visible = true;
