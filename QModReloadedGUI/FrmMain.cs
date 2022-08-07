@@ -1536,12 +1536,14 @@ public partial class FrmMain : Form
                 if (File.Exists(windowsPath))
                 {
                     path = windowsPath;
-                    gyk.StartInfo.WorkingDirectory = _gameLocation.location;
                 }
                 if (File.Exists(linuxPath))
                 {
-                    path = linuxPath;
+                    // Run bash as a middleman, otherwise game window does not appear
+                    path = "Z:\\bin\\bash";
+                    gyk.StartInfo.Arguments = "-c \"./Graveyard\\ Keeper.x86_64\"";
                 }
+                gyk.StartInfo.WorkingDirectory = _gameLocation.location;
                 gyk.StartInfo.FileName = path;
                 gyk.StartInfo.UseShellExecute = false;
                 gyk.Start();
