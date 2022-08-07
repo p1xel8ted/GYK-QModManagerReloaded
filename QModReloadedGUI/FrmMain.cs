@@ -1527,11 +1527,23 @@ public partial class FrmMain : Form
 
             void RunDirect()
             {
-                var path = Path.Combine(_gameLocation.location, "Graveyard Keeper.exe");
+                var path = string.Empty;
+
+                var windowsPath = Path.Combine(_gameLocation.location, "Graveyard Keeper.exe");
+                var linuxPath = Path.Combine(_gameLocation.location, "Graveyard Keeper.x86_64");
+
                 using var gyk = new Process();
+                if (File.Exists(windowsPath))
+                {
+                    path = windowsPath;
+                    gyk.StartInfo.WorkingDirectory = _gameLocation.location;
+                }
+                if (File.Exists(linuxPath))
+                {
+                    path = linuxPath;
+                }
                 gyk.StartInfo.FileName = path;
                 gyk.StartInfo.UseShellExecute = false;
-                gyk.StartInfo.WorkingDirectory = _gameLocation.location;
                 gyk.Start();
             }
         }
