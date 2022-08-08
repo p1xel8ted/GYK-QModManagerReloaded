@@ -60,7 +60,7 @@ Ensure you're making use of AssemblyInfo in its entirety and QMod Manager Reload
 ```c#
 //json Id = the dll filename
 [assembly: AssemblyTitle("Misc. tweaks that didn't really fit in any of my other mods.")] //json Description - i don't know why Assembly.Description points to Title
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("YourMainPatcherNameSpace")] // this is for if you're using the Helper.dll - Tools.IsModLoaded("YourMainPatcherNameSpace");
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("p1xel8ted")] //json author
 [assembly: AssemblyProduct("Misc. Bits & Bobs")] //json display name
