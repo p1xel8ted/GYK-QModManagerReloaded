@@ -33,9 +33,11 @@ public class QModLoader
                 directory => Directory.EnumerateFiles(directory, "*.dll"));
 
         var mods = new List<QMod>();
+       // var modLoaderDomain = AppDomain.CreateDomain("QModManagerReloadedDomain");
         foreach (var dllFile in dllFiles.Where(a=>!a.ToLowerInvariant().Contains("helper")))
         {
-            var directoryName = new FileInfo(dllFile).DirectoryName;
+            //modLoaderDomain.a
+             var directoryName = new FileInfo(dllFile).DirectoryName;
             var jsonPath = Path.Combine(directoryName!, "mod.json");
             if (!new FileInfo(jsonPath).Exists)
             {
@@ -55,7 +57,11 @@ public class QModLoader
             }
 
             var modToAdd = QMod.FromJsonFile(jsonPath);
-
+            if (!modToAdd.Enable)
+            {
+                Logger.WriteLog($"{modToAdd.DisplayName} has been disabled in config. Skipping.");
+                continue;
+            }
             modToAdd.LoadedAssembly = Assembly.LoadFrom(dllFile);
             modToAdd.ModAssemblyPath = dllFile;
             mods.Add(modToAdd);

@@ -75,6 +75,8 @@ namespace QModReloadedGUI
             this.LblPatched = new System.Windows.Forms.ToolStripLabel();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.LblIntroPatched = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.LblHelper = new System.Windows.Forms.ToolStripLabel();
             this.ErrorSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.LblErrors = new System.Windows.Forms.ToolStripLabel();
             this.UpdateProgress = new System.Windows.Forms.ToolStripProgressBar();
@@ -116,8 +118,6 @@ namespace QModReloadedGUI
             this.ChkHideDisabledMods = new System.Windows.Forms.CheckBox();
             this.LblLaunch = new System.Windows.Forms.Label();
             this.BtnKofi = new System.Windows.Forms.PictureBox();
-            this.LblHelper = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).BeginInit();
             this.modListCtxMenu.SuspendLayout();
@@ -578,6 +578,17 @@ namespace QModReloadedGUI
             this.LblIntroPatched.Size = new System.Drawing.Size(86, 22);
             this.LblIntroPatched.Text = "toolStripLabel2";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // LblHelper
+            // 
+            this.LblHelper.Name = "LblHelper";
+            this.LblHelper.Size = new System.Drawing.Size(86, 22);
+            this.LblHelper.Text = "toolStripLabel1";
+            // 
             // ErrorSeparator
             // 
             this.ErrorSeparator.Name = "ErrorSeparator";
@@ -609,12 +620,12 @@ namespace QModReloadedGUI
             this.fileToolStripMenuItem1,
             this.checklistToolStripMenuItem1,
             this.modifyResolutionToolStripMenuItem,
-            this.nexusAPIKeyToolStripMenuItem,
-            this.updatesToolStripMenuItem,
             this.BtnLaunchModless,
             this.optionsToolStripMenuItem,
             this.firstRunInfoToolStripMenuItem,
-            this.aboutToolStripMenuItem1});
+            this.aboutToolStripMenuItem1,
+            this.nexusAPIKeyToolStripMenuItem,
+            this.updatesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1074, 24);
@@ -719,6 +730,7 @@ namespace QModReloadedGUI
             this.nexusAPIKeyToolStripMenuItem.Name = "nexusAPIKeyToolStripMenuItem";
             this.nexusAPIKeyToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
             this.nexusAPIKeyToolStripMenuItem.Text = "&Nexus API Key";
+            this.nexusAPIKeyToolStripMenuItem.Visible = false;
             this.nexusAPIKeyToolStripMenuItem.Click += new System.EventHandler(this.NexusAPIKeyToolStripMenuItem_Click);
             // 
             // updatesToolStripMenuItem
@@ -728,6 +740,7 @@ namespace QModReloadedGUI
             this.updatesToolStripMenuItem.Name = "updatesToolStripMenuItem";
             this.updatesToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.updatesToolStripMenuItem.Text = "&Updates";
+            this.updatesToolStripMenuItem.Visible = false;
             this.updatesToolStripMenuItem.Click += new System.EventHandler(this.UpdatesToolStripMenuItem_Click);
             // 
             // BtnLaunchModless
@@ -942,17 +955,6 @@ namespace QModReloadedGUI
             this.BtnKofi.TabIndex = 44;
             this.BtnKofi.TabStop = false;
             this.BtnKofi.Click += new System.EventHandler(this.BtnKofi_Click);
-            // 
-            // LblHelper
-            // 
-            this.LblHelper.Name = "LblHelper";
-            this.LblHelper.Size = new System.Drawing.Size(86, 22);
-            this.LblHelper.Text = "toolStripLabel1";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
             // FrmMain
             // 
