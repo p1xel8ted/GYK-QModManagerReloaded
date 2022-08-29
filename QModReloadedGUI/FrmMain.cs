@@ -1049,7 +1049,6 @@ public partial class FrmMain : Form
         SetLocations();
         CleanAndCopyHelper();
         LoadMods();
-        // UpdateModJson();
         LoadMods(true);
 
         BtnRefresh.Enabled = _modList.Count > 0;
