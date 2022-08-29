@@ -1051,6 +1051,7 @@ public partial class FrmMain : Form
         LoadMods();
         LoadMods(true);
 
+
         BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
