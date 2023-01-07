@@ -187,7 +187,7 @@
             this.statusStrip1.AutoSize = false;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.LblInfo});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 344);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 341);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(418, 22);
             this.statusStrip1.SizingGrip = false;
@@ -294,7 +294,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(418, 366);
+            this.ClientSize = new System.Drawing.Size(418, 363);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.GrpUpdates);
             this.Controls.Add(this.statusStrip1);

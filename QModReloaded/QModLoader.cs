@@ -197,7 +197,7 @@ public class QModLoader
             Description = modInfo.FileDescription,
             AssemblyName = AssemblyName.GetAssemblyName(sFile.FullName).Name,
             Author = modInfo.CompanyName,
-            NexusId = -1,
+            NexusId = ParseNexusId(modInfo.LegalTrademarks),
             Id = fileNameWithoutExt,
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"Couldn't find a PatchAll. Not a valid mod.",
             Version = modInfo.ProductVersion
@@ -206,6 +206,17 @@ public class QModLoader
         var files = new FileInfo(Path.Combine(path, "mod.json"));
         return files.Exists;
     }
+
+    private static int ParseNexusId(string nexusId)
+    {
+        var success = int.TryParse(nexusId, out var id);
+        if (success)
+        {
+            return id;
+        }
+        return -1;
+    }
+
 
     private static void LoadHelper()
     {

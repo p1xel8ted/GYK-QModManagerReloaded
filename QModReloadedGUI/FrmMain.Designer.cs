@@ -86,19 +86,16 @@ namespace QModReloadedGUI
             this.nexusPageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.openSaveDirectoryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openUnityLogToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.steamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gOGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.checklistToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.modifyResolutionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.nexusAPIKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.updatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BtnLaunchModless = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.firstRunInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.nexusAPIKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updatesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DlgFile = new System.Windows.Forms.OpenFileDialog();
             this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.trayIconCtxMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -190,7 +187,7 @@ namespace QModReloadedGUI
             this.BtnOpenLog.Name = "BtnOpenLog";
             this.BtnOpenLog.Size = new System.Drawing.Size(91, 25);
             this.BtnOpenLog.TabIndex = 29;
-            this.BtnOpenLog.Text = "Open &Log";
+            this.BtnOpenLog.Text = "Open &Logs";
             this.BtnOpenLog.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.BtnOpenLog.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.ToolTip.SetToolTip(this.BtnOpenLog, "Open the log file in your default editor.");
@@ -638,7 +635,6 @@ namespace QModReloadedGUI
             this.nexusPageToolStripMenuItem,
             this.toolStripMenuItem5,
             this.openSaveDirectoryToolStripMenuItem,
-            this.openUnityLogToolStripMenuItem,
             this.toolStripMenuItem3,
             this.exitToolStripMenuItem1});
             this.fileToolStripMenuItem1.Image = global::QModReloadedGUI.Properties.Resources.arrow_down;
@@ -666,32 +662,6 @@ namespace QModReloadedGUI
             this.openSaveDirectoryToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.openSaveDirectoryToolStripMenuItem.Text = "Open &Save Directory";
             this.openSaveDirectoryToolStripMenuItem.Click += new System.EventHandler(this.OpenSaveDirectoryToolStripMenuItem_Click);
-            // 
-            // openUnityLogToolStripMenuItem
-            // 
-            this.openUnityLogToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.steamToolStripMenuItem,
-            this.gOGToolStripMenuItem});
-            this.openUnityLogToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.comments;
-            this.openUnityLogToolStripMenuItem.Name = "openUnityLogToolStripMenuItem";
-            this.openUnityLogToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
-            this.openUnityLogToolStripMenuItem.Text = "&Open Unity Log";
-            // 
-            // steamToolStripMenuItem
-            // 
-            this.steamToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.circle_gaming_round_icon_steam_icon_358255;
-            this.steamToolStripMenuItem.Name = "steamToolStripMenuItem";
-            this.steamToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.steamToolStripMenuItem.Text = "Steam";
-            this.steamToolStripMenuItem.Click += new System.EventHandler(this.SteamToolStripMenuItem_Click);
-            // 
-            // gOGToolStripMenuItem
-            // 
-            this.gOGToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.gog;
-            this.gOGToolStripMenuItem.Name = "gOGToolStripMenuItem";
-            this.gOGToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.gOGToolStripMenuItem.Text = "GOG";
-            this.gOGToolStripMenuItem.Click += new System.EventHandler(this.GOGToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
@@ -722,26 +692,6 @@ namespace QModReloadedGUI
             this.modifyResolutionToolStripMenuItem.Size = new System.Drawing.Size(132, 20);
             this.modifyResolutionToolStripMenuItem.Text = "&Modify Resolution";
             this.modifyResolutionToolStripMenuItem.Click += new System.EventHandler(this.ModifyResolutionToolStripMenuItem_Click);
-            // 
-            // nexusAPIKeyToolStripMenuItem
-            // 
-            this.nexusAPIKeyToolStripMenuItem.Enabled = false;
-            this.nexusAPIKeyToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.nexus_mod_manager_icon_256x256;
-            this.nexusAPIKeyToolStripMenuItem.Name = "nexusAPIKeyToolStripMenuItem";
-            this.nexusAPIKeyToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.nexusAPIKeyToolStripMenuItem.Text = "&Nexus API Key";
-            this.nexusAPIKeyToolStripMenuItem.Visible = false;
-            this.nexusAPIKeyToolStripMenuItem.Click += new System.EventHandler(this.NexusAPIKeyToolStripMenuItem_Click);
-            // 
-            // updatesToolStripMenuItem
-            // 
-            this.updatesToolStripMenuItem.Enabled = false;
-            this.updatesToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.planet_earth_5056;
-            this.updatesToolStripMenuItem.Name = "updatesToolStripMenuItem";
-            this.updatesToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
-            this.updatesToolStripMenuItem.Text = "&Updates";
-            this.updatesToolStripMenuItem.Visible = false;
-            this.updatesToolStripMenuItem.Click += new System.EventHandler(this.UpdatesToolStripMenuItem_Click);
             // 
             // BtnLaunchModless
             // 
@@ -775,6 +725,26 @@ namespace QModReloadedGUI
             this.aboutToolStripMenuItem1.Size = new System.Drawing.Size(68, 20);
             this.aboutToolStripMenuItem1.Text = "A&bout";
             this.aboutToolStripMenuItem1.Click += new System.EventHandler(this.AboutToolStripMenuItem1_Click);
+            // 
+            // nexusAPIKeyToolStripMenuItem
+            // 
+            this.nexusAPIKeyToolStripMenuItem.Enabled = false;
+            this.nexusAPIKeyToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.nexus_mod_manager_icon_256x256;
+            this.nexusAPIKeyToolStripMenuItem.Name = "nexusAPIKeyToolStripMenuItem";
+            this.nexusAPIKeyToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.nexusAPIKeyToolStripMenuItem.Text = "&Nexus API Key";
+            this.nexusAPIKeyToolStripMenuItem.Visible = false;
+            this.nexusAPIKeyToolStripMenuItem.Click += new System.EventHandler(this.NexusAPIKeyToolStripMenuItem_Click);
+            // 
+            // updatesToolStripMenuItem
+            // 
+            this.updatesToolStripMenuItem.Enabled = false;
+            this.updatesToolStripMenuItem.Image = global::QModReloadedGUI.Properties.Resources.planet_earth_5056;
+            this.updatesToolStripMenuItem.Name = "updatesToolStripMenuItem";
+            this.updatesToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
+            this.updatesToolStripMenuItem.Text = "&Updates";
+            this.updatesToolStripMenuItem.Visible = false;
+            this.updatesToolStripMenuItem.Click += new System.EventHandler(this.UpdatesToolStripMenuItem_Click);
             // 
             // DlgFile
             // 
@@ -1058,7 +1028,6 @@ namespace QModReloadedGUI
         public DataGridView DgvLog;
         private DataGridViewTextBoxColumn ChTime;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private ToolStripMenuItem openUnityLogToolStripMenuItem;
         private ToolStripSeparator toolStripMenuItem3;
         private ToolStripMenuItem openSaveDirectoryToolStripMenuItem;
         private ContextMenuStrip modListCtxMenu;
@@ -1092,8 +1061,6 @@ namespace QModReloadedGUI
         private Label LblLaunch;
         private PictureBox BtnKofi;
         private ToolStripMenuItem firstRunInfoToolStripMenuItem;
-        private ToolStripMenuItem steamToolStripMenuItem;
-        private ToolStripMenuItem gOGToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripLabel LblHelper;
     }

@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Contexts;
 using System.Text.Json;
 using System.Windows.Forms;
@@ -93,7 +94,7 @@ public partial class FrmMain : Form
             Description = modInfo.FileDescription,
             Config = config,
             Id = fileNameWithoutExt,
-            NexusId = -1,
+            NexusId = ParseNexusId(modInfo.LegalTrademarks),
             EntryMethod = found ? $"{namesp}.{type}.{method}" : $"{fileNameWithoutExt}.MainPatcher.Patch",
             Version = modInfo.FileVersion
         };
@@ -380,24 +381,42 @@ public partial class FrmMain : Form
 
     private void BtnOpenLog_Click(object sender, EventArgs e)
     {
-        var file = Path.Combine(_gameLocation.location, "qmod_reloaded_log.txt");
-        if (File.Exists(file))
+        var qModLog = Path.Combine(_gameLocation.location, "qmod_reloaded_log.txt");
+        var unityLog = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
+        
+        if (File.Exists(qModLog))
         {
             if (_settings.UsePreferredEditor)
             {
-                LaunchEditor(file);
+                LaunchEditor(qModLog);
             }
             else
             {
-                Process.Start(file);
+                Process.Start(qModLog);
             }
         }
         else
         {
-            MessageBox.Show(@"No log available yet.", @"Log", MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            WriteLog($"There is no qmod_reloaded_log.txt file at {qModLog}.");
+        }
+
+        if (File.Exists(unityLog))
+        {
+            if (_settings.UsePreferredEditor)
+            {
+                LaunchEditor(unityLog);
+            }
+            else
+            {
+                Process.Start(unityLog);
+            }
+        }
+        else
+        {
+            WriteLog($"There is no Unity Player.log file at {unityLog}.");
         }
     }
+    
 
     private void BtnOpenModDir_Click(object sender, EventArgs e)
     {
@@ -463,13 +482,6 @@ public partial class FrmMain : Form
     private void BtnRemoveIntros_Click(object sender, EventArgs e)
     {
         if (IsGameRunning()) return;
-        if (_injector.IsNoIntroInjected() && !_injector.IsInjected())
-        {
-            var alreadyResult = MessageBox.Show(@"Intro patch already done! Apply mod patch now?", @"Done!",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-            if (alreadyResult == DialogResult.Yes) BtnPatch_Click(sender, e);
-            return;
-        }
 
         if (_injector.IsNoIntroInjected())
         {
@@ -479,17 +491,13 @@ public partial class FrmMain : Form
 
         var patchResult =
             MessageBox.Show(
-                @"Note! This is permanent and will require a re-install to restore the intros. Continue?",
+                @"Note! This is permanent and will require a re-install to restore the intros. It is advised to use the NoIntro's mod instead. Continue?",
                 @"Wait!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
         if (patchResult != DialogResult.Yes) return;
         var (injected, message) = _injector.InjectNoIntros();
         if (injected)
         {
             WriteLog(message);
-            var dlgResult = MessageBox.Show(
-                @"Intros have been disabled, would you like to apply the patch now?",
-                @"Done!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (dlgResult == DialogResult.Yes) BtnPatch_Click(sender, e);
         }
         else
         {
@@ -778,14 +786,7 @@ public partial class FrmMain : Form
                     @"Woah!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
-                var innerResult =
-                    MessageBox.Show(
-                        @"On the next few dialogs, answer Yes to everything to complete patching successfully.",
-                        @"Answer Yes", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (innerResult == DialogResult.OK)
-                {
-                    BtnRemoveIntros_Click(null, null);
-                }
+                BtnPatch_Click(null, null);
             }
         }
         catch (FileNotFoundException)
@@ -1681,16 +1682,6 @@ public partial class FrmMain : Form
         if (!_gameLocation.found) return;
 
         Console.WriteLine(_gameLocation.location);
-        if (_gameLocation.location.ToLower().Contains("steamapps"))
-        {
-            steamToolStripMenuItem.Enabled = true;
-            gOGToolStripMenuItem.Enabled = false;
-        }
-        else
-        {
-            steamToolStripMenuItem.Enabled = false;
-            gOGToolStripMenuItem.Enabled = true;
-        }
 
         if (new DirectoryInfo(_modLocation).Exists) return;
         Directory.CreateDirectory(_modLocation);
@@ -1813,9 +1804,20 @@ public partial class FrmMain : Form
             mod.DisplayName = modInfo.ProductName;
             mod.Description = modInfo.FileDescription;
             mod.Version = modInfo.ProductVersion;
+            mod.NexusId = ParseNexusId(modInfo.LegalTrademarks);
             mod.EntryMethod = $"{namesp}.{type}.{method}";
             mod.SaveJson();
         }
+    }
+
+    private static int ParseNexusId(string nexusId)
+    {
+        var success = int.TryParse(nexusId, out var id);
+        if (success)
+        {
+            return id;
+        }
+        return -1;
     }
 
     private void UpdatesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2046,47 +2048,5 @@ public partial class FrmMain : Form
     private void BtnKofi_Click(object sender, EventArgs e)
     {
         Process.Start("https://ko-fi.com/p1xel8ted");
-    }
-
-    private void SteamToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            var path = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\",
-                "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
-            if (_settings.UsePreferredEditor)
-            {
-                LaunchEditor(path);
-            }
-            else
-            {
-                Process.Start(path);
-            }
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"{ex.Message}", true);
-        }
-    }
-
-    private void GOGToolStripMenuItem_Click(object sender, EventArgs e)
-    {
-        try
-        {
-            var path = Path.Combine(_gameLocation.location,
-                "log.txt");
-            if (_settings.UsePreferredEditor)
-            {
-                LaunchEditor(path);
-            }
-            else
-            {
-                Process.Start(path);
-            }
-        }
-        catch (Exception ex)
-        {
-            WriteLog($"{ex.Message}", true);
-        }
     }
 }
