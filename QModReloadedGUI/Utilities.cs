@@ -13,7 +13,8 @@ namespace QModReloadedGUI
             using var md5 = MD5.Create();
             using var stream = File.OpenRead(file);
             var hash = md5.ComputeHash(stream);
-            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            var hashString = BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+            return hashString;
         }
 
         public static void WriteLog(string message, string gameLocation)

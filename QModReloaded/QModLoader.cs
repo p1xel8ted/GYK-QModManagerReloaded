@@ -35,8 +35,9 @@ public class QModLoader
        // var modLoaderDomain = AppDomain.CreateDomain("QModManagerReloadedDomain");
         foreach (var dllFile in dllFiles.Where(a=>!a.ToLowerInvariant().Contains("helper")))
         {
+            if (dllFile.ToLowerInvariant().EndsWith("resource.dll")) continue;
             //modLoaderDomain.a
-             var directoryName = new FileInfo(dllFile).DirectoryName;
+            var directoryName = new FileInfo(dllFile).DirectoryName;
             var jsonPath = Path.Combine(directoryName!, "mod.json");
             if (!new FileInfo(jsonPath).Exists)
             {

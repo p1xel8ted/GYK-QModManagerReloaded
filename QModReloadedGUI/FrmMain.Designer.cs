@@ -115,6 +115,8 @@ namespace QModReloadedGUI
             this.ChkHideDisabledMods = new System.Windows.Forms.CheckBox();
             this.LblLaunch = new System.Windows.Forms.Label();
             this.BtnKofi = new System.Windows.Forms.PictureBox();
+            this.LblGameVersion = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.BtnRunGame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DgvMods)).BeginInit();
             this.modListCtxMenu.SuspendLayout();
@@ -551,7 +553,9 @@ namespace QModReloadedGUI
             this.ErrorSeparator,
             this.LblErrors,
             this.UpdateProgress,
-            this.LblNexusRequests});
+            this.LblNexusRequests,
+            this.toolStripSeparator3,
+            this.LblGameVersion});
             this.ToolStrip.Location = new System.Drawing.Point(0, 680);
             this.ToolStrip.Name = "ToolStrip";
             this.ToolStrip.Size = new System.Drawing.Size(1074, 25);
@@ -926,6 +930,17 @@ namespace QModReloadedGUI
             this.BtnKofi.TabStop = false;
             this.BtnKofi.Click += new System.EventHandler(this.BtnKofi_Click);
             // 
+            // LblGameVersion
+            // 
+            this.LblGameVersion.Name = "LblGameVersion";
+            this.LblGameVersion.Size = new System.Drawing.Size(91, 22);
+            this.LblGameVersion.Text = "Game Version: 0";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1063,6 +1078,8 @@ namespace QModReloadedGUI
         private ToolStripMenuItem firstRunInfoToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator1;
         private ToolStripLabel LblHelper;
+        private ToolStripSeparator toolStripSeparator3;
+        public ToolStripLabel LblGameVersion;
     }
 }
 

@@ -746,8 +746,8 @@ public partial class FrmMain : Form
                 mod.SaveJson();
             }
 
-            LblIntroPatched.Text = @"Intros Removed (via patch)";
-            LblIntroPatched.ForeColor = Color.Green;
+            LblIntroPatched.Text = @"Intros Removed (via patch, via mod is recommended)";
+            LblIntroPatched.ForeColor = Color.Orange;
         }
         else
         {
@@ -1073,6 +1073,7 @@ public partial class FrmMain : Form
 
     private void CheckForOgQMod()
     {
+        if (!_gameLocation.found) return;
         try
         {
             var qmod = Path.Combine(Application.StartupPath, "QModInstaller.dll");
@@ -1123,6 +1124,7 @@ public partial class FrmMain : Form
 
     private void GenerateConfigs()
     {
+        if (!_gameLocation.found) return;
         AppDomain domain = null;
         var dllFiles =
             Directory.EnumerateDirectories(_modLocation).SelectMany(
@@ -1132,6 +1134,9 @@ public partial class FrmMain : Form
         {
             try
             {
+                var path = Path.GetDirectoryName(dllFile);
+                var (configExists, _) = GetModConfigIfItExists(path);
+                if (configExists) continue;
                 //thank you stack overflow https://stackoverflow.com/a/56553628/4526433
                 domain = AppDomain.CreateDomain(nameof(Loader), AppDomain.CurrentDomain.Evidence,
                     new AppDomainSetup {ApplicationBase = Path.GetDirectoryName(typeof(Loader).Assembly.Location)});
@@ -1153,6 +1158,7 @@ public partial class FrmMain : Form
                     GC.Collect(); // collects all unused memory
                     GC.WaitForPendingFinalizers(); // wait until GC has finished its work
                     GC.Collect();
+                    LoadMods(true);
                 }
             }
             catch (Exception ex)
@@ -1177,6 +1183,34 @@ public partial class FrmMain : Form
         }
     }
 
+    public bool AssemblyLoaded = false;
+    private void CheckGameVersion()
+    {
+        if (!_gameLocation.found) return;
+        //thank you stack overflow https://stackoverflow.com/a/56553628/4526433
+        var domain = AppDomain.CreateDomain(nameof(Loader), AppDomain.CurrentDomain.Evidence,
+            new AppDomainSetup { ApplicationBase = Path.GetDirectoryName(typeof(Loader).Assembly.Location) });
+        domain.DomainUnload += (_, _) => AssemblyLoaded = false;
+        try
+        {
+            var loader = (Loader)domain.CreateInstanceAndUnwrap(typeof(Loader).Assembly.FullName,
+                typeof(Loader).FullName!);
+            var path = Path.Combine(_path, "Graveyard Keeper_Data\\Managed\\Assembly-CSharp.dll");
+            loader.CheckVersion(this, path);
+        }
+        finally
+        {
+            if (AssemblyLoaded)
+            {
+                AppDomain.Unload(domain);
+            }
+
+            GC.Collect(); // collects all unused memory
+            GC.WaitForPendingFinalizers(); // wait until GC has finished its work
+            GC.Collect();
+        }
+    }
+
     private void FrmMain_Load(object sender, EventArgs e)
     {
         Directory.CreateDirectory(BasePath);
@@ -1185,8 +1219,8 @@ public partial class FrmMain : Form
         GenerateConfigs();
         LoadMods();
         LoadMods(true);
+        CheckGameVersion();
         
-
         BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         DgvMods.Sort(DgvMods.Columns[1], ListSortDirection.Ascending);
@@ -1349,6 +1383,7 @@ public partial class FrmMain : Form
 
             foreach (var dllFile in dllFiles.Where(a => !a.ToLowerInvariant().Contains("helper")))
             {
+                if (dllFile.ToLowerInvariant().EndsWith("resource.dll")) continue;
                 // GetModEntryPoint(dllFile);
                 var path = new FileInfo(dllFile).DirectoryName;
                 var modInfo = FileVersionInfo.GetVersionInfo(dllFile);
@@ -1920,12 +1955,14 @@ public partial class FrmMain : Form
         if (errors > 0)
         {
             LblErrors.Visible = true;
+            LblErrors.ForeColor = Color.Red;
             ErrorSeparator.Visible = true;
             LblErrors.Text = $@"Errors: {errors}";
         }
         else
         {
             LblErrors.Text = "";
+            LblErrors.ForeColor = Color.Green;
             ErrorSeparator.Visible = false;
             LblErrors.Visible = false;
         }
