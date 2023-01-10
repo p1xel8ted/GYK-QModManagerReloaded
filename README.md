@@ -65,7 +65,7 @@ Ensure you're making use of AssemblyInfo in its entirety and QMod Manager Reload
 [assembly: AssemblyCompany("p1xel8ted")] //json author
 [assembly: AssemblyProduct("Misc. Bits & Bobs")] //json display name
 [assembly: AssemblyCopyright("")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("55")] //Nexus ID
 [assembly: AssemblyCulture("")]
 
 [assembly: AssemblyVersion("1.3.0.0")]
@@ -83,7 +83,7 @@ The output of above, looks like:
   "Enable": true,
   "AssemblyName": "MiscBitsAndBobs.dll",
   "EntryMethod": "MiscBitsAndBobs.MainPatcher.Patch",
-  "NexusID": 5
+  "NexusID": 55,
   "LoadOrder": 6
 }
 ```
