@@ -12,6 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text.Json;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using static QModReloadedGUI.Utilities;
 using File = System.IO.File;
@@ -1119,7 +1120,7 @@ public partial class FrmMain : Form
     }
 
     public bool ModDomainLoaded;
-    
+
     private void GenerateConfigs()
     {
         AppDomain domain = null;
@@ -1127,7 +1128,7 @@ public partial class FrmMain : Form
             Directory.EnumerateDirectories(_modLocation).SelectMany(
                 directory => Directory.EnumerateFiles(directory, "*.dll"));
 
-        foreach (var dllFile in dllFiles.Where(a => !a.ToLowerInvariant().Contains("helper")))
+        foreach (var dllFile in dllFiles)
         {
             try
             {
@@ -1139,6 +1140,7 @@ public partial class FrmMain : Form
                 {
                     var loader = (Loader) domain.CreateInstanceAndUnwrap(typeof(Loader).Assembly.FullName,
                         typeof(Loader).FullName!);
+                    loader.Load(this, Path.Combine(_modLocation, "Helper.dll"));
                     loader.Load(this, dllFile);
                 }
                 finally
@@ -1147,6 +1149,7 @@ public partial class FrmMain : Form
                     {
                         AppDomain.Unload(domain);
                     }
+
                     GC.Collect(); // collects all unused memory
                     GC.WaitForPendingFinalizers(); // wait until GC has finished its work
                     GC.Collect();
@@ -1162,12 +1165,11 @@ public partial class FrmMain : Form
             }
             finally
             {
-
                 if (domain != null && ModDomainLoaded)
                 {
                     AppDomain.Unload(domain);
                 }
- 
+
                 GC.Collect(); // collects all unused memory
                 GC.WaitForPendingFinalizers(); // wait until GC has finished its work
                 GC.Collect();
@@ -1180,9 +1182,10 @@ public partial class FrmMain : Form
         Directory.CreateDirectory(BasePath);
         SetLocations();
         CleanAndCopyHelper();
+        GenerateConfigs();
         LoadMods();
         LoadMods(true);
-        GenerateConfigs();
+        
 
         BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -1343,13 +1346,14 @@ public partial class FrmMain : Form
                 Directory.EnumerateDirectories(_modLocation).SelectMany(
                     directory => Directory.EnumerateFiles(directory, "*.dll"));
 
+
             foreach (var dllFile in dllFiles.Where(a => !a.ToLowerInvariant().Contains("helper")))
             {
                 // GetModEntryPoint(dllFile);
                 var path = new FileInfo(dllFile).DirectoryName;
                 var modInfo = FileVersionInfo.GetVersionInfo(dllFile);
-                if (modInfo.FileDescription.Contains("QModHelper")) continue;
-                if (path == null) continue;
+                if (modInfo.FileDescription.Contains("QModHelper")) return;
+                if (path == null) return;
                 var dllFileName = new FileInfo(dllFile).Name;
                 var modJsonFile = Directory.GetFiles(path, "mod.json", SearchOption.TopDirectoryOnly).FirstOrDefault();
                 var infoJsonFile = Directory.GetFiles(path, "info.json", SearchOption.TopDirectoryOnly)
@@ -1369,7 +1373,7 @@ public partial class FrmMain : Form
                             WriteLog($"Error creating JSON file for {dllFileName}", true);
                         }
 
-                        continue;
+                        return;
                     }
                 }
 
