@@ -220,6 +220,7 @@
     <Compile Include="FrmOptions.Designer.cs">
       <DependentUpon>FrmOptions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Loader.cs" />
     <Compile Include="Nexus\NexusMod.cs" />
     <Compile Include="Nexus\NexusModFiles.cs" />
     <Compile Include="Nexus\NexusModFilesServer.cs" />

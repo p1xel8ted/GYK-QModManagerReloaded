@@ -6,7 +6,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using static System.Net.Mime.MediaTypeNames;
 using static System.StringComparison;
 
 namespace QModReloaded;

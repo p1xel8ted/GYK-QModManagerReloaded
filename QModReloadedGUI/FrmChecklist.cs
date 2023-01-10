@@ -1,5 +1,4 @@
-﻿using Ionic.Zip;
-using QModReloaded;
+﻿using QModReloaded;
 using System;
 using System.Diagnostics;
 using System.Drawing;

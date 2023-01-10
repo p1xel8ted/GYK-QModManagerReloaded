@@ -7,13 +7,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Contexts;
 using System.Text.Json;
 using System.Windows.Forms;
 using static QModReloadedGUI.Utilities;
@@ -382,8 +379,9 @@ public partial class FrmMain : Form
     private void BtnOpenLog_Click(object sender, EventArgs e)
     {
         var qModLog = Path.Combine(_gameLocation.location, "qmod_reloaded_log.txt");
-        var unityLog = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\", "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
-        
+        var unityLog = Path.Combine(Environment.GetEnvironmentVariable("LocalAppData")!, @"..\",
+            "LocalLow\\Lazy Bear Games\\Graveyard Keeper\\Player.log");
+
         if (File.Exists(qModLog))
         {
             if (_settings.UsePreferredEditor)
@@ -416,7 +414,7 @@ public partial class FrmMain : Form
             WriteLog($"There is no Unity Player.log file at {unityLog}.");
         }
     }
-    
+
 
     private void BtnOpenModDir_Click(object sender, EventArgs e)
     {
@@ -455,10 +453,12 @@ public partial class FrmMain : Form
         }
 
         LblErrors.Visible = false;
+
         CleanAndCopyHelper();
         LoadMods(true);
         UpdateModJson(true);
         LoadMods(true);
+        GenerateConfigs();
         ChkHideDisabledMods_CheckedChanged(null, null);
     }
 
@@ -1118,6 +1118,63 @@ public partial class FrmMain : Form
         }
     }
 
+    public bool ModDomainLoaded;
+    
+    private void GenerateConfigs()
+    {
+        AppDomain domain = null;
+        var dllFiles =
+            Directory.EnumerateDirectories(_modLocation).SelectMany(
+                directory => Directory.EnumerateFiles(directory, "*.dll"));
+
+        foreach (var dllFile in dllFiles.Where(a => !a.ToLowerInvariant().Contains("helper")))
+        {
+            try
+            {
+                //thank you stack overflow https://stackoverflow.com/a/56553628/4526433
+                domain = AppDomain.CreateDomain(nameof(Loader), AppDomain.CurrentDomain.Evidence,
+                    new AppDomainSetup {ApplicationBase = Path.GetDirectoryName(typeof(Loader).Assembly.Location)});
+                domain.DomainUnload += (_, _) => ModDomainLoaded = false;
+                try
+                {
+                    var loader = (Loader) domain.CreateInstanceAndUnwrap(typeof(Loader).Assembly.FullName,
+                        typeof(Loader).FullName!);
+                    loader.Load(this, dllFile);
+                }
+                finally
+                {
+                    if (ModDomainLoaded)
+                    {
+                        AppDomain.Unload(domain);
+                    }
+                    GC.Collect(); // collects all unused memory
+                    GC.WaitForPendingFinalizers(); // wait until GC has finished its work
+                    GC.Collect();
+                }
+            }
+            catch (Exception ex)
+            {
+                WriteLog(
+                    ex.InnerException != null
+                        ? $"Error occurred generating config file for {dllFile}. Please run the game to generate a config or consult the author. Full error: {ex.InnerException.Message}"
+                        : $"Error occurred generating config file for {dllFile}. Please run the game to generate a config or consult the author. Full error: {ex.Message}",
+                    true, true);
+            }
+            finally
+            {
+
+                if (domain != null && ModDomainLoaded)
+                {
+                    AppDomain.Unload(domain);
+                }
+ 
+                GC.Collect(); // collects all unused memory
+                GC.WaitForPendingFinalizers(); // wait until GC has finished its work
+                GC.Collect();
+            }
+        }
+    }
+
     private void FrmMain_Load(object sender, EventArgs e)
     {
         Directory.CreateDirectory(BasePath);
@@ -1125,7 +1182,7 @@ public partial class FrmMain : Form
         CleanAndCopyHelper();
         LoadMods();
         LoadMods(true);
-
+        GenerateConfigs();
 
         BtnRefresh.Enabled = _modList.Count > 0;
         DgvMods.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -1817,6 +1874,7 @@ public partial class FrmMain : Form
         {
             return id;
         }
+
         return -1;
     }
 
@@ -1825,7 +1883,7 @@ public partial class FrmMain : Form
         CheckForUpdates();
     }
 
-    private void WriteLog(string message, bool error = false, bool alert = false)
+    internal void WriteLog(string message, bool error = false, bool alert = false)
     {
         var dt = DateTime.Now;
         var rowIndex = DgvLog.Rows.Add(dt.ToLongTimeString(), message);
