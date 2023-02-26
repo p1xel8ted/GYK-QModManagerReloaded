@@ -1,6 +1,7 @@
 # QMod Manager Reloaded (Harmony2)
 
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F2F2DI3WA)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/F2F2DI3WA)<br>
+[![Github All Releases](https://img.shields.io/github/downloads/p1xel8ted/GYK-QModManagerReloaded/total.svg)](https://github.com/p1xel8ted/GYK-QModManagerReloaded/releases)
 
 Please ensure it's installed into "..\Graveyard Keeper\Graveyard Keeper_Data\Managed" directory and you've clicked the "Checklist" button at the top before asking for support.
 
